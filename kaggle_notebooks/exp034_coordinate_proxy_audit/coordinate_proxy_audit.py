@@ -1,4 +1,4 @@
-"""Calibrated reused-label diagnostic for topology-identical coordinate candidates.
+"""Calibrated reused-label diagnostic for frozen coordinate/topology candidates.
 
 This diagnostic may reject a harmful candidate.  It may not promote one because
 the four labelled movies were already used by the public pipeline family.
@@ -38,6 +38,7 @@ CANDIDATES = {
     "EXP022": "91e24e750dc2a305943713618bbaa3f0de95283cbeb2de9e9b2d6ecef3f8fb6a",
     "EXP023": "8bff01ab65cc2f9e022684822cd09240265417567abd5406387b808f7e052de3",
     "EXP031": "fcdc9a0a208c8666046ae304a2adc9fcd96c90fc7906dfc13941f2ceb83fa93d",
+    "EXP035": "db19d213c89995fce16add28c5d699d9f853b947ff9776e99d47805ddc43f953",
 }
 
 
