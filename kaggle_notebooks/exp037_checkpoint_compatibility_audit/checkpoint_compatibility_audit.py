@@ -15,7 +15,7 @@ WORK = Path(os.environ.get("BIOHUB_WORK_ROOT", "/kaggle/working"))
 WORK.mkdir(parents=True, exist_ok=True)
 RECEIPT = WORK / "exp037_checkpoint_audit.json"
 
-OWN_SHA = "b1507f6918192c0f5c15fd5091d97ff565b1fab14e67e01101446534abb6a7b7"
+OWN_SHA = "9bac2fa0dadc4a6fc1899e0caf187f4b553e0a7cd90ba1261a68b35ffe9e305f"
 BASE_SHA = "12f6881ee3620a831697ca098ff8f48e687a24225f4e048b538deec3562fe771"
 
 
