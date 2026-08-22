@@ -91,6 +91,8 @@ The completed 2026-08-22 refresh of `navazshfathi/best-score` independently prod
 
 Fresh `backtracking/biohub-general-v4` and `saitejabandaruin/biohub-masterpiece-tracker-version-16` artifacts are both clean and audit PASS, but neither moves the frontier. General V4 emits 119,563 nodes / 115,208 edges / 334 divisions (`SHA-256 eddb0ff9…a5f7`) and derives from a source-described verified `0.916` lane; its boundary rescue and division-continuation guard are retained only as future LOEO ablations. Masterpiece V16 exactly matches its documented `0.913` artifact (`SHA-256 8c1605b5…9e3f`; 120,797 / 116,501 / 314). No submission slot is allocated to either.
 
+The 11:24 UTC Navaz rerun and newly indexed `mtoshidesu/test-notebook-v17-d17ce0` both produce EXP-006 byte-for-byte: 12,514,365 bytes, SHA-256 `5c852379…1f4d`. Their separate `scoreDescending` rows are duplicate clean reproductions, not a frontier advance; no submission or new experiment ID is warranted.
+
 ## Run record template
 
 Copy this block for every new run:
