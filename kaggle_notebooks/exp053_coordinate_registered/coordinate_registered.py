@@ -16,7 +16,7 @@ WORK.mkdir(parents=True, exist_ok=True)
 
 NODE_SHA256 = "c970d9433e68a91060894515714ae7f027b05457b98b412b625fe84482544de0"
 EDGE_SHA256 = "3791f74f9247be99d3a9e673cd2ff9fd942764f1ad0b1d0a597d150b7a7c9fab"
-OUTPUT_SHA256 = "c9b662daad7c5f6a62f84c16f5ea58bd30a8f16ae37090f47e025762f41319ec"
+OUTPUT_SHA256 = "8103351bf371b7a0654ae87a384e82862a75d33ed83759500d7507c40ee802bc"
 EXPECTED_NODES = 122_266
 EXPECTED_EDGES = 117_708
 EXPECTED_COLUMNS = [
@@ -111,7 +111,7 @@ def main() -> None:
     result = pd.concat([nodes, edges], ignore_index=True)
     result.index.name = "id"
     output = WORK / "submission.csv"
-    result.to_csv(output)
+    result.to_csv(output, lineterminator="\n")
     observed_output_sha = sha256(output)
     if (
         observed_output_sha != OUTPUT_SHA256

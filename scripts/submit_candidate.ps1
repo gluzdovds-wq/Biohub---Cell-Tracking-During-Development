@@ -100,7 +100,7 @@ $candidates = @{
         Kernel = "dmitriigluzdov/biohub-exp053-coordinate-registered"
         Path = "outputs\exp053_kaggle_v1\submission.csv"
         File = "submission.csv"
-        Sha256 = "c9b662daad7c5f6a62f84c16f5ea58bd30a8f16ae37090f47e025762f41319ec"
+        Sha256 = "8103351bf371b7a0654ae87a384e82862a75d33ed83759500d7507c40ee802bc"
         Message = "EXP-053 coordinate consensus plus registered relink"
         SubmissionReady = $false
     }
