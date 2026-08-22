@@ -27,6 +27,16 @@ python ./scripts/compare_submissions.py outputs/<control>/submission.csv outputs
 
 The comparator reports both exact-coordinate graph overlap and a default `2 µm` greedy same-frame physical match, so integer-centroid and subvoxel-refined detectors can be compared without conflating formatting with model diversity.
 
+Inspect a bounded tail of a running kernel and validate a frozen submission candidate:
+
+```powershell
+python ./scripts/tail_kaggle_kernel.py <owner/kernel> --pattern 'Epoch|batches|Traceback' --lines 20
+./scripts/submit_candidate.ps1 -Candidate EXP014       # validation-only dry run
+./scripts/submit_candidate.ps1 -Candidate EXP014 -Submit
+```
+
+The submit helper checks kernel completion, the canonical artifact SHA, full schema/topology invariants and the live daily quota before spending a slot. It never retries the mutating submission request automatically.
+
 ## Experiment discipline
 
 1. Split by embryo, never by crop. Public checkpoints trained on all 199 labelled movies cannot provide honest local validation.
