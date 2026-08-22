@@ -99,6 +99,8 @@ The refreshed `xiaoleilian/biohub-m001-ens3-sm6-sim2` output is clean but not in
 
 The subsequently audited `dalloliogm/biohub-exp203-classical-three-model-ensemble` is another exact EXP-008 reproduction: full schema/topology audit PASS, 126,419 nodes / 121,191 edges / 352 divisions, and byte-identical SHA-256 `d7ba9e6a…f2bb`. Despite its separate title and `scoreDescending` row, it supplies neither a new candidate nor an independent teacher vote.
 
+`raunakdey07/biohub-harmonic-fusion-dual-seed-pipeline` is clean and distinct (122,083 nodes / 117,803 edges / 307 divisions, SHA-256 `3e98739f…a1e0`) but remains very close to EXP-006 at physical `2 µm` (`0.975815/0.966866` node/edge Jaccard). A strict Raunak + EXP-008 unanimous edge vote maps 120,678 / 93,630 nodes and finds zero alternative proposals. The artifact is useful reproducibility evidence for retention-guard harmonic tracking, not a new frontier or graph-consensus candidate.
+
 ## Research priorities
 
 1. Honest LOEO training/validation with no public-weight leakage.
