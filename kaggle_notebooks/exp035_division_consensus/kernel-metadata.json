@@ -1,5 +1,5 @@
 {
-  "id": "dmitriigluzdov/biohub-exp035-division-consensus",
+  "id": "dmitriigluzdov/biohub-exp035-guarded-division-consensus",
   "title": "Biohub EXP035 Guarded Division Consensus",
   "code_file": "division_consensus.py",
   "language": "python",
