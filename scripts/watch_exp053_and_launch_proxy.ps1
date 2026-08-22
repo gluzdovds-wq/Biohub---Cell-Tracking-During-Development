@@ -9,15 +9,15 @@ param(
 $ErrorActionPreference = "Stop"
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $kernel = "dmitriigluzdov/biohub-exp053-coordinate-registered"
-$expectedSha = "8103351bf371b7a0654ae87a384e82862a75d33ed83759500d7507c40ee802bc"
-$outputDir = Join-Path $repoRoot "outputs\exp053_kaggle_v1"
+$expectedSha = "9fd723827c65a5ad736b045a13a072da384de02e1ac2b1c57c8414335a38e6d5"
+$outputDir = Join-Path $repoRoot "outputs\exp053_kaggle_v3"
 $artifact = Join-Path $outputDir "submission.csv"
 $receiptPath = Join-Path $outputDir "exp053_receipt.json"
 $stateDir = Join-Path $repoRoot "outputs\exp053_proxy_watcher"
-$marker = Join-Path $stateDir "exp034_v11_pushed.marker"
+$marker = Join-Path $stateDir "exp034_v12_pushed.marker"
 $proxySource = Join-Path $repoRoot "kaggle_notebooks\exp034_coordinate_proxy_audit\coordinate_proxy_audit.py"
 $proxyMetadata = Join-Path $repoRoot "kaggle_notebooks\exp034_coordinate_proxy_audit\kernel-metadata.json"
-$expectedProxySourceSha = "ef09c2638b96df62553202b85db21ebd2ecab2801f3d5f339f810ae102f7c7f5"
+$expectedProxySourceSha = "996c677785ad41401a603c1fbd54a2c68abdbd5c5feffe0b67cdefb0b50c4691"
 $expectedProxyMetadataSha = "43ff6d8ae68730c6dbb20099e50b9bd8a3fd1ba3094f8c49cf55873472cff4a1"
 $mutex = [System.Threading.Mutex]::new($false, "Global\BiohubExp053ProxyWatcher")
 $hasMutex = $false
@@ -86,21 +86,21 @@ try {
             }
 
             if (Test-Path -LiteralPath $marker -PathType Leaf) {
-                Write-Host "EXP034 v11 launch marker already exists; watcher finished."
+                Write-Host "EXP034 v12 launch marker already exists; watcher finished."
                 break
             }
             $sourceSha = (Get-FileHash -Algorithm SHA256 -LiteralPath $proxySource).Hash.ToLowerInvariant()
             $metadataSha = (Get-FileHash -Algorithm SHA256 -LiteralPath $proxyMetadata).Hash.ToLowerInvariant()
             if ($sourceSha -ne $expectedProxySourceSha -or $metadataSha -ne $expectedProxyMetadataSha) {
-                throw "EXP034 v11 source contract drift: source=$sourceSha metadata=$metadataSha"
+                throw "EXP034 v12 source contract drift: source=$sourceSha metadata=$metadataSha"
             }
             & kaggle kernels push -p (Split-Path -Parent $proxySource)
             if ($LASTEXITCODE -ne 0) {
-                throw "Could not push EXP034 overlap audit v11"
+                throw "Could not push EXP034 overlap audit v12"
             }
             New-Item -ItemType Directory -Path $stateDir -Force | Out-Null
             Set-Content -LiteralPath $marker -Value "$timestamp sha256=$observedSha" -Encoding utf8
-            Write-Host "PASS: EXP053 independently audited and reject-only EXP034 v11 pushed."
+            Write-Host "PASS: EXP053 independently audited and reject-only EXP034 v12 pushed."
             break
         }
 

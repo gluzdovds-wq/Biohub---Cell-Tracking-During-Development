@@ -16,7 +16,7 @@ WORK.mkdir(parents=True, exist_ok=True)
 
 NODE_SHA256 = "c970d9433e68a91060894515714ae7f027b05457b98b412b625fe84482544de0"
 EDGE_SHA256 = "3791f74f9247be99d3a9e673cd2ff9fd942764f1ad0b1d0a597d150b7a7c9fab"
-OUTPUT_SHA256 = "8103351bf371b7a0654ae87a384e82862a75d33ed83759500d7507c40ee802bc"
+OUTPUT_SHA256 = "9fd723827c65a5ad736b045a13a072da384de02e1ac2b1c57c8414335a38e6d5"
 EXPECTED_NODES = 122_266
 EXPECTED_EDGES = 117_708
 EXPECTED_COLUMNS = [
@@ -55,6 +55,20 @@ def locate(expected_sha: str) -> Path:
             {"expected_sha256": expected_sha, "matches": list(map(str, matches)), "observed": observed}
         )
     return matches[0]
+
+
+def exact_csv_rows(path: Path, row_type: bytes) -> tuple[bytes, list[bytes]]:
+    lines = path.read_bytes().splitlines()
+    if not lines:
+        raise AssertionError(f"empty CSV parent: {path}")
+    rows = []
+    for line in lines[1:]:
+        fields = line.split(b",", 3)
+        if len(fields) < 3:
+            raise AssertionError(f"malformed parent CSV row: {line[:120]!r}")
+        if fields[2] == row_type:
+            rows.append(line)
+    return lines[0], rows
 
 
 def main() -> None:
@@ -108,10 +122,25 @@ def main() -> None:
             {"maximum_in": maximum_in, "maximum_out": maximum_out, "divisions": divisions}
         )
 
-    result = pd.concat([nodes, edges], ignore_index=True)
-    result.index.name = "id"
     output = WORK / "submission.csv"
-    result.to_csv(output, lineterminator="\n")
+    node_header, exact_node_rows = exact_csv_rows(node_path, b"node")
+    edge_header, exact_edge_rows = exact_csv_rows(edge_path, b"edge")
+    if node_header != edge_header:
+        raise AssertionError("parent CSV headers differ")
+    if len(exact_node_rows) != len(nodes) or len(exact_edge_rows) != len(edges):
+        raise AssertionError("parent text-row count differs from parsed-row count")
+    parent_rows = [*exact_node_rows, *exact_edge_rows]
+    canonical_rows = [
+        str(index).encode("ascii") + b"," + row.split(b",", 1)[1]
+        for index, row in enumerate(parent_rows)
+    ]
+    if any(
+        canonical.split(b",", 1)[1] != parent.split(b",", 1)[1]
+        for canonical, parent in zip(canonical_rows, parent_rows)
+    ):
+        raise AssertionError("parent semantic columns changed during index canonicalization")
+    payload = b"\n".join([node_header, *canonical_rows]) + b"\n"
+    output.write_bytes(payload)
     observed_output_sha = sha256(output)
     if (
         observed_output_sha != OUTPUT_SHA256
@@ -147,6 +176,8 @@ def main() -> None:
         "node_identity_and_time_exact": True,
         "node_rows_exact_from_exp014": True,
         "edge_rows_exact_from_exp052": True,
+        "parent_semantic_columns_byte_exact": True,
+        "csv_index_canonicalized_consecutive": True,
         "maximum_in_degree": maximum_in,
         "maximum_out_degree": maximum_out,
         "promotion_gate": {
