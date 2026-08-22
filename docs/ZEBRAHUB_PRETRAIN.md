@@ -26,8 +26,8 @@ That single real timelapse supplies about 121 times the competition's roughly 30
 
 ## Pre-registered implementation path
 
-1. Extraction notebook, internet enabled and CPU-only: stream selected OME-Zarr chunks and track rows; reconstruct consecutive same-track edges and parent-to-child division edges; resample physical crops to the competition model's isotropic `1.625 µm` grid; write bounded `.npz` shards plus a source/coordinate/hash receipt. Do not redistribute whole raw timelapses.
-2. External pretraining notebook: train the exact public TemporalUNet3D + node-transformer architecture on fixed timelapse-held-out patch splits. Use all cells inside each crop so unlabelled true nuclei are not accidentally treated as negatives.
+1. EXP-025, internet enabled and CPU-only: select 256 train anchors from frames 10–629 and 64 checkpoint anchors from frames 650–789 with a deterministic per-frame hash rule; stream only their level-1 OME-Zarr chunks; reconstruct consecutive same-track and parent-to-child division edges; resample exact two-frame `64³ @ 1.625 µm` crops; write bounded `.npz` shards plus source/coordinate/hash receipt. The temporary track CSV is deleted before the kernel completes.
+2. EXP-026: train the exact public TemporalUNet3D + node-transformer architecture for 12 epochs on the fixed time-disjoint shards. Every source shard hash is verified, and every annotated cell inside each crop is retained so true nuclei are not accidentally treated as negatives.
 3. Real fine-tuning control: initialize from the external checkpoint and run exactly the same real-data epochs, optimizer and frozen reciprocal LOEO folds as a random-initialization control.
 4. Promotion: require positive deltas on both untouched real audit folds, report node recall/count, conditional linking accuracy, edge TP/FP/FN and division TP/FP/FN. A synthetic/external validation score is never sufficient.
 

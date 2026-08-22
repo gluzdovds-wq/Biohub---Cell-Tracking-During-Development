@@ -1,0 +1,17 @@
+{
+  "id": "dmitriigluzdov/biohub-exp026-zebrahub-pretrain",
+  "title": "Biohub EXP026 Zebrahub Pretrain",
+  "code_file": "pretrain_zebrahub.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "keywords": ["gpu", "biology"],
+  "dataset_sources": ["pilkwang/biohub-tracking-support-pack-50ep-v1"],
+  "kernel_sources": ["dmitriigluzdov/biohub-exp025-zebrahub-extract"],
+  "competition_sources": [],
+  "model_sources": [],
+  "machine_shape": "NvidiaTeslaT4"
+}

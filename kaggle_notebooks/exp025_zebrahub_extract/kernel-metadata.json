@@ -1,0 +1,16 @@
+{
+  "id": "dmitriigluzdov/biohub-exp025-zebrahub-extract",
+  "title": "Biohub EXP025 Zebrahub Extract",
+  "code_file": "extract_zebrahub.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "keywords": ["biology", "image-processing"],
+  "dataset_sources": [],
+  "kernel_sources": [],
+  "competition_sources": [],
+  "model_sources": []
+}
