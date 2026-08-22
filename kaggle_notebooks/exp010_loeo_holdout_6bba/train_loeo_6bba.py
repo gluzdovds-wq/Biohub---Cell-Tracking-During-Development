@@ -4,11 +4,14 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import random
 import shutil
 import subprocess
 import sys
 from pathlib import Path
+
+os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
 
 HOLDOUT_EMBRYO = "6bba"
 SEED = 314159
@@ -103,8 +106,8 @@ train(
     method=method,
     n_epochs=EPOCHS,
     lr=1e-4,
-    batch_size=16,
-    num_workers=8,
+    batch_size=8,
+    num_workers=4,
     unet_out_channels=32,
     unet_layers=[32, 64, 128],
     downsample=(1, 4, 4),
