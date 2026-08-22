@@ -49,8 +49,15 @@ for ($index = 0; $index -lt $rows.Count; $index++) {
         if ($nodeLookup.ContainsKey($key)) {
             throw "Duplicate node_id within dataset: $key"
         }
-        foreach ($field in @("t", "z", "y", "x")) {
-            if ([int64]$row.$field -lt 0) {
+        if ([int64]$row.t -lt 0) {
+            throw "Negative node field t for $key"
+        }
+        foreach ($field in @("z", "y", "x")) {
+            $coordinate = [double]$row.$field
+            if ([double]::IsNaN($coordinate) -or [double]::IsInfinity($coordinate)) {
+                throw "Non-finite node field $field for $key"
+            }
+            if ($coordinate -lt 0) {
                 throw "Negative node field $field for $key"
             }
         }

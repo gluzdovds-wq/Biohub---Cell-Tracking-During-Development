@@ -9,9 +9,13 @@ from collections import Counter, defaultdict
 from dataclasses import dataclass
 from pathlib import Path
 
+import numpy as np
+from scipy.spatial import cKDTree
 
-Node = tuple[str, int, int, int, int]
+
+Node = tuple[str, int, float, float, float]
 Edge = tuple[str, Node, Node]
+VOXEL_SCALE_UM = np.asarray((1.625, 0.40625, 0.40625), dtype=np.float64)
 
 
 @dataclass
@@ -33,9 +37,9 @@ def read_graph(path: Path) -> Graph:
                 node = (
                     dataset,
                     int(row["t"]),
-                    int(row["z"]),
-                    int(row["y"]),
-                    int(row["x"]),
+                    float(row["z"]),
+                    float(row["y"]),
+                    float(row["x"]),
                 )
                 nodes.add(node)
                 node_by_id[(dataset, int(row["node_id"]))] = node
@@ -78,10 +82,80 @@ def by_dataset(values: set, dataset_index: int = 0) -> dict[str, set]:
     return grouped
 
 
+def match_nodes_physical(
+    left: set[Node], right: set[Node], radius_um: float
+) -> dict[Node, Node]:
+    """Greedily match same-frame nodes by ascending physical distance."""
+    left_frames: dict[tuple[str, int], list[Node]] = defaultdict(list)
+    right_frames: dict[tuple[str, int], list[Node]] = defaultdict(list)
+    for node in left:
+        left_frames[(node[0], node[1])].append(node)
+    for node in right:
+        right_frames[(node[0], node[1])].append(node)
+
+    matches: dict[Node, Node] = {}
+    for frame_key in set(left_frames) & set(right_frames):
+        left_nodes = left_frames[frame_key]
+        right_nodes = right_frames[frame_key]
+        left_xyz = np.asarray([node[2:] for node in left_nodes]) * VOXEL_SCALE_UM
+        right_xyz = np.asarray([node[2:] for node in right_nodes]) * VOXEL_SCALE_UM
+        tree = cKDTree(right_xyz)
+        candidates: list[tuple[float, int, int]] = []
+        for left_index, neighbors in enumerate(
+            tree.query_ball_point(left_xyz, r=radius_um)
+        ):
+            for right_index in neighbors:
+                distance = float(
+                    np.linalg.norm(left_xyz[left_index] - right_xyz[right_index])
+                )
+                candidates.append((distance, left_index, right_index))
+
+        used_left: set[int] = set()
+        used_right: set[int] = set()
+        for _, left_index, right_index in sorted(candidates):
+            if left_index in used_left or right_index in used_right:
+                continue
+            used_left.add(left_index)
+            used_right.add(right_index)
+            matches[left_nodes[left_index]] = right_nodes[right_index]
+    return matches
+
+
+def fuzzy_summary(left: Graph, right: Graph, radius_um: float) -> str:
+    node_map = match_nodes_physical(left.nodes, right.nodes, radius_um)
+    node_matches = len(node_map)
+    node_union = len(left.nodes) + len(right.nodes) - node_matches
+
+    mapped_edges = {
+        (dataset, node_map[source], node_map[target])
+        for dataset, source, target in left.edges
+        if source in node_map and target in node_map
+    }
+    edge_matches = len(mapped_edges & right.edges)
+    edge_union = len(left.edges) + len(right.edges) - edge_matches
+
+    mapped_divisions = {node_map[node] for node in left.divisions if node in node_map}
+    division_matches = len(mapped_divisions & right.divisions)
+    division_union = len(left.divisions) + len(right.divisions) - division_matches
+    return (
+        f"physical@{radius_um:g}um: "
+        f"node_jaccard={node_matches / node_union if node_union else 1.0:.6f} "
+        f"edge_jaccard={edge_matches / edge_union if edge_union else 1.0:.6f} "
+        f"division_jaccard={division_matches / division_union if division_union else 1.0:.6f} "
+        f"node_matches={node_matches:,} edge_matches={edge_matches:,}"
+    )
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("left", type=Path)
     parser.add_argument("right", type=Path)
+    parser.add_argument(
+        "--match-radius-um",
+        type=float,
+        default=2.0,
+        help="Radius for approximate same-frame physical matching (default: 2.0)",
+    )
     args = parser.parse_args()
 
     left = read_graph(args.left)
@@ -99,6 +173,7 @@ def main() -> None:
         f"edges_left_only={len(left.edges - right.edges):,} "
         f"edges_right_only={len(right.edges - left.edges):,}"
     )
+    print(fuzzy_summary(left, right, args.match_radius_um))
 
     left_nodes = by_dataset(left.nodes)
     right_nodes = by_dataset(right.nodes)

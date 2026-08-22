@@ -25,6 +25,8 @@ kaggle kernels output <owner/kernel> -p outputs/<experiment> --file-pattern '^su
 python ./scripts/compare_submissions.py outputs/<control>/submission.csv outputs/<candidate>/submission.csv
 ```
 
+The comparator reports both exact-coordinate graph overlap and a default `2 µm` greedy same-frame physical match, so integer-centroid and subvoxel-refined detectors can be compared without conflating formatting with model diversity.
+
 ## Experiment discipline
 
 1. Split by embryo, never by crop. Public checkpoints trained on all 199 labelled movies cannot provide honest local validation.
