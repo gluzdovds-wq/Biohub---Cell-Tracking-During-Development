@@ -10,9 +10,23 @@ from __future__ import annotations
 
 import hashlib
 import json
+import subprocess
+import sys
 import time
 import urllib.request
 from pathlib import Path
+
+subprocess.check_call(
+    [
+        sys.executable,
+        "-m",
+        "pip",
+        "install",
+        "--quiet",
+        "zarr==3.3.0",
+        "fsspec==2026.7.0",
+    ]
+)
 
 import fsspec
 import numpy as np
