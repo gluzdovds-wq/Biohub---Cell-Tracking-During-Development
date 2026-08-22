@@ -421,10 +421,13 @@ if selected_threshold not in CALIBRATION_THRESHOLDS:
     raise RuntimeError({"selected_threshold": selected_threshold, "allowed": CALIBRATION_THRESHOLDS})
 
 ARMS = ("registered_hungarian", "registered_weak_hungarian")
+MECHANISM_ARMS = ("greedy_base", "greedy_prune_4_2", "greedy_prune_7_4")
 
 
 def evaluate_pair(names):
     rows = {arm: [] for arm in ARMS}
+    mechanism_rows = {arm: [] for arm in MECHANISM_ARMS}
+    mechanism_telemetry = []
     for name in names:
         coords, edges = infer_candidates(name, selected_threshold)
         scale = open_dataset(TRAIN_DIR / name, require_tracks=False).scale
@@ -433,8 +436,32 @@ def evaluate_pair(names):
             row = score_graph(name, graph_for_policy(coords, edges, arm, scale))
             rows[arm].append(row)
             movie[arm] = row
-        print(json.dumps(jsonable({"dataset": name, "paired_arms": movie})), flush=True)
-    return rows
+        greedy_graph = graph_for_policy(coords, edges, "greedy", scale)
+        greedy_arms, telemetry = frozen_physical_arms(greedy_graph, scale)
+        mapped_greedy_arms = {
+            "greedy_base": greedy_arms["selected_base"],
+            "greedy_prune_4_2": greedy_arms["physical_prune_4_2"],
+            "greedy_prune_7_4": greedy_arms["physical_prune_7_4"],
+        }
+        mechanism_movie = {}
+        for arm, graph in mapped_greedy_arms.items():
+            row = score_graph(name, graph)
+            mechanism_rows[arm].append(row)
+            mechanism_movie[arm] = row
+        mechanism_telemetry.append({"dataset": name, "arms": telemetry})
+        print(
+            json.dumps(
+                jsonable(
+                    {
+                        "dataset": name,
+                        "h050_paired_arms": movie,
+                        "greedy_physical_mechanism_arms": mechanism_movie,
+                    }
+                )
+            ),
+            flush=True,
+        )
+    return rows, mechanism_rows, mechanism_telemetry
 
 
 def summarize_pair(rows):
@@ -448,12 +475,31 @@ def summarize_pair(rows):
     return summary, delta
 
 
-confirmation_rows = evaluate_pair(confirmation_names)
+def summarize_mechanism(rows):
+    summary = {arm: summarise(arm_rows) for arm, arm_rows in rows.items()}
+    base = summary["greedy_base"]
+    deltas = {}
+    for arm in ("greedy_prune_4_2", "greedy_prune_7_4"):
+        candidate = summary[arm]
+        deltas[arm] = {
+            key: float(candidate.get(key, 0.0) - base.get(key, 0.0))
+            for key in ("score", "adj_edge_jaccard", "edge_jaccard", "division_jaccard", "node_recall")
+        }
+    return summary, deltas
+
+
+confirmation_rows, confirmation_mechanism_rows, confirmation_mechanism_telemetry = evaluate_pair(
+    confirmation_names
+)
 confirmation_summary, confirmation_delta = summarize_pair(confirmation_rows)
+confirmation_mechanism_summary, confirmation_mechanism_deltas = summarize_mechanism(
+    confirmation_mechanism_rows
+)
 print(json.dumps(jsonable({"confirmation_delta": confirmation_delta})), flush=True)
 
-audit_rows = evaluate_pair(audit_names)
+audit_rows, audit_mechanism_rows, audit_mechanism_telemetry = evaluate_pair(audit_names)
 audit_summary, audit_delta = summarize_pair(audit_rows)
+audit_mechanism_summary, audit_mechanism_deltas = summarize_mechanism(audit_mechanism_rows)
 fold_nonnegative = audit_delta["score"] >= 0.0
 
 result = {
@@ -482,6 +528,15 @@ result = {
     "audit_per_movie_by_arm": audit_rows,
     "audit_delta_weak_minus_motion": audit_delta,
     "fold_nonnegative": fold_nonnegative,
+    "physical_mechanism_scope": "greedy-linker mechanism only; independent EXP005/008 donor consensus is not reproduced and these fields cannot authorize submission",
+    "confirmation_greedy_physical_summary_by_arm": confirmation_mechanism_summary,
+    "confirmation_greedy_physical_per_movie_by_arm": confirmation_mechanism_rows,
+    "confirmation_greedy_physical_delta_vs_base": confirmation_mechanism_deltas,
+    "confirmation_greedy_physical_telemetry": confirmation_mechanism_telemetry,
+    "audit_greedy_physical_summary_by_arm": audit_mechanism_summary,
+    "audit_greedy_physical_per_movie_by_arm": audit_mechanism_rows,
+    "audit_greedy_physical_delta_vs_base": audit_mechanism_deltas,
+    "audit_greedy_physical_telemetry": audit_mechanism_telemetry,
 }
 result_path = WORK / f"loeo_{HOLDOUT_EMBRYO}_weak_tiebreak_result.json"
 result_path.write_text(json.dumps(jsonable(result), indent=2), encoding="utf-8")

@@ -12,14 +12,14 @@ $settings = @{
         Kernel = "dmitriigluzdov/biohub-exp050-weak-tiebreak-44b6"
         Directory = "kaggle_notebooks\exp050_weak_tiebreak_44b6"
         Source = "kaggle_notebooks\exp050_weak_tiebreak_44b6\weak_tiebreak_44b6.py"
-        SourceSha = "81977f4e29c3f4feeeac3d4fbdb01fd618465d962ff1540e67b311ccf7f5bf2c"
+        SourceSha = "33e153f0545b726da874e8f47e906660534a4ad1d9c598f066157c262698d931"
     }
     "6bba" = @{
         Upstream = "dmitriigluzdov/biohub-exp012-audit-loeo-6bba"
         Kernel = "dmitriigluzdov/biohub-exp051-weak-tiebreak-6bba"
         Directory = "kaggle_notebooks\exp051_weak_tiebreak_6bba"
         Source = "kaggle_notebooks\exp051_weak_tiebreak_6bba\weak_tiebreak_6bba.py"
-        SourceSha = "44c85350cf7c6bea9bef5d24989068ed89f6d5e5a4455368d4775a0b670f47b8"
+        SourceSha = "9d5302c8aa502e82dd8c594067c0c8be7e52eb828e1fd5e0ca68c0aa1fcd8912"
     }
 }
 $audit = $settings[$Embryo]
