@@ -139,7 +139,22 @@ torch.manual_seed(SEED)
 torch.backends.cudnn.benchmark = False
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model, window_size, downsample = load_model(weight_path, device)
+INFERENCE_GPU_COUNT = torch.cuda.device_count() if device.type == "cuda" else 0
+INFERENCE_DATA_PARALLEL = INFERENCE_GPU_COUNT > 1
+INFERENCE_UNET_BATCH_SIZE = 8 if INFERENCE_DATA_PARALLEL else 4
+if INFERENCE_DATA_PARALLEL:
+    model.unet = torch.nn.DataParallel(model.unet)
 model.eval()
+print(
+    json.dumps(
+        {
+            "inference_gpu_count": INFERENCE_GPU_COUNT,
+            "inference_data_parallel": INFERENCE_DATA_PARALLEL,
+            "inference_unet_batch_size": INFERENCE_UNET_BATCH_SIZE,
+        }
+    ),
+    flush=True,
+)
 
 
 def infer_candidates(name: str, threshold: float):
@@ -157,7 +172,7 @@ def infer_candidates(name: str, threshold: float):
         device,
         cfg=cfg,
         window_size=window_size,
-        unet_batch_size=4,
+        unet_batch_size=INFERENCE_UNET_BATCH_SIZE,
         downsample=downsample,
     )
 
@@ -304,6 +319,9 @@ selection = {
     "threshold_grid": CALIBRATION_THRESHOLDS,
     "edge_candidate_threshold": EDGE_CANDIDATE_THRESHOLD,
     "candidate_pool_degree_limits": None,
+    "inference_gpu_count": INFERENCE_GPU_COUNT,
+    "inference_data_parallel": INFERENCE_DATA_PARALLEL,
+    "inference_unet_batch_size": INFERENCE_UNET_BATCH_SIZE,
     "ilp_public_appearance_disappearance": [0.0, 1.5],
     "ilp_support_appearance_disappearance": [0.1, 0.1],
     "selected_threshold": selected["threshold"],
