@@ -22,6 +22,8 @@ A full streaming pass using `scripts/audit_zebrahub_tracks.py` found:
 
 That single real timelapse supplies about 121 times the competition's roughly 304 labelled divisions and about 22% as many division events as the deliberately oversampled 165,267-event synthetic set, while also adding millions of ordinary real-domain association edges.
 
+`scripts/extract_zebrahub_crop.py` is the verified image-side alignment primitive. It reads only the OME-Zarr chunks needed for one physical crop and samples an exact `64³` grid at the competition model's `1.625 µm` isotropic spacing. The first smoke crop is centred on the CSV's first annotated node `(440.2,111.945,184.819) µm` at `t=0`; level-1 source reading and interpolation preserve a bright local nucleus signal rather than merely producing a correctly shaped array.
+
 ## Pre-registered implementation path
 
 1. Extraction notebook, internet enabled and CPU-only: stream selected OME-Zarr chunks and track rows; reconstruct consecutive same-track edges and parent-to-child division edges; resample physical crops to the competition model's isotropic `1.625 µm` grid; write bounded `.npz` shards plus a source/coordinate/hash receipt. Do not redistribute whole raw timelapses.
