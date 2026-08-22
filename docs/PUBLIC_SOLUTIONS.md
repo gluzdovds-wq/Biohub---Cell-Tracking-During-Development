@@ -1,6 +1,6 @@
 # Public frontier audit
 
-Snapshot downloaded 2026-08-22 14:44 UTC (2,633 rows): rank 1 `0.958`, rank 10 `0.943`, and rank 50 `0.929`. Ties give 90 teams at least `0.923`, 175 at least `0.920`, 360 at least `0.917`, and 786 at least `0.913`. The current account best is EXP-004 at `0.912`, rank 859, while the exact clean EXP-006 `0.923` reproduction remains pending. The nominal 5%/10% score lines are `0.920/0.917`; official eligibility and final private cutoffs are separate and will move as teams merge and scores improve.
+Snapshot downloaded 2026-08-22 15:59 UTC (2,633 rows): rank 1 `0.958`, rank 10 `0.943`, and rank 50 `0.929`. Ties give 93 teams at least `0.923`, 179 at least `0.920`, 197 at least `0.919`, 362 at least `0.917`, and 788 at least `0.913`. The current account best is the exact SHA-verified EXP-006 artifact at `0.919`, rank 197 (`7.48%`, nominal public bronze zone). This current score supersedes the source-attributed historical `0.923` for decision-making; official eligibility and final private cutoffs are separate and will move as teams merge and scores improve.
 
 ## Main public solution families
 
