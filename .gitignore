@@ -2,6 +2,7 @@
 data/
 outputs/
 submissions/*.csv
+kaggle_datasets/**/weights/
 *.zarr/
 *.geff/
 
