@@ -6,17 +6,40 @@ param(
 
 $ErrorActionPreference = "Stop"
 $repoRoot = Split-Path -Parent $PSScriptRoot
+$physicalSmokePath = Join-Path $repoRoot "outputs\exp043_kaggle_v1\exp043_physical_prune_runtime_smoke.json"
+$expectedPhysicalSmokeSha = "944f24b5c8fef67ff59bce27f6a447ec4176dafc56203eb2923ca07ebfc5eb71"
 $settings = @{
     "44b6" = @{
         Kernel = "dmitriigluzdov/biohub-exp011-audit-loeo-44b6"
         Directory = "kaggle_notebooks\exp011_audit_loeo_44b6"
+        Source = "kaggle_notebooks\exp011_audit_loeo_44b6\audit_loeo_44b6.py"
+        SourceSha = "3cf499d0389b80308cf7d74c7c451711614ae629fc146d1d7a2a85e2160e4971"
     }
     "6bba" = @{
         Kernel = "dmitriigluzdov/biohub-exp012-audit-loeo-6bba"
         Directory = "kaggle_notebooks\exp012_audit_loeo_6bba"
+        Source = "kaggle_notebooks\exp012_audit_loeo_6bba\audit_loeo_6bba.py"
+        SourceSha = "691986d59e8578048e3522e023829418c8522347fd18db45196b771af6c1b8e2"
     }
 }
 $audit = $settings[$Embryo]
+
+if (-not (Test-Path -LiteralPath $physicalSmokePath -PathType Leaf)) {
+    throw "Missing EXP043 physical-prune runtime receipt: $physicalSmokePath"
+}
+$physicalSmokeSha = (Get-FileHash -LiteralPath $physicalSmokePath -Algorithm SHA256).Hash.ToLowerInvariant()
+$physicalSmoke = Get-Content -LiteralPath $physicalSmokePath -Raw | ConvertFrom-Json
+if ($physicalSmokeSha -ne $expectedPhysicalSmokeSha -or
+    $physicalSmoke.status -ne "PASS_PHYSICAL_PRUNE_RUNTIME_CONTRACT" -or
+    -not $physicalSmoke.strict_removals_are_subset) {
+    throw "EXP043 physical-prune runtime contract failed or drifted: $physicalSmokeSha"
+}
+
+$auditSource = Join-Path $repoRoot $audit.Source
+$auditSourceSha = (Get-FileHash -LiteralPath $auditSource -Algorithm SHA256).Hash.ToLowerInvariant()
+if ($auditSourceSha -ne $audit.SourceSha) {
+    throw "Audit source SHA drift for ${Embryo}: $auditSourceSha"
+}
 
 & (Join-Path $PSScriptRoot "verify_loeo_parent.ps1") -Embryo $Embryo
 if ($LASTEXITCODE -ne 0) {
@@ -44,4 +67,6 @@ if ($launchedStatus -notmatch 'KernelWorkerStatus\.(QUEUED|RUNNING)') {
     throw "Unexpected audit status after push: $launchedStatus"
 }
 Write-Host "Audit launch: PASS"
+Write-Host "EXP043 physical-prune runtime receipt: PASS ($physicalSmokeSha)"
+Write-Host "Audit source SHA: PASS ($auditSourceSha)"
 Write-Host $launchedStatus
