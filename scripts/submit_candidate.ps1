@@ -1,6 +1,6 @@
 param(
     [Parameter(Mandatory = $true)]
-    [ValidateSet("EXP014", "EXP019", "EXP022", "EXP023")]
+    [ValidateSet("EXP014", "EXP019", "EXP022", "EXP023", "EXP040", "EXP041")]
     [string]$Candidate,
     [switch]$Submit
 )
@@ -27,26 +27,50 @@ $candidates = @{
     "EXP014" = @{
         Kernel = "dmitriigluzdov/biohub-exp014-coordinate-ensemble"
         Path = "outputs\exp014_wrapper_v2\submission.csv"
+        File = "submission.csv"
         Sha256 = "c970d9433e68a91060894515714ae7f027b05457b98b412b625fe84482544de0"
         Message = "EXP-014 coordinate-only detector consensus"
+        SubmissionReady = $true
     }
     "EXP019" = @{
         Kernel = "dmitriigluzdov/biohub-exp019-intensity-coordinate-refine"
         Path = "outputs\exp019_intensity_coordinate_refine\submission.csv"
+        File = "submission.csv"
         Sha256 = "7487ecb7de8c110caffd35bd043902b484ee4634ec58d020caebabfad9296c6d"
         Message = "EXP-019 intensity COM coordinate refinement"
+        SubmissionReady = $true
     }
     "EXP022" = @{
         Kernel = "dmitriigluzdov/biohub-exp022-coordinate-blend"
         Path = "outputs\exp022_kaggle_v1\submission.csv"
+        File = "submission.csv"
         Sha256 = "91e24e750dc2a305943713618bbaa3f0de95283cbeb2de9e9b2d6ecef3f8fb6a"
         Message = "EXP-022 detector intensity coordinate blend"
+        SubmissionReady = $true
     }
     "EXP023" = @{
         Kernel = "dmitriigluzdov/biohub-exp023-agreement-gated-coordinates"
         Path = "outputs\exp023_kaggle_v1\submission.csv"
+        File = "submission.csv"
         Sha256 = "8bff01ab65cc2f9e022684822cd09240265417567abd5406387b808f7e052de3"
         Message = "EXP-023 agreement gated coordinate blend"
+        SubmissionReady = $true
+    }
+    "EXP040" = @{
+        Kernel = "dmitriigluzdov/biohub-exp044-division-prune-artifacts"
+        Path = "outputs\exp044_kaggle_v2\exp040_submission.csv"
+        File = "exp040_submission.csv"
+        Sha256 = "9f0b0711b5ac0b078c5fb24332c2604c09118013116bc6fbe4d6f4e2eaa4a5e3"
+        Message = "EXP-040 donor-consensus physical division prune"
+        SubmissionReady = $false
+    }
+    "EXP041" = @{
+        Kernel = "dmitriigluzdov/biohub-exp044-division-prune-artifacts"
+        Path = "outputs\exp044_kaggle_v2\exp041_submission.csv"
+        File = "exp041_submission.csv"
+        Sha256 = "21a42ffa33c8af7ef44b28f7edaea6a3d9666745139c9c51e132fed41a8fe114"
+        Message = "EXP-041 strict donor-consensus physical division prune"
+        SubmissionReady = $false
     }
 }
 $selected = $candidates[$Candidate]
@@ -78,15 +102,19 @@ Write-Host "candidate=$Candidate"
 Write-Host "kernel=$($selected.Kernel)"
 Write-Host "sha256=$observedSha"
 Write-Host "remaining_today=$remaining"
+Write-Host "submission_ready=$($selected.SubmissionReady)"
 if (-not $Submit) {
     Write-Host "Dry run only; pass -Submit to spend one competition submission."
     exit 0
+}
+if (-not $selected.SubmissionReady) {
+    throw "$Candidate remains promotion-gated; immutable artifact validation alone cannot authorize submission"
 }
 if ($remaining -lt 1) {
     throw "No competition submission slots remain today"
 }
 
-& kaggle competitions submit $competition -k $selected.Kernel -f submission.csv -m $selected.Message
+& kaggle competitions submit $competition -k $selected.Kernel -f $selected.File -m $selected.Message
 if ($LASTEXITCODE -ne 0) {
     throw "Submission command failed for $Candidate"
 }
