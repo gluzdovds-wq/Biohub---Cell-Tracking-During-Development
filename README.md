@@ -4,7 +4,7 @@ Competition workspace for [Biohub — Cell Tracking During Development](https://
 
 ## Current objective
 
-Reach the medal zone with a reproducible, leakage-safe pipeline. As of 2026-08-22 the public leader is `0.958`, rank 10 is `0.943`, rank 50 is `0.929`, and rank 100 is `0.921`; strong clean public notebooks are around `0.908–0.920`.
+Reach the medal zone with a reproducible, leakage-safe pipeline. As of 2026-08-22 the public leader is `0.958`, rank 10 is `0.943`, rank 50 is `0.929`, and rank 100 is `0.921`; the strongest audited clean open run is around `0.923`.
 
 ## Repository map
 
@@ -22,6 +22,7 @@ Validate a downloaded visible-test artifact before submission:
 ```powershell
 kaggle kernels output <owner/kernel> -p outputs/<experiment> --file-pattern '^submission\.csv$'
 ./scripts/audit_submission.ps1 -Path outputs/<experiment>/submission.csv -ExpectedDatasetCount 4
+python ./scripts/compare_submissions.py outputs/<control>/submission.csv outputs/<candidate>/submission.csv
 ```
 
 ## Experiment discipline

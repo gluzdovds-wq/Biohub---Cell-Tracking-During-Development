@@ -26,7 +26,9 @@ Usefulness: cheap diversity, interpretable error decomposition, robust fallback.
 - Short-track filtering, conservative gap repair, motion relinking and carefully gated divisions.
 - Independent-seed logit blending before peak extraction.
 - Optional DeepCenter model only as independent evidence for marginal synthetic gaps.
-- Current public examples: `0.908`, `0.913`, `0.916`, `0.917`, `0.920`.
+- Bidirectional association evidence can be fused before exclusive assignment; a harmonic forward/reverse dual-seed variant is the current clean open family around `0.920–0.923`.
+- A newer unscored public probe applies eight-view XY D4 TTA to encoder features, inverse-aligns them, and averages node-transformer logits on one shared physical node set. This is technically sound enough to test, but it is not yet evidence of a gain and costs roughly eight encoder passes.
+- Current public examples: `0.908`, `0.913`, `0.916`, `0.917`, `0.920`, `0.923`.
 
 ## Measured positive results from an open ablation notebook
 
@@ -78,6 +80,9 @@ Two especially promising community directions are still under-exploited by the p
 - https://www.kaggle.com/code/isakatsuyoshi/biohub-rule-based-baseline
 - https://www.kaggle.com/code/pilkwang/biohub-cell-tracking-two-seeds-logit-blend
 - https://www.kaggle.com/code/yusuketogashi/clean-approach-lightweight-local-cv-no-hack
+- https://www.kaggle.com/code/yunusgmsoy/lb-0-920-biohub-cell-tracking-v17
+- https://www.kaggle.com/code/yunusgmsoy/kimi-notebook-v17
+- https://www.kaggle.com/code/ericwang03/biohub-daily-probe-lane-5
 - https://www.kaggle.com/code/tomasa2/biohub-what-worked-and-what-didnt-for-me
 - https://www.kaggle.com/competitions/biohub-cell-tracking-during-development/discussion/730160
 - https://www.kaggle.com/competitions/biohub-cell-tracking-during-development/discussion/724283
