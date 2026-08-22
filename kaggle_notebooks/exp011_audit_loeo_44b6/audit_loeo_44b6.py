@@ -55,6 +55,7 @@ os.environ["BIOHUB_DATA_DIR"] = str(TRAIN_DIR)
 
 import numpy as np
 import torch
+import tracksdata as td
 from geff import GeffMetadata
 
 from biohub_tracking.io import open_dataset, save_graph
@@ -108,18 +109,16 @@ model, window_size, downsample = load_model(weight_path, device)
 model.eval()
 
 
-def infer(name: str, threshold: float):
+def infer_candidates(name: str, threshold: float):
     cfg = PredictConfig(
         det_threshold=threshold,
         det_tta=True,
         pool_kernel_um=3.0,
         edge_activation="softmax",
         threshold=0.5,
-        use_ilp=False,
-        max_parents_per_node=1,
-        max_children_per_node=2,
+        use_ilp=True,
     )
-    coords, edges = predict_video(
+    return predict_video(
         model,
         TRAIN_DIR / name,
         device,
@@ -128,18 +127,59 @@ def infer(name: str, threshold: float):
         unet_batch_size=4,
         downsample=downsample,
     )
-    return build_graph(coords, edges)
+
+
+def graph_for_policy(coords, edges, policy: str):
+    if policy == "greedy":
+        kept = []
+        parent_count = {}
+        child_count = {}
+        for edge in sorted(edges, key=lambda item: (-float(item[2]), int(item[0]), int(item[1]))):
+            source, target = int(edge[0]), int(edge[1])
+            if child_count.get(source, 0) >= 2 or parent_count.get(target, 0) >= 1:
+                continue
+            kept.append(edge)
+            child_count[source] = child_count.get(source, 0) + 1
+            parent_count[target] = parent_count.get(target, 0) + 1
+        return build_graph(coords, kept)
+
+    graph = build_graph(coords, edges)
+    if not graph.num_edges():
+        return graph
+    if policy == "ilp_public":
+        appearance_weight, disappearance_weight = 0.0, 1.4
+    elif policy == "ilp_support":
+        appearance_weight, disappearance_weight = 0.1, 0.1
+    else:
+        raise ValueError(policy)
+    solver = td.solvers.ILPSolver(
+        edge_weight=-1.0 * td.EdgeAttr("edge_prob"),
+        appearance_weight=appearance_weight,
+        disappearance_weight=disappearance_weight,
+        division_weight=1.0,
+    )
+    return solver.solve(graph)
 
 
 calibration = []
 for threshold in CALIBRATION_THRESHOLDS:
-    rows = [score_graph(name, infer(name, threshold)) for name in calibration_names]
-    calibration.append({"threshold": threshold, "summary": summarise(rows), "per_movie": rows})
-    print(json.dumps(jsonable(calibration[-1])))
+    policy_rows = {policy: [] for policy in ("greedy", "ilp_public", "ilp_support")}
+    for name in calibration_names:
+        coords, edges = infer_candidates(name, threshold)
+        for policy, rows in policy_rows.items():
+            rows.append(score_graph(name, graph_for_policy(coords, edges, policy)))
+    for policy, rows in policy_rows.items():
+        item = {"threshold": threshold, "policy": policy, "summary": summarise(rows), "per_movie": rows}
+        calibration.append(item)
+        print(json.dumps(jsonable(item)))
 
 selected = max(
     calibration,
-    key=lambda item: (item["summary"]["score"], -abs(item["threshold"] - 0.99)),
+    key=lambda item: (
+        item["summary"]["score"],
+        -abs(item["threshold"] - 0.99),
+        {"greedy": 2, "ilp_public": 1, "ilp_support": 0}[item["policy"]],
+    ),
 )
 selection = {
     "status": "threshold_frozen_before_audit",
@@ -149,17 +189,19 @@ selection = {
     "audit_movies": audit_names,
     "threshold_grid": CALIBRATION_THRESHOLDS,
     "selected_threshold": selected["threshold"],
+    "selected_policy": selected["policy"],
     "calibration_results": calibration,
 }
 selection_path = WORK / f"loeo_{HOLDOUT_EMBRYO}_selection.json"
 selection_path.write_text(json.dumps(jsonable(selection), indent=2), encoding="utf-8")
-print(f"Frozen threshold {selected['threshold']} before audit", flush=True)
+print(f"Frozen threshold {selected['threshold']} and policy {selected['policy']} before audit", flush=True)
 
 audit_dir = WORK / f"loeo_{HOLDOUT_EMBRYO}_audit_predictions"
 audit_dir.mkdir(exist_ok=True)
 audit_rows = []
 for name in audit_names:
-    graph = infer(name, selected["threshold"])
+    coords, edges = infer_candidates(name, selected["threshold"])
+    graph = graph_for_policy(coords, edges, selected["policy"])
     save_graph(graph, audit_dir / f"{name}.geff")
     row = score_graph(name, graph)
     audit_rows.append(row)
