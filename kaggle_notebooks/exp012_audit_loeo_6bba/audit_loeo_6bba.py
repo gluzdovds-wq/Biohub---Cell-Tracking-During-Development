@@ -57,6 +57,8 @@ import numpy as np
 import torch
 import tracksdata as td
 from geff import GeffMetadata
+from scipy.optimize import linear_sum_assignment
+from scipy.spatial import cKDTree
 
 from biohub_tracking.io import open_dataset, save_graph
 from biohub_tracking.metrics import evaluate, node_recall, per_sample_metrics, summarise
@@ -129,7 +131,44 @@ def infer_candidates(name: str, threshold: float):
     )
 
 
-def graph_for_policy(coords, edges, policy: str):
+def graph_for_policy(coords, edges, policy: str, scale):
+    if policy == "registered_hungarian":
+        coords_array = np.asarray(coords, dtype=float)
+        scale = np.asarray(scale, dtype=float)
+        linked = []
+        times = sorted(set(coords_array[:, 0].astype(int))) if len(coords_array) else []
+        for timepoint in times[:-1]:
+            source_ids = np.flatnonzero(coords_array[:, 0].astype(int) == timepoint)
+            target_ids = np.flatnonzero(coords_array[:, 0].astype(int) == timepoint + 1)
+            if not len(source_ids) or not len(target_ids):
+                continue
+            source = coords_array[source_ids, 1:4] * scale
+            target = coords_array[target_ids, 1:4] * scale
+            tree = cKDTree(target)
+            _, nearest = tree.query(source, k=1)
+            displacement = target[np.asarray(nearest, dtype=int)] - source
+            shift = np.median(displacement, axis=0)
+            residual_to_shift = np.linalg.norm(displacement - shift, axis=1)
+            inliers = residual_to_shift <= 4.0
+            if int(inliers.sum()) >= 3:
+                shift = np.median(displacement[inliers], axis=0)
+
+            residual = np.linalg.norm(
+                source[:, None, :] + shift[None, None, :] - target[None, :, :], axis=2
+            )
+            gate_um = 7.0
+            augmented = np.concatenate(
+                [residual, np.full((len(source), len(source)), gate_um, dtype=float)], axis=1
+            )
+            rows, columns = linear_sum_assignment(augmented)
+            for row, column in zip(rows, columns):
+                if column >= len(target) or residual[row, column] >= gate_um:
+                    continue
+                raw_distance = float(np.linalg.norm(source[row] - target[column]))
+                probability = float(np.exp(-residual[row, column] / 3.0))
+                linked.append((int(source_ids[row]), int(target_ids[column]), probability, raw_distance))
+        return build_graph(coords, linked)
+
     if policy == "greedy":
         kept = []
         parent_count = {}
@@ -163,11 +202,14 @@ def graph_for_policy(coords, edges, policy: str):
 
 calibration = []
 for threshold in CALIBRATION_THRESHOLDS:
-    policy_rows = {policy: [] for policy in ("greedy", "ilp_public", "ilp_support")}
+    policy_rows = {
+        policy: [] for policy in ("greedy", "ilp_public", "ilp_support", "registered_hungarian")
+    }
     for name in calibration_names:
         coords, edges = infer_candidates(name, threshold)
+        scale = open_dataset(TRAIN_DIR / name, require_tracks=False).scale
         for policy, rows in policy_rows.items():
-            rows.append(score_graph(name, graph_for_policy(coords, edges, policy)))
+            rows.append(score_graph(name, graph_for_policy(coords, edges, policy, scale)))
     for policy, rows in policy_rows.items():
         item = {"threshold": threshold, "policy": policy, "summary": summarise(rows), "per_movie": rows}
         calibration.append(item)
@@ -178,7 +220,7 @@ selected = max(
     key=lambda item: (
         item["summary"]["score"],
         -abs(item["threshold"] - 0.99),
-        {"greedy": 2, "ilp_public": 1, "ilp_support": 0}[item["policy"]],
+        {"greedy": 3, "ilp_public": 2, "ilp_support": 1, "registered_hungarian": 0}[item["policy"]],
     ),
 )
 selection = {
@@ -201,7 +243,8 @@ audit_dir.mkdir(exist_ok=True)
 audit_rows = []
 for name in audit_names:
     coords, edges = infer_candidates(name, selected["threshold"])
-    graph = graph_for_policy(coords, edges, selected["policy"])
+    scale = open_dataset(TRAIN_DIR / name, require_tracks=False).scale
+    graph = graph_for_policy(coords, edges, selected["policy"], scale)
     save_graph(graph, audit_dir / f"{name}.geff")
     row = score_graph(name, graph)
     audit_rows.append(row)
