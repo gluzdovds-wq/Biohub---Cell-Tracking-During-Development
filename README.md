@@ -23,9 +23,10 @@ Validate a downloaded visible-test artifact before submission:
 kaggle kernels output <owner/kernel> -p outputs/<experiment> --file-pattern '^submission\.csv$'
 ./scripts/audit_submission.ps1 -Path outputs/<experiment>/submission.csv -ExpectedDatasetCount 4
 python ./scripts/compare_submissions.py outputs/<control>/submission.csv outputs/<candidate>/submission.csv
+python ./scripts/analyze_topology_ablation.py outputs/<control>/submission.csv outputs/<candidate>/submission.csv --output outputs/<candidate>/topology_ablation.json
 ```
 
-The comparator reports both exact-coordinate graph overlap and a default `2 µm` greedy same-frame physical match, so integer-centroid and subvoxel-refined detectors can be compared without conflating formatting with model diversity.
+The comparator reports both exact-coordinate graph overlap and a default `2 µm` greedy same-frame physical match, so integer-centroid and subvoxel-refined detectors can be compared without conflating formatting with model diversity. The stricter topology-ablation analyzer requires identical node IDs, times and exact coordinates, then reports changed sources, division-parent overlap, physical edge/sister distances and constant-velocity residuals.
 
 Inspect a bounded tail of a running kernel and validate a frozen submission candidate:
 
