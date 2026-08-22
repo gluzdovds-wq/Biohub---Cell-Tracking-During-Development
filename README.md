@@ -38,6 +38,13 @@ python ./scripts/tail_kaggle_kernel.py <owner/kernel> --pattern 'Epoch|batches|T
 
 The submit helper checks kernel completion, the canonical artifact SHA, full schema/topology invariants and the live daily quota before spending a slot. It never retries the mutating submission request automatically.
 
+The LOEO transition is also fail closed. A single watcher instance (guarded by a global mutex) polls the two parent kernels, verifies the completed split contract and checkpoint SHA through `verify_loeo_parent.ps1`, and only then pushes the corresponding untouched-audit kernel:
+
+```powershell
+./scripts/watch_loeo_and_launch.ps1 -Once              # status/logic smoke
+./scripts/watch_loeo_and_launch.ps1 -PollSeconds 60    # bounded 8h watcher
+```
+
 ## Experiment discipline
 
 1. Split by embryo, never by crop. Public checkpoints trained on all 199 labelled movies cannot provide honest local validation.
