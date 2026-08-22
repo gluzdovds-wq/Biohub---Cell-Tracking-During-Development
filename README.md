@@ -45,6 +45,13 @@ The LOEO transition is also fail closed. A single watcher instance (guarded by a
 ./scripts/watch_loeo_and_launch.ps1 -PollSeconds 60    # bounded 8h watcher
 ```
 
+A separate idempotent quota watcher keeps the pre-registered submission order `EXP014 → EXP019`. It checks the existing submission descriptions before every mutation, waits for a live slot, and delegates to the non-retrying SHA/audit helper for exactly one candidate at a time:
+
+```powershell
+./scripts/watch_quota_and_submit.ps1 -Once
+./scripts/watch_quota_and_submit.ps1 -PollSeconds 60   # bounded 12h watcher
+```
+
 ## Experiment discipline
 
 1. Split by embryo, never by crop. Public checkpoints trained on all 199 labelled movies cannot provide honest local validation.
