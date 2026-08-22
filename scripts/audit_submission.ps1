@@ -86,8 +86,10 @@ for ($index = 0; $index -lt $rows.Count; $index++) {
         }
         $sourceKey = "$($row.dataset)|$sourceId"
         $targetKey = "$($row.dataset)|$targetId"
-        $outDegree[$sourceKey] = 1 + [int]($outDegree[$sourceKey] ?? 0)
-        $inDegree[$targetKey] = 1 + [int]($inDegree[$targetKey] ?? 0)
+        $sourceDegree = if ($outDegree.ContainsKey($sourceKey)) { [int]$outDegree[$sourceKey] } else { 0 }
+        $targetDegree = if ($inDegree.ContainsKey($targetKey)) { [int]$inDegree[$targetKey] } else { 0 }
+        $outDegree[$sourceKey] = 1 + $sourceDegree
+        $inDegree[$targetKey] = 1 + $targetDegree
         continue
     }
 

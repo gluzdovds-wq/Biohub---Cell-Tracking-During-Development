@@ -1,6 +1,6 @@
 param(
     [Parameter(Mandatory = $true)]
-    [ValidateSet("EXP014", "EXP019")]
+    [ValidateSet("EXP014", "EXP019", "EXP022", "EXP023")]
     [string]$Candidate,
     [switch]$Submit
 )
@@ -35,6 +35,18 @@ $candidates = @{
         Path = "outputs\exp019_intensity_coordinate_refine\submission.csv"
         Sha256 = "7487ecb7de8c110caffd35bd043902b484ee4634ec58d020caebabfad9296c6d"
         Message = "EXP-019 intensity COM coordinate refinement"
+    }
+    "EXP022" = @{
+        Kernel = "dmitriigluzdov/biohub-exp022-coordinate-blend"
+        Path = "outputs\exp022_kaggle_v1\submission.csv"
+        Sha256 = "91e24e750dc2a305943713618bbaa3f0de95283cbeb2de9e9b2d6ecef3f8fb6a"
+        Message = "EXP-022 detector intensity coordinate blend"
+    }
+    "EXP023" = @{
+        Kernel = "dmitriigluzdov/biohub-exp023-agreement-gated-coordinates"
+        Path = "outputs\exp023_kaggle_v1\submission.csv"
+        Sha256 = "8bff01ab65cc2f9e022684822cd09240265417567abd5406387b808f7e052de3"
+        Message = "EXP-023 agreement gated coordinate blend"
     }
 }
 $selected = $candidates[$Candidate]
