@@ -106,10 +106,14 @@ train_names = set(contract["train"])
 checkpoint_names = list(contract["checkpoint_validation"])
 calibration_names = list(contract["calibration"])
 audit_names = list(contract["audit"])
+confirmation_names = sorted(set(calibration_names) - set(checkpoint_names))
 assert calibration_names and audit_names
 assert not train_names.intersection(calibration_names + audit_names)
 assert not set(calibration_names).intersection(audit_names)
 assert set(checkpoint_names) <= set(calibration_names)
+assert len(confirmation_names) == len(checkpoint_names) == 4
+assert set(checkpoint_names).isdisjoint(confirmation_names)
+assert set(checkpoint_names) | set(confirmation_names) == set(calibration_names)
 assert all(name.startswith(f"{HOLDOUT_EMBRYO}_") for name in calibration_names + audit_names)
 assert all(not name.startswith(f"{HOLDOUT_EMBRYO}_") for name in train_names)
 actual_split_sizes = {
@@ -251,7 +255,7 @@ def graph_for_policy(coords, edges, policy: str, scale):
     return solver.solve(graph)
 
 
-calibration = []
+tuning = []
 for threshold in CALIBRATION_THRESHOLDS:
     policy_rows = {
         policy: []
@@ -263,18 +267,18 @@ for threshold in CALIBRATION_THRESHOLDS:
             "registered_prob_hungarian",
         )
     }
-    for name in calibration_names:
+    for name in checkpoint_names:
         coords, edges = infer_candidates(name, threshold)
         scale = open_dataset(TRAIN_DIR / name, require_tracks=False).scale
         for policy, rows in policy_rows.items():
             rows.append(score_graph(name, graph_for_policy(coords, edges, policy, scale)))
     for policy, rows in policy_rows.items():
         item = {"threshold": threshold, "policy": policy, "summary": summarise(rows), "per_movie": rows}
-        calibration.append(item)
+        tuning.append(item)
         print(json.dumps(jsonable(item)))
 
 selected = max(
-    calibration,
+    tuning,
     key=lambda item: (
         item["summary"]["score"],
         -abs(item["threshold"] - 0.99),
@@ -288,21 +292,44 @@ selected = max(
     ),
 )
 selection = {
-    "status": "threshold_frozen_before_audit",
+    "status": "selection_frozen_before_confirmation_and_audit",
     "holdout_embryo": HOLDOUT_EMBRYO,
     "weights_sha256": weight_sha256,
     "parent_contract_sha256": hashlib.sha256(contract_path.read_bytes()).hexdigest(),
     "checkpoint_validation_movies": checkpoint_names,
-    "calibration_movies": calibration_names,
+    "tuning_movies": checkpoint_names,
+    "confirmation_movies": confirmation_names,
     "audit_movies": audit_names,
     "threshold_grid": CALIBRATION_THRESHOLDS,
     "selected_threshold": selected["threshold"],
     "selected_policy": selected["policy"],
-    "calibration_results": calibration,
+    "tuning_results": tuning,
 }
 selection_path = WORK / f"loeo_{HOLDOUT_EMBRYO}_selection.json"
 selection_path.write_text(json.dumps(jsonable(selection), indent=2), encoding="utf-8")
-print(f"Frozen threshold {selected['threshold']} and policy {selected['policy']} before audit", flush=True)
+print(
+    f"Frozen threshold {selected['threshold']} and policy {selected['policy']} "
+    "before confirmation and audit",
+    flush=True,
+)
+
+confirmation_rows = []
+for name in confirmation_names:
+    coords, edges = infer_candidates(name, selected["threshold"])
+    scale = open_dataset(TRAIN_DIR / name, require_tracks=False).scale
+    graph = graph_for_policy(coords, edges, selected["policy"], scale)
+    confirmation_rows.append(score_graph(name, graph))
+confirmation = {
+    "status": "confirmation_complete_without_reselection",
+    "selected_threshold": selected["threshold"],
+    "selected_policy": selected["policy"],
+    "summary": summarise(confirmation_rows),
+    "per_movie": confirmation_rows,
+}
+(WORK / f"loeo_{HOLDOUT_EMBRYO}_confirmation.json").write_text(
+    json.dumps(jsonable(confirmation), indent=2), encoding="utf-8"
+)
+print(json.dumps(jsonable(confirmation["summary"])), flush=True)
 
 audit_dir = WORK / f"loeo_{HOLDOUT_EMBRYO}_audit_predictions"
 audit_dir.mkdir(exist_ok=True)
@@ -319,6 +346,8 @@ for name in audit_names:
 result = {
     **selection,
     "status": "audit_complete",
+    "confirmation_summary": confirmation["summary"],
+    "confirmation_per_movie": confirmation_rows,
     "audit_summary": summarise(audit_rows),
     "audit_per_movie": audit_rows,
 }
