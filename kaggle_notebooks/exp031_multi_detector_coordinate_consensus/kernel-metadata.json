@@ -1,0 +1,20 @@
+{
+  "id": "dmitriigluzdov/biohub-exp031-multi-detector-coordinate-consensus",
+  "title": "Biohub EXP031 Multi Detector Coordinate Consensus",
+  "code_file": "multi_detector_coordinate_consensus.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "keywords": ["postprocessing", "ensemble", "cell-tracking"],
+  "dataset_sources": [],
+  "kernel_sources": [
+    "dmitriigluzdov/biohub-exp006-kimi-division-frontier",
+    "dmitriigluzdov/biohub-exp008-three-unet-flip-tta",
+    "hiranorm/new-lb-0-916-infer-ensemble-lf-exp002"
+  ],
+  "competition_sources": ["biohub-cell-tracking-during-development"],
+  "model_sources": []
+}
