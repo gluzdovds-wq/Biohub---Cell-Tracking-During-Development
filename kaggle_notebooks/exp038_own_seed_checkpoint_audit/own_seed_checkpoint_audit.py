@@ -6,6 +6,8 @@ import hashlib
 import json
 import math
 import os
+import tempfile
+import zipfile
 from pathlib import Path
 
 import torch
@@ -135,6 +137,47 @@ comparisons = [comparison("primary"), comparison("secondary")]
 if comparisons[0]["parameters"] != comparisons[1]["parameters"]:
     raise AssertionError("Existing seeds disagree on architecture size")
 
+own_root = matches["own"][0].parent
+manifest_path = own_root / "ARTIFACT_MANIFEST.json"
+archive_path = own_root / "weights.zip"
+if not manifest_path.is_file() or not archive_path.is_file():
+    raise FileNotFoundError({"manifest": str(manifest_path), "archive": str(archive_path)})
+manifest = json.loads(manifest_path.read_text())
+if manifest.get("model", {}).get("weight_sha256") != SHAS["own"]:
+    raise AssertionError("Staging manifest SHA contract failed")
+expected_config = {
+    "unet_out_channels": 32,
+    "unet_layers": [32, 64, 128],
+    "downsample": [1, 4, 4],
+    "window_size": 2,
+    "pool_kernel_um": 5.0,
+}
+weight_member = "unet_transformer/split_0/edge_predictor_best.pth"
+config_member = "unet_transformer/split_0/config.json"
+with zipfile.ZipFile(archive_path) as archive:
+    names = archive.namelist()
+    if weight_member not in names or config_member not in names:
+        raise AssertionError({"missing_archive_contract": [weight_member, config_member], "members": names})
+    with tempfile.TemporaryDirectory() as temp_dir:
+        archive.extractall(temp_dir)
+        extracted_weight = Path(temp_dir) / weight_member
+        extracted_config = Path(temp_dir) / config_member
+        if sha256(extracted_weight) != SHAS["own"]:
+            raise AssertionError("Extracted checkpoint SHA mismatch")
+        if json.loads(extracted_config.read_text()) != expected_config:
+            raise AssertionError("Extracted model config mismatch")
+
+loader_contract = {
+    "manifest_path": str(manifest_path),
+    "manifest_weight_sha256": manifest["model"]["weight_sha256"],
+    "archive_path": str(archive_path),
+    "archive_sha256": sha256(archive_path),
+    "archive_members": names,
+    "expected_weight_member": weight_member,
+    "expected_config_member": config_member,
+    "status": "PASS_UNCHANGED_EXP006_LOADER_CONTRACT",
+}
+
 receipt = {
     "status": "PASS_NEW_COMPATIBLE_CHECKPOINT",
     "checkpoints": {
@@ -147,6 +190,7 @@ receipt = {
         for name in SHAS
     },
     "comparisons": comparisons,
+    "loader_contract": loader_contract,
     "promotion_allowed": False,
     "inference_allowed_by_this_receipt": False,
     "input_inventory": inventory,

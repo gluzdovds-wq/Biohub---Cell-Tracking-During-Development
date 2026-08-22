@@ -1,0 +1,32 @@
+{
+  "status": "PASS_EXACT_SECONDARY_CHECKPOINT_ABLATION_BUILD",
+  "source": "kaggle_notebooks\\exp006_kimi_division_frontier\\kimi-notebook-v17.ipynb",
+  "source_sha256": "211421c2237f9f077a5e12b2faba26498190b4d300d513d21c9e57a10d5012af",
+  "output": "kaggle_notebooks\\exp039_own_seed_secondary_ablation\\own_seed_secondary_ablation.ipynb",
+  "output_sha256": "2e42486f735d3eb8401bb8c8f3eb63b63f9454457fd086a68358afdb51d2bf7d",
+  "changed_cells": [
+    1,
+    3,
+    4
+  ],
+  "replacement_counts": {
+    "9bac2fa0dadc4a6fc1899e0caf187f4b553e0a7cd90ba1261a68b35ffe9e305f": 3,
+    "/kaggle/input/datasets/pilkwang/biohub-temporal-unet3d-seed314159-v1/ARTIFACT_MANIFEST.json": 1,
+    "_secondary_slug = \"biohub-temporal-unet3d-seed314159-v1\"": 1,
+    "harmonic_mutual_support_association_fusion_v1": 1,
+    "weighted harmonic forward/reverse association consensus on the fixed-90 dual-seed baseline": 1,
+    "selected_101_dual_seed_near_balanced_center_confirmed_synthetic_gap": 1
+  },
+  "old_secondary_sha256": "9bac2fa0dadc4a6fc1899e0caf187f4b553e0a7cd90ba1261a68b35ffe9e305f",
+  "new_secondary_sha256": "b1507f6918192c0f5c15fd5091d97ff565b1fab14e67e01101446534abb6a7b7",
+  "unchanged_contract": {
+    "primary_checkpoint": true,
+    "detection_weight": true,
+    "edge_weight": true,
+    "harmonic_bidirectional_fusion": true,
+    "detection_threshold": true,
+    "ilp": true,
+    "gap_and_division_repairs": true,
+    "deepcenter_veto": true
+  }
+}
