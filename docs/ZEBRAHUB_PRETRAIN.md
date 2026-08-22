@@ -32,3 +32,5 @@ That single real timelapse supplies about 121 times the competition's roughly 30
 4. Promotion: require positive deltas on both untouched real audit folds, report node recall/count, conditional linking accuracy, edge TP/FP/FN and division TP/FP/FN. A synthetic/external validation score is never sufficient.
 
 Main risks are instrument/appearance shift, imperfect Ultrack pseudo-labels, higher true cell density than the sparse competition annotations, and coordinate/resampling mistakes. Physical-coordinate conversion and source-timelapse separation therefore fail closed before training.
+
+EXP-025 v2 completed on Kaggle and the downloaded output passed all 320 declared shard hashes. The bounded set contains 418,699 node annotations, 205,694 lineage edges and 2,029 division edges in 113.4 MB. A crop can contain up to 2,885 two-frame nodes, making annotation-density shift a real concern; EXP-026 therefore uses batch 2, and no external checkpoint is promoted without both reciprocal real-data audits.

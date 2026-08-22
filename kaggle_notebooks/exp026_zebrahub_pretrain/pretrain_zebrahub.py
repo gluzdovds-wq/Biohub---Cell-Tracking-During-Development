@@ -20,15 +20,20 @@ os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
 
 SEED = 314159
 EPOCHS = 12
-BATCH_SIZE = 4
+BATCH_SIZE = 2
 EXPECTED_TRAIN_SHARDS = 256
 EXPECTED_VALID_SHARDS = 64
 EXPECTED_TRACK_ROWS = 7_505_357
 CROP_SHAPE = (64, 64, 64)
 
-INPUT = Path("/kaggle/input")
-WORK = Path("/kaggle/working")
-SUPPORT = INPUT / "datasets" / "pilkwang" / "biohub-tracking-support-pack-50ep-v1"
+INPUT = Path(os.environ.get("BIOHUB_INPUT_ROOT", "/kaggle/input"))
+WORK = Path(os.environ.get("BIOHUB_WORK_ROOT", "/kaggle/working"))
+support_override = os.environ.get("BIOHUB_SUPPORT_ROOT")
+SUPPORT = (
+    Path(support_override)
+    if support_override
+    else INPUT / "datasets" / "pilkwang" / "biohub-tracking-support-pack-50ep-v1"
+)
 if not SUPPORT.exists():
     SUPPORT = INPUT / "biohub-tracking-support-pack-50ep-v1"
 receipt_paths = sorted(INPUT.glob("**/zebrahub_training_set/receipt.json"))
@@ -76,20 +81,21 @@ for path in train_files + valid_files:
     if row is None or sha256(path) != row["sha256"]:
         raise AssertionError({"bad_or_unregistered_shard": path.name})
 
-subprocess.check_call(
-    [
-        sys.executable,
-        "-m",
-        "pip",
-        "install",
-        "--quiet",
-        "--no-index",
-        "--find-links",
-        str(SUPPORT / "wheels"),
-        "-r",
-        str(SUPPORT / "requirements-unet-ilp-kaggle-predownload.txt"),
-    ]
-)
+if os.environ.get("BIOHUB_SKIP_DEP_INSTALL") != "1":
+    subprocess.check_call(
+        [
+            sys.executable,
+            "-m",
+            "pip",
+            "install",
+            "--quiet",
+            "--no-index",
+            "--find-links",
+            str(SUPPORT / "wheels"),
+            "-r",
+            str(SUPPORT / "requirements-unet-ilp-kaggle-predownload.txt"),
+        ]
+    )
 
 REPO = WORK / "tracking_repo"
 if REPO.exists():
@@ -195,6 +201,28 @@ print(
     ),
     flush=True,
 )
+
+if os.environ.get("BIOHUB_VALIDATE_ONLY") == "1":
+    validation_receipt = {
+        "status": "PASS",
+        "mode": "validate_only_no_training",
+        "source_receipt_sha256": hashlib.sha256(source_receipt_bytes).hexdigest(),
+        "train_windows": len(train_raw),
+        "valid_windows": len(valid_raw),
+        "max_nodes_per_frame": max_nodes,
+        "train_nodes": sum(row["nodes"] for row in train_stats),
+        "valid_nodes": sum(row["nodes"] for row in valid_stats),
+        "train_edges": sum(row["edges"] for row in train_stats),
+        "valid_edges": sum(row["edges"] for row in valid_stats),
+        "train_division_edges": sum(row["division_edges"] for row in train_stats),
+        "valid_division_edges": sum(row["division_edges"] for row in valid_stats),
+    }
+    WORK.mkdir(parents=True, exist_ok=True)
+    (WORK / "exp026_validation_receipt.json").write_text(
+        json.dumps(validation_receipt, indent=2), encoding="utf-8"
+    )
+    print(json.dumps(validation_receipt, indent=2), flush=True)
+    raise SystemExit(0)
 
 
 class ZebrahubDataset(Dataset):
