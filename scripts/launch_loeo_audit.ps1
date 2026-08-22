@@ -13,13 +13,13 @@ $settings = @{
         Kernel = "dmitriigluzdov/biohub-exp011-audit-loeo-44b6"
         Directory = "kaggle_notebooks\exp011_audit_loeo_44b6"
         Source = "kaggle_notebooks\exp011_audit_loeo_44b6\audit_loeo_44b6.py"
-        SourceSha = "d149391939abdadbb4a114f3d5ad731d695be483a6fce5445c6a9bf07565a5d0"
+        SourceSha = "61eac88da003d5254eb2a3196cf73f4aba47b175d19af34c86a4911e53dd18df"
     }
     "6bba" = @{
         Kernel = "dmitriigluzdov/biohub-exp012-audit-loeo-6bba"
         Directory = "kaggle_notebooks\exp012_audit_loeo_6bba"
         Source = "kaggle_notebooks\exp012_audit_loeo_6bba\audit_loeo_6bba.py"
-        SourceSha = "60b91d9e221495683de6d620a9e47988251aa1969effeb7b0d5e7b73dcb73fce"
+        SourceSha = "039bde3e4e4ea138820b17313cddc6754c97b9fb5bd8e9e071253dc32ca7e7bb"
     }
 }
 $audit = $settings[$Embryo]

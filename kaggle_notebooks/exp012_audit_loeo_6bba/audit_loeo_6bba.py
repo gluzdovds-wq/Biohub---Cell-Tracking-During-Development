@@ -272,7 +272,7 @@ def graph_for_policy(coords, edges, policy: str, scale):
         disappearance_weight=disappearance_weight,
         division_weight=1.0,
     )
-    return solver.solve(graph)
+    return solver.solve(graph).detach()
 
 
 PHYSICAL_PRUNE_ARMS = {
