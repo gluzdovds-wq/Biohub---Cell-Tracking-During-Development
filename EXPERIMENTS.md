@@ -63,7 +63,7 @@ Interpretation: dual-seed inference changes a material fraction of the learned g
 
 ## Public frontier audit (2026-08-22)
 
-Kaggle's `scoreDescending` list currently places several notebooks above the clean `0.923` Yunus artifact. Code inspection rejects that apparent frontier: `xiaoleilian/biohub-ct-mix-divaug`, all three inspected Kaiwalya variants, `amanatar/biohub-v6-ultra-best`, and `muhammaddanyalmalik/cell-tracking` explicitly add negative-time/out-of-volume hubs or fork components to inflate the division term. The other top entries advertise the same metric-hack lineage. These are not candidates for this project. The highest attributable, reproduced clean public artifact remains EXP-006 (`0.923`); EXP-007 has no attributable public score, and EXP-008 is sorted below EXP-006.
+Kaggle's `scoreDescending` list currently places several notebooks above the clean `0.923` Yunus artifact. Code inspection rejects that apparent frontier: `xiaoleilian/biohub-ct-mix-divaug`, all three inspected Kaiwalya variants, `amanatar/biohub-v6-ultra-best`, `muhammaddanyalmalik/cell-tracking`, and the indexed `0.952` `boristown/dark-agi-biohub-cell-tracking-solution` explicitly add negative-time/out-of-volume hubs or fork components to inflate the division term. The `0.952` notebook uses a hub at `t=-1000, z=y=x=-10000`, up to 1,200 component-root edges and five fake forks. The other top entries advertise the same metric-hack lineage. These are not candidates for this project. The highest attributable, reproduced clean public artifact remains EXP-006 (`0.923`); EXP-007 has no attributable public score, and EXP-008 is sorted below EXP-006.
 
 ## Run record template
 

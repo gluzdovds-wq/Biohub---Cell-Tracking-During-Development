@@ -61,7 +61,7 @@ The same audit attributed 57% of losses to wrong partners, 32% to a detected pai
 - Node/edge schema mistakes can yield 0.0 or scoring errors despite good local graph scores.
 - Metric-hack notebooks used fake forks outside the image; the host acknowledged the report. They are excluded from our plan.
 
-The apparent top of Kaggle's current `scoreDescending` kernel list is therefore misleading. Direct code inspection found explicit negative-time/out-of-volume hub and fork augmentation in `xiaoleilian/biohub-ct-mix-divaug`, three Kaiwalya variants, `amanatar/biohub-v6-ultra-best`, and `muhammaddanyalmalik/cell-tracking`; the other leading notebooks advertise the same hack lineage. The highest clean artifact we can both attribute and reproduce remains the Yunus `0.923` run. Our EXP-007 and EXP-008 reproduce their respective clean public source CSVs exactly, but neither provides evidence above `0.923` yet.
+The apparent top of Kaggle's current `scoreDescending` kernel list is therefore misleading. Direct code inspection found explicit negative-time/out-of-volume hub and fork augmentation in `xiaoleilian/biohub-ct-mix-divaug`, three Kaiwalya variants, `amanatar/biohub-v6-ultra-best`, `muhammaddanyalmalik/cell-tracking`, and the newly indexed `boristown/dark-agi-biohub-cell-tracking-solution` (`0.952`). The latter's final cell connects up to 1,200 real components to a hub at `t=-1000, z=y=x=-10000` and appends five fake forks; its score is not evidence for the preceding D4-TTA tracker. The other leading notebooks advertise the same hack lineage. The highest clean artifact we can both attribute and reproduce remains the Yunus `0.923` run. Our EXP-007 and EXP-008 reproduce their respective clean public source CSVs exactly, but neither provides evidence above `0.923` yet.
 
 ## Research priorities
 
@@ -85,6 +85,7 @@ Two especially promising community directions are still under-exploited by the p
 - https://www.kaggle.com/code/yunusgmsoy/lb-0-920-biohub-cell-tracking-v17
 - https://www.kaggle.com/code/yunusgmsoy/kimi-notebook-v17
 - https://www.kaggle.com/code/ericwang03/biohub-daily-probe-lane-5
+- https://www.kaggle.com/code/boristown/dark-agi-biohub-cell-tracking-solution
 - https://www.kaggle.com/code/tomasa2/biohub-what-worked-and-what-didnt-for-me
 - https://www.kaggle.com/competitions/biohub-cell-tracking-during-development/discussion/730160
 - https://www.kaggle.com/competitions/biohub-cell-tracking-during-development/discussion/724283
