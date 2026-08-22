@@ -83,7 +83,7 @@ def jsonable(value):
 
 
 def estimated_nodes(name: str) -> float:
-    metadata = GeffMetadata.read(TRAIN_DIR / f"{name}.geff")
+    metadata = GeffMetadata.read(TRAIN_DIR / f"{Path(name).stem}.geff")
     value = (metadata.extra or {}).get("estimated_number_of_nodes")
     return float(value) if value is not None else float("nan")
 
