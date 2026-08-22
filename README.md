@@ -4,7 +4,7 @@ Competition workspace for [Biohub — Cell Tracking During Development](https://
 
 ## Current objective
 
-Reach the medal zone with a reproducible, leakage-safe pipeline. In the full public-leaderboard snapshot downloaded on 2026-08-22 17:02 UTC, the leader is `0.958`, rank 10 is `0.943`, and rank 50 is `0.929`. The current account best is EXP-006 at `0.919`, rank 201 of 2,635 (`7.63%`, nominal public bronze zone); the final private leaderboard and eligibility still control actual medals. Although the submitted artifact is the exact SHA-verified public EXP-006 graph, its current account score is below the source-attributed historical `0.923`, so external notebook score claims are no longer used as portable evidence.
+Reach the medal zone with a reproducible, leakage-safe pipeline. In the full public-leaderboard snapshot downloaded on 2026-08-22 18:00 UTC, the leader is `0.958`, rank 10 is `0.943`, and rank 50 is `0.929`. The current account best is EXP-006 at `0.919`, rank 203 of 2,636 (`7.70%`, nominal public bronze zone); the final private leaderboard and eligibility still control actual medals. Although the submitted artifact is the exact SHA-verified public EXP-006 graph, its current account score is below the source-attributed historical `0.923`, so external notebook score claims are no longer used as portable evidence. The live API lists the competition deadline as 2026-09-29 23:59 UTC.
 
 ## Repository map
 
