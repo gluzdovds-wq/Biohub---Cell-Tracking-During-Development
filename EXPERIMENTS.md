@@ -103,6 +103,8 @@ The 11:24 UTC Navaz rerun and newly indexed `mtoshidesu/test-notebook-v17-d17ce0
 
 The completed `xiaoleilian/biohub-m001-ens3-sm6-sim2` run was independently downloaded after the refreshed public-kernel scan. It is clean and passes the full submission audit, but its 19,102,928-byte output is EXP-008 byte-for-byte: 126,419 nodes, 121,191 edges, SHA-256 `d7ba9e6a…f2bb`. Its three-model D4-TTA listing therefore adds no independent ensemble vote and receives no submission or experiment ID. The newer Anhad run was still `RUNNING`, so neither its order nor its prior snapshot output was treated as completed evidence.
 
+The Anhad run later completed and its real 12,558,700-byte output was downloaded. It passes the full submission audit with 122,910 nodes, 118,395 edges, 328 divisions and SHA-256 `f326ea07…3445`; physical `2 µm` overlap with EXP-006 is `0.928212/0.904797` for nodes/edges. This is a nearby clean dual-seed/retention/boundary-rescue ablation, but its own quality receipt remains `candidate_unverified`, lacks the required promotion receipt and forbids submission. It is also ordered below known `0.917` entries, so it neither moves the attributable clean `0.923` frontier nor merits a submission/experiment ID.
+
 ## Run record template
 
 Copy this block for every new run:
