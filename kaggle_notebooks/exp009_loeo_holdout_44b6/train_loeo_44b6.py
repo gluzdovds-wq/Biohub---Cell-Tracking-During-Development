@@ -15,8 +15,9 @@ os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
 
 HOLDOUT_EMBRYO = "44b6"
 SEED = 314159
-EPOCHS = 50
+EPOCHS = 5
 N_CALIBRATION_MOVIES = 8
+N_CHECKPOINT_MOVIES = 4
 COMPETITION = "biohub-cell-tracking-during-development"
 
 INPUT = Path("/kaggle/input")
@@ -61,16 +62,20 @@ rng = random.Random(SEED)
 rng.shuffle(heldout_names)
 calibration_names = sorted(heldout_names[:N_CALIBRATION_MOVIES])
 audit_names = sorted(heldout_names[N_CALIBRATION_MOVIES:])
+checkpoint_names = calibration_names[:N_CHECKPOINT_MOVIES]
 train_names = sorted(train_names)
 
 assert train_names and calibration_names and audit_names
+assert checkpoint_names
 assert all(not name.startswith(f"{HOLDOUT_EMBRYO}_") for name in train_names)
 assert all(name.startswith(f"{HOLDOUT_EMBRYO}_") for name in calibration_names + audit_names)
 assert not (set(train_names) & set(calibration_names) or set(train_names) & set(audit_names))
+assert set(checkpoint_names) <= set(calibration_names)
+assert not (set(calibration_names) & set(audit_names))
 
 splits_path = WORK / f"loeo_{HOLDOUT_EMBRYO}_splits.json"
 splits_path.write_text(
-    json.dumps([{"train": train_names, "test": calibration_names}], indent=2),
+    json.dumps([{"train": train_names, "test": checkpoint_names}], indent=2),
     encoding="utf-8",
 )
 contract = {
@@ -78,9 +83,10 @@ contract = {
     "holdout_embryo": HOLDOUT_EMBRYO,
     "seed": SEED,
     "epochs": EPOCHS,
-    "checkpoint_selection": "8 deterministic heldout-embryo calibration movies",
+    "checkpoint_selection": "4 deterministic movies drawn from the frozen 8-movie calibration set",
     "audit_policy": "all remaining heldout-embryo movies; never loaded during training",
     "train": train_names,
+    "checkpoint_validation": checkpoint_names,
     "calibration": calibration_names,
     "audit": audit_names,
 }
