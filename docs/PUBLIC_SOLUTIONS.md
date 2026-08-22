@@ -101,6 +101,12 @@ The subsequently audited `dalloliogm/biohub-exp203-classical-three-model-ensembl
 
 `raunakdey07/biohub-harmonic-fusion-dual-seed-pipeline` is clean and distinct (122,083 nodes / 117,803 edges / 307 divisions, SHA-256 `3e98739f…a1e0`) but remains very close to EXP-006 at physical `2 µm` (`0.975815/0.966866` node/edge Jaccard). A strict Raunak + EXP-008 unanimous edge vote maps 120,678 / 93,630 nodes and finds zero alternative proposals. The artifact is useful reproducibility evidence for retention-guard harmonic tracking, not a new frontier or graph-consensus candidate.
 
+The 16:00 UTC frontier refresh added two completed clean artifacts but still found no measured score above the account's real `0.919`. `arnav170/biohub-ens5` extends the EXP-008 preprocessing ensemble to five branches and passes the full audit at 128,584 nodes / 123,287 edges / 339 divisions (SHA `77e06053…430a9`). It is materially correlated with EXP-008 at physical `2 µm` (`0.796416/0.762308` node/edge overlap) and has no attributable LB. Their unanimous vote proposed five conflict-free EXP-006 edge replacements; all five increased both edge length and constant-velocity residual, so the post-hoc EXP-036 branch is rejected.
+
+`backtracking/biohub-general-v5` is also clean and audit PASS (119,613 nodes / 115,273 edges / 318 divisions, SHA `de9c37cc…eaaf`). Its source adds an SD2 sister-distance/min-probability patch to the source-described `0.916` production family, but the output remains almost identical to General V4 at physical `2 µm` (`0.991656/0.989426` node/edge overlap) and provides no new score. It is an implementation ablation, not a frontier candidate.
+
+The newly run `luffyh04/harshini-1` notebook was cancelled during a long resumed training stage and produced no attachable current submission. Its cancelled CLI-download output includes an `own_seed_v1` checkpoint, but Kaggle notebook dependencies correctly expose the last COMPLETE version instead. EXP-037 proves that stable artifact is architecture-compatible and non-identical to the primary, but its SHA `9bac2fa0…305f` is exactly the secondary checkpoint already pinned and loaded by EXP-006. It is therefore not a third seed or a new ensemble arm; the cancelled run's displayed training-best value is not validation or LB evidence.
+
 ## Research priorities
 
 1. Honest LOEO training/validation with no public-weight leakage.
