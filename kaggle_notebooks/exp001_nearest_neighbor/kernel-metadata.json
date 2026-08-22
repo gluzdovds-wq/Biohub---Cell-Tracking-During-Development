@@ -1,0 +1,20 @@
+{
+  "id": "dmitriigluzdov/biohub-exp001-nearest-neighbor-sanity",
+  "title": "Biohub EXP001 Nearest Neighbor Sanity",
+  "code_file": "cell-tracking-getting-started-w-nearest-neighbor.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "keywords": [],
+  "dataset_sources": [],
+  "kernel_sources": [],
+  "competition_sources": [
+    "biohub-cell-tracking-during-development"
+  ],
+  "model_sources": [],
+  "docker_image": "gcr.io/kaggle-images/python@sha256:e5452ce6268c2e8345cfe5141f31ca7ff47032aca46a7ea532bbb87481281d0c",
+  "machine_shape": "None"
+}

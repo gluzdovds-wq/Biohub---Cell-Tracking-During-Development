@@ -1,0 +1,25 @@
+# Competition data and generated artifacts
+data/
+outputs/
+submissions/*.csv
+*.zarr/
+*.geff/
+
+# Local research snapshots (canonical runnable forks live in kaggle_notebooks/)
+research/public_notebooks/
+research/rogii_reference/
+
+# Python / notebooks
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+.ipynb_checkpoints/
+
+# Local secrets and OS/editor files
+.env
+kaggle.json
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
