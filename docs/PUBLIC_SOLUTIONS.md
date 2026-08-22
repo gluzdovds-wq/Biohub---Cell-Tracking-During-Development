@@ -30,6 +30,8 @@ Usefulness: cheap diversity, interpretable error decomposition, robust fallback.
 - A newer unscored public probe applies eight-view XY D4 TTA to encoder features, inverse-aligns them, and averages node-transformer logits on one shared physical node set. This is technically sound enough to test, but it is not yet evidence of a gain and costs roughly eight encoder passes.
 - Current public examples: `0.908`, `0.913`, `0.916`, `0.917`, `0.920`, `0.923`.
 
+The exact EXP-005→EXP-006 logs isolate the guarded division widening. On the four reused labelled movies, adjusted edge Jaccard fell `0.9152→0.9135`, while division Jaccard rose `0.0→0.1` (`TP/FP/FN 0/1/5→1/5/4`), moving the proxy `0.9152→0.9235`. The attributable public LB moved only `0.920→0.923`. Thus conservative division expansion was directionally useful, but this sparse in-sample proxy overstated the transferable gain by roughly 2–3×; it cannot justify further veto relaxation without independent evidence.
+
 ## Measured positive results from an open ablation notebook
 
 Source: `tomasa2/biohub-what-worked-and-what-didnt-for-me` (public LB 0.841, 11 paired changes).
