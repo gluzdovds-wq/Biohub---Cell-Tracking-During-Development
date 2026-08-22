@@ -1,0 +1,19 @@
+{
+  "id": "dmitriigluzdov/biohub-exp014-coordinate-ensemble",
+  "title": "Biohub EXP014 Coordinate Ensemble",
+  "code_file": "coordinate_ensemble.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "keywords": ["postprocessing", "ensemble", "cell-tracking"],
+  "dataset_sources": [],
+  "kernel_sources": [
+    "dmitriigluzdov/biohub-exp006-kimi-division-frontier",
+    "dmitriigluzdov/biohub-exp008-three-unet-flip-tta"
+  ],
+  "competition_sources": ["biohub-cell-tracking-during-development"],
+  "model_sources": []
+}
