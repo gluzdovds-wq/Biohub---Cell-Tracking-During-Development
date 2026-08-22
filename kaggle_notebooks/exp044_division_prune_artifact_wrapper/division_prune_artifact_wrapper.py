@@ -53,10 +53,16 @@ def sha256(path: Path) -> str:
 
 
 def locate_root(slug: str) -> Path:
-    matches = [path for path in INPUT.rglob("submission.csv") if path.parent.name == slug]
+    candidates = [
+        INPUT / "datasets" / "dmitriigluzdov" / slug,
+        INPUT / slug,
+    ]
+    matches = [root for root in candidates if (root / "submission.csv").is_file()]
     if len(matches) != 1:
-        raise FileNotFoundError({"slug": slug, "matches": list(map(str, matches))})
-    return matches[0].parent
+        raise FileNotFoundError(
+            {"slug": slug, "candidates": list(map(str, candidates)), "matches": list(map(str, matches))}
+        )
+    return matches[0]
 
 
 receipts = {}
