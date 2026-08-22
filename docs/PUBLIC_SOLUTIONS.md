@@ -65,6 +65,8 @@ The apparent top of Kaggle's current `scoreDescending` kernel list is therefore 
 
 An additional 2026-08-22 audit of `kunaldesale2408/biohub-cell-tracking` found a clean three-U-Net pipeline but no new artifact: its 19,102,928-byte output is byte-identical to EXP-008 (`SHA-256 d7ba9e6a…f2bb`, 126,419 nodes, 121,191 edges, maximum degrees 1/2). It is useful as an independent reproducibility check for that teacher arm, not as evidence of a higher clean score.
 
+The same day's completed refresh of `navazshfathi/best-score` produced the clean EXP-006 artifact byte-for-byte (`SHA-256 5c852379…1f4d`, 122,266 nodes, 118,156 edges, maximum degrees 1/2). The new source is a harmonic/safe-division reimplementation. It independently confirms the reproducibility of the `0.923` base but does not move the clean frontier.
+
 ## Research priorities
 
 1. Honest LOEO training/validation with no public-weight leakage.
