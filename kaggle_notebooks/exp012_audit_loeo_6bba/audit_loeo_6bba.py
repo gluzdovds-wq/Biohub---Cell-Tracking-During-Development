@@ -14,6 +14,8 @@ from pathlib import Path
 HOLDOUT_EMBRYO = "6bba"
 PARENT_SLUG = "biohub-exp010-loeo-holdout-6bba"
 SEED = 314159
+EXPECTED_EPOCHS = 10
+EXPECTED_SPLIT_SIZES = {"train": 71, "checkpoint_validation": 4, "calibration": 8, "audit": 120}
 CALIBRATION_THRESHOLDS = (0.95, 0.97, 0.985, 0.99, 0.995)
 COMPETITION = "biohub-cell-tracking-during-development"
 
@@ -93,14 +95,38 @@ weight_path = PARENT / f"loeo_holdout_{HOLDOUT_EMBRYO}" / "edge_predictor_best.p
 if not contract_path.is_file() or not weight_path.is_file():
     raise RuntimeError({"contract": str(contract_path), "weight": str(weight_path)})
 contract = json.loads(contract_path.read_text())
-if contract.get("status") != "training_complete" or contract.get("holdout_embryo") != HOLDOUT_EMBRYO:
+if (
+    contract.get("status") != "training_complete"
+    or contract.get("holdout_embryo") != HOLDOUT_EMBRYO
+    or contract.get("seed") != SEED
+    or contract.get("epochs") != EXPECTED_EPOCHS
+):
     raise RuntimeError(contract)
 train_names = set(contract["train"])
+checkpoint_names = list(contract["checkpoint_validation"])
 calibration_names = list(contract["calibration"])
 audit_names = list(contract["audit"])
 assert calibration_names and audit_names
 assert not train_names.intersection(calibration_names + audit_names)
 assert not set(calibration_names).intersection(audit_names)
+assert set(checkpoint_names) <= set(calibration_names)
+assert all(name.startswith(f"{HOLDOUT_EMBRYO}_") for name in calibration_names + audit_names)
+assert all(not name.startswith(f"{HOLDOUT_EMBRYO}_") for name in train_names)
+actual_split_sizes = {
+    "train": len(train_names),
+    "checkpoint_validation": len(checkpoint_names),
+    "calibration": len(calibration_names),
+    "audit": len(audit_names),
+}
+if actual_split_sizes != EXPECTED_SPLIT_SIZES:
+    raise RuntimeError({"expected": EXPECTED_SPLIT_SIZES, "actual": actual_split_sizes})
+weight_sha256 = hashlib.sha256(weight_path.read_bytes()).hexdigest()
+weight_receipt = contract.get("artifacts", {}).get(weight_path.name, {})
+if (
+    weight_receipt.get("bytes") != weight_path.stat().st_size
+    or weight_receipt.get("sha256") != weight_sha256
+):
+    raise RuntimeError({"contract_weight": weight_receipt, "actual_sha256": weight_sha256})
 
 random.seed(SEED)
 np.random.seed(SEED)
@@ -226,7 +252,9 @@ selected = max(
 selection = {
     "status": "threshold_frozen_before_audit",
     "holdout_embryo": HOLDOUT_EMBRYO,
-    "weights_sha256": hashlib.sha256(weight_path.read_bytes()).hexdigest(),
+    "weights_sha256": weight_sha256,
+    "parent_contract_sha256": hashlib.sha256(contract_path.read_bytes()).hexdigest(),
+    "checkpoint_validation_movies": checkpoint_names,
     "calibration_movies": calibration_names,
     "audit_movies": audit_names,
     "threshold_grid": CALIBRATION_THRESHOLDS,
