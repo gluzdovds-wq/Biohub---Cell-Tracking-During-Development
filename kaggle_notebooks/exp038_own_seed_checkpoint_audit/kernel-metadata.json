@@ -1,0 +1,20 @@
+{
+  "id": "dmitriigluzdov/biohub-exp038-own-seed-checkpoint-audit",
+  "title": "Biohub EXP038 Own Seed Checkpoint Audit",
+  "code_file": "own_seed_checkpoint_audit.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "keywords": [],
+  "dataset_sources": [
+    "dmitriigluzdov/biohub-exp038-own-seed-v1-checkpoint",
+    "pilkwang/biohub-tracking-support-pack-50ep-v1",
+    "pilkwang/biohub-temporal-unet3d-seed314159-v1"
+  ],
+  "kernel_sources": [],
+  "competition_sources": [],
+  "model_sources": []
+}
