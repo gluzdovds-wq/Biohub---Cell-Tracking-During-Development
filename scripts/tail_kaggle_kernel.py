@@ -11,7 +11,13 @@ import requests
 from kaggle.api.kaggle_api_extended import KaggleApi, KaggleEnv
 
 
-def tail(kernel: str, pattern: str | None, count: int, idle_timeout: float) -> list[str]:
+def tail(
+    kernel: str,
+    pattern: str | None,
+    count: int,
+    idle_timeout: float,
+    max_seconds: float | None = None,
+) -> list[str]:
     matcher = re.compile(pattern, re.IGNORECASE) if pattern else None
     selected: deque[str] = deque(maxlen=count)
     api = KaggleApi()
@@ -36,6 +42,7 @@ def tail(kernel: str, pattern: str | None, count: int, idle_timeout: float) -> l
             timeout=(10, max(10.0, idle_timeout)),
         )
         response.raise_for_status()
+        started = time.monotonic()
         try:
             content_type = (response.headers.get("Content-Type") or "").lower()
             events = (
@@ -44,6 +51,8 @@ def tail(kernel: str, pattern: str | None, count: int, idle_timeout: float) -> l
                 else api._iter_blob_lines(response)
             )
             for event in events:
+                if max_seconds is not None and time.monotonic() - started >= max_seconds:
+                    break
                 data = event.get("data")
                 if data is None:
                     continue
@@ -65,14 +74,19 @@ def main() -> None:
     parser.add_argument("--pattern", help="Case-insensitive regular expression")
     parser.add_argument("--lines", type=int, default=30)
     parser.add_argument("--idle-timeout", type=float, default=3.0)
+    parser.add_argument(
+        "--max-seconds",
+        type=float,
+        help="Hard wall-time cap for continuously active logs",
+    )
     args = parser.parse_args()
-    if args.lines < 1 or args.idle_timeout <= 0:
-        parser.error("--lines and --idle-timeout must be positive")
+    if args.lines < 1 or args.idle_timeout <= 0 or (args.max_seconds is not None and args.max_seconds <= 0):
+        parser.error("--lines, --idle-timeout and --max-seconds must be positive")
     lines = None
     last_error: requests.exceptions.RequestException | None = None
     for attempt in range(3):
         try:
-            lines = tail(args.kernel, args.pattern, args.lines, args.idle_timeout)
+            lines = tail(args.kernel, args.pattern, args.lines, args.idle_timeout, args.max_seconds)
             break
         except requests.exceptions.RequestException as error:
             last_error = error
