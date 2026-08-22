@@ -1,0 +1,18 @@
+{
+  "id": "dmitriigluzdov/biohub-exp048-strict-coordinate-division",
+  "title": "Biohub EXP048 Strict Coordinate Division",
+  "code_file": "strict_coordinate_division_wrapper.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "keywords": [],
+  "dataset_sources": [
+    "dmitriigluzdov/biohub-exp047-strict-coordinate-division"
+  ],
+  "kernel_sources": [],
+  "competition_sources": ["biohub-cell-tracking-during-development"],
+  "model_sources": []
+}
