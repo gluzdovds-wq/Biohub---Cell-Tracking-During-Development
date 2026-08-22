@@ -1,6 +1,6 @@
 param(
     [Parameter(Mandatory = $true)]
-    [ValidateSet("EXP014", "EXP019", "EXP022", "EXP023", "EXP040", "EXP041", "EXP045", "EXP047")]
+    [ValidateSet("EXP014", "EXP019", "EXP022", "EXP023", "EXP040", "EXP041", "EXP045", "EXP047", "EXP052")]
     [string]$Candidate,
     [switch]$Submit
 )
@@ -86,6 +86,14 @@ $candidates = @{
         File = "exp047_submission.csv"
         Sha256 = "5dd662d8d12f91120425a11a7667059529ce53ad7eab4f756879e9477cf363f2"
         Message = "EXP-047 coordinate consensus plus strict physical division prune"
+        SubmissionReady = $false
+    }
+    "EXP052" = @{
+        Kernel = "dmitriigluzdov/biohub-exp052-registered-relink"
+        Path = "outputs\exp052_kaggle_v1\submission.csv"
+        File = "submission.csv"
+        Sha256 = "3791f74f9247be99d3a9e673cd2ff9fd942764f1ad0b1d0a597d150b7a7c9fab"
+        Message = "EXP-052 registered motion relink of EXP006 nodes"
         SubmissionReady = $false
     }
 }
