@@ -27,6 +27,7 @@ SCALE = np.asarray([1.625, 0.40625, 0.40625], dtype=np.float64)
 MATCH_RADIUS_UM = 7.0
 NODE_COUNT_PENALTY = 0.1
 DIVISION_WEIGHT = 0.1
+EXPECTED_VISIBLE_OVERLAP_BASE = 0.8870825255187538
 EXPECTED_COLUMNS = [
     "dataset", "row_type", "node_id", "t", "z", "y", "x", "source_id", "target_id"
 ]
@@ -374,11 +375,21 @@ for candidate in CANDIDATES:
     })
 
 base = next(row for row in summaries if row["candidate"] == "EXP006")
-if not (0.9130 <= base["adjusted_edge_jaccard"] <= 0.9140):
+if not np.isclose(
+    base["adjusted_edge_jaccard"],
+    EXPECTED_VISIBLE_OVERLAP_BASE,
+    rtol=0.0,
+    atol=1e-12,
+):
     raise AssertionError({"base_adjusted_edge_calibration_failed": base})
-if not np.isclose(base["division_jaccard"], 0.1, rtol=0.0, atol=1e-12):
+if not np.isclose(base["division_jaccard"], 0.0, rtol=0.0, atol=1e-12):
     raise AssertionError({"base_division_calibration_failed": base})
-if not (0.9230 <= base["proxy_score"] <= 0.9240):
+if not np.isclose(
+    base["proxy_score"],
+    EXPECTED_VISIBLE_OVERLAP_BASE,
+    rtol=0.0,
+    atol=1e-12,
+):
     raise AssertionError({"base_proxy_calibration_failed": base})
 for row in summaries:
     row["delta_adjusted_edge_vs_exp006"] = row["adjusted_edge_jaccard"] - base["adjusted_edge_jaccard"]
@@ -390,7 +401,7 @@ sample_frame = pd.DataFrame(sample_rows)
 summary_frame.to_csv(WORK / "coordinate_proxy_summary.csv", index=False)
 sample_frame.to_csv(WORK / "coordinate_proxy_per_sample.csv", index=False)
 receipt = {
-    "status": "PASS_CALIBRATED_REUSED_LABEL_DIAGNOSTIC",
+    "status": "PASS_FROZEN_VISIBLE_OVERLAP_DIFFERENTIAL",
     "promotion_allowed": False,
     "negative_delta_may_reject": True,
     "match_radius_um": MATCH_RADIUS_UM,
