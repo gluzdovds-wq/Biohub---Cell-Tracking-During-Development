@@ -158,9 +158,10 @@ def infer_candidates(name: str, threshold: float):
 
 
 def graph_for_policy(coords, edges, policy: str, scale):
-    if policy == "registered_hungarian":
+    if policy in ("registered_hungarian", "registered_prob_hungarian"):
         coords_array = np.asarray(coords, dtype=float)
         scale = np.asarray(scale, dtype=float)
+        probability_weight = 0.7 if policy == "registered_prob_hungarian" else 0.0
         linked = []
         times = sorted(set(coords_array[:, 0].astype(int))) if len(coords_array) else []
         for timepoint in times[:-1]:
@@ -183,15 +184,39 @@ def graph_for_policy(coords, edges, policy: str, scale):
                 source[:, None, :] + shift[None, None, :] - target[None, :, :], axis=2
             )
             gate_um = 7.0
+            motion_score = np.exp(-residual / 3.0)
+            if probability_weight:
+                source_rows = {int(node_id): row for row, node_id in enumerate(source_ids)}
+                target_columns = {int(node_id): column for column, node_id in enumerate(target_ids)}
+                learned_probability = np.zeros_like(residual)
+                for edge_source, edge_target, edge_probability, _ in edges:
+                    row = source_rows.get(int(edge_source))
+                    column = target_columns.get(int(edge_target))
+                    if row is not None and column is not None:
+                        learned_probability[row, column] = max(
+                            learned_probability[row, column], float(edge_probability)
+                        )
+                score = probability_weight * learned_probability + (1.0 - probability_weight) * motion_score
+                valid = (residual < gate_um) & (learned_probability > 0.0)
+                minimum_score = 0.55
+            else:
+                score = motion_score
+                valid = residual < gate_um
+                minimum_score = float(np.exp(-gate_um / 3.0))
+            cost = np.where(valid, 1.0 - score, 1e6)
             augmented = np.concatenate(
-                [residual, np.full((len(source), len(source)), gate_um, dtype=float)], axis=1
+                [cost, np.full((len(source), len(source)), 1.0 - minimum_score, dtype=float)], axis=1
             )
             rows, columns = linear_sum_assignment(augmented)
             for row, column in zip(rows, columns):
-                if column >= len(target) or residual[row, column] >= gate_um:
+                if (
+                    column >= len(target)
+                    or not valid[row, column]
+                    or score[row, column] < minimum_score
+                ):
                     continue
                 raw_distance = float(np.linalg.norm(source[row] - target[column]))
-                probability = float(np.exp(-residual[row, column] / 3.0))
+                probability = float(score[row, column])
                 linked.append((int(source_ids[row]), int(target_ids[column]), probability, raw_distance))
         return build_graph(coords, linked)
 
@@ -229,7 +254,14 @@ def graph_for_policy(coords, edges, policy: str, scale):
 calibration = []
 for threshold in CALIBRATION_THRESHOLDS:
     policy_rows = {
-        policy: [] for policy in ("greedy", "ilp_public", "ilp_support", "registered_hungarian")
+        policy: []
+        for policy in (
+            "greedy",
+            "ilp_public",
+            "ilp_support",
+            "registered_hungarian",
+            "registered_prob_hungarian",
+        )
     }
     for name in calibration_names:
         coords, edges = infer_candidates(name, threshold)
@@ -246,7 +278,13 @@ selected = max(
     key=lambda item: (
         item["summary"]["score"],
         -abs(item["threshold"] - 0.99),
-        {"greedy": 3, "ilp_public": 2, "ilp_support": 1, "registered_hungarian": 0}[item["policy"]],
+        {
+            "greedy": 4,
+            "ilp_public": 3,
+            "ilp_support": 2,
+            "registered_prob_hungarian": 1,
+            "registered_hungarian": 0,
+        }[item["policy"]],
     ),
 )
 selection = {

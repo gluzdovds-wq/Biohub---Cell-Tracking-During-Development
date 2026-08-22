@@ -39,26 +39,78 @@ sys.path.insert(0, str(REPO / "src"))
 sys.path.insert(0, str(REPO / "scripts"))
 
 import tracksdata as td
+import numpy as np
+from scipy.optimize import linear_sum_assignment
+from scipy.spatial import cKDTree
 
 from biohub_tracking.io import save_graph
 from predict_unet_transformer import build_graph
 
 coords = [
     (0, 0.0, 0.0, 0.0),
+    (0, 0.0, 5.0, 0.0),
     (0, 0.0, 10.0, 0.0),
-    (0, 0.0, 20.0, 0.0),
     (1, 0.0, 0.0, 5.0),
+    (1, 0.0, 5.0, 5.0),
     (1, 0.0, 10.0, 5.0),
-    (1, 0.0, 20.0, 5.0),
 ]
 candidate_edges = [
-    (0, 3, 0.95, 5.0),
-    (0, 4, 0.10, 11.2),
-    (1, 4, 0.94, 5.0),
-    (1, 3, 0.11, 11.2),
-    (2, 5, 0.93, 5.0),
-    (2, 4, 0.12, 11.2),
+    (0, 3, 0.70, 5.0),
+    (0, 4, 0.95, 7.1),
+    (1, 4, 0.70, 5.0),
+    (1, 3, 0.95, 7.1),
+    (2, 5, 0.70, 5.0),
+    (2, 4, 0.95, 7.1),
 ]
+
+
+def registered_probability_links(coords, edges, scale):
+    coords_array = np.asarray(coords, dtype=float)
+    scale = np.asarray(scale, dtype=float)
+    linked = []
+    times = sorted(set(coords_array[:, 0].astype(int))) if len(coords_array) else []
+    for timepoint in times[:-1]:
+        source_ids = np.flatnonzero(coords_array[:, 0].astype(int) == timepoint)
+        target_ids = np.flatnonzero(coords_array[:, 0].astype(int) == timepoint + 1)
+        source = coords_array[source_ids, 1:4] * scale
+        target = coords_array[target_ids, 1:4] * scale
+        tree = cKDTree(target)
+        _, nearest = tree.query(source, k=1)
+        displacement = target[np.asarray(nearest, dtype=int)] - source
+        shift = np.median(displacement, axis=0)
+        residual_to_shift = np.linalg.norm(displacement - shift, axis=1)
+        inliers = residual_to_shift <= 4.0
+        if int(inliers.sum()) >= 3:
+            shift = np.median(displacement[inliers], axis=0)
+
+        residual = np.linalg.norm(
+            source[:, None, :] + shift[None, None, :] - target[None, :, :], axis=2
+        )
+        learned_probability = np.zeros_like(residual)
+        source_rows = {int(node_id): row for row, node_id in enumerate(source_ids)}
+        target_columns = {int(node_id): column for column, node_id in enumerate(target_ids)}
+        for edge_source, edge_target, edge_probability, _ in edges:
+            row = source_rows.get(int(edge_source))
+            column = target_columns.get(int(edge_target))
+            if row is not None and column is not None:
+                learned_probability[row, column] = max(
+                    learned_probability[row, column], float(edge_probability)
+                )
+        score = 0.7 * learned_probability + 0.3 * np.exp(-residual / 3.0)
+        valid = (residual < 7.0) & (learned_probability > 0.0)
+        cost = np.where(valid, 1.0 - score, 1e6)
+        augmented = np.concatenate(
+            [cost, np.full((len(source), len(source)), 1.0 - 0.55, dtype=float)], axis=1
+        )
+        rows, columns = linear_sum_assignment(augmented)
+        for row, column in zip(rows, columns):
+            if column >= len(target) or not valid[row, column] or score[row, column] < 0.55:
+                continue
+            raw_distance = float(np.linalg.norm(source[row] - target[column]))
+            linked.append(
+                (int(source_ids[row]), int(target_ids[column]), float(score[row, column]), raw_distance)
+            )
+    return linked
 
 results = {}
 for policy, appearance_weight, disappearance_weight in (
@@ -98,6 +150,23 @@ for policy, appearance_weight, disappearance_weight in (
         "max_out_degree": max(outgoing.values(), default=0),
         "geff_roundtrip": True,
     }
+
+hybrid_edges = registered_probability_links(coords, candidate_edges, (1.0, 1.0, 1.0))
+assert [(source, target) for source, target, _, _ in hybrid_edges] == [(0, 3), (1, 4), (2, 5)]
+hybrid_graph = build_graph(coords, hybrid_edges)
+hybrid_path = WORK / "registered_prob_hungarian.geff"
+save_graph(hybrid_graph, hybrid_path)
+hybrid_restored = td.graph.IndexedRXGraph.from_geff(hybrid_path)
+hybrid_restored_graph = hybrid_restored[0] if isinstance(hybrid_restored, tuple) else hybrid_restored
+assert hybrid_restored_graph.num_nodes() == hybrid_graph.num_nodes()
+assert hybrid_restored_graph.num_edges() == hybrid_graph.num_edges()
+results["registered_prob_hungarian"] = {
+    "nodes": hybrid_graph.num_nodes(),
+    "edges": hybrid_graph.num_edges(),
+    "selected_edges": [[source, target] for source, target, _, _ in hybrid_edges],
+    "rejects_higher_probability_motion_inconsistent_edges": True,
+    "geff_roundtrip": True,
+}
 
 result_path = WORK / "policy_runtime_smoke.json"
 result_path.write_text(json.dumps({"status": "PASS", "policies": results}, indent=2), encoding="utf-8")
