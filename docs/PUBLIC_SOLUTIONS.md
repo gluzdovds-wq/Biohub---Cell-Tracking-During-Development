@@ -132,6 +132,7 @@ Two especially promising community directions are still under-exploited by the p
 - https://www.kaggle.com/code/backtracking/biohub-general-v4
 - https://www.kaggle.com/code/saitejabandaruin/biohub-masterpiece-tracker-version-16
 - https://www.kaggle.com/code/mtoshidesu/test-notebook-v17-d17ce0
+- https://www.kaggle.com/code/kunaldesale2408/biohub-cell-tracking
 - https://www.kaggle.com/code/boristown/dark-agi-biohub-cell-tracking-solution
 - https://www.kaggle.com/code/tomasa2/biohub-what-worked-and-what-didnt-for-me
 - https://www.kaggle.com/competitions/biohub-cell-tracking-during-development/discussion/730160
