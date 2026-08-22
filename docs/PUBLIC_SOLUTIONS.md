@@ -83,6 +83,8 @@ Two newly refreshed public notebooks were also downloaded and audited on 2026-08
 
 `saitejabandaruin/biohub-masterpiece-tracker-version-16` is also clean, but reproduces its explicitly documented `0.913` artifact exactly (`SHA-256 8c1605b5…9e3f`; 120,797 nodes, 116,501 edges, 314 divisions; audit PASS). Its per-frame dual-seed candidate-retention guard is interesting for honest LOEO testing, but its measured leaderboard evidence is below EXP-006.
 
+The refreshed `xiaoleilian/biohub-m001-ens3-sm6-sim2` output is clean but not independent: its 126,419-node / 121,191-edge CSV has exact SHA-256 `d7ba9e6a…f2bb`, identical to EXP-008. Multiple rows in Kaggle's kernel ordering therefore represent the same prediction artifact and must not be counted as ensemble diversity.
+
 ## Research priorities
 
 1. Honest LOEO training/validation with no public-weight leakage.

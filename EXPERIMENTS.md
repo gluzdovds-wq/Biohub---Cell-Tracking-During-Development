@@ -101,6 +101,8 @@ Fresh `backtracking/biohub-general-v4` and `saitejabandaruin/biohub-masterpiece-
 
 The 11:24 UTC Navaz rerun and newly indexed `mtoshidesu/test-notebook-v17-d17ce0` both produce EXP-006 byte-for-byte: 12,514,365 bytes, SHA-256 `5c852379…1f4d`. Their separate `scoreDescending` rows are duplicate clean reproductions, not a frontier advance; no submission or new experiment ID is warranted.
 
+The completed `xiaoleilian/biohub-m001-ens3-sm6-sim2` run was independently downloaded after the refreshed public-kernel scan. It is clean and passes the full submission audit, but its 19,102,928-byte output is EXP-008 byte-for-byte: 126,419 nodes, 121,191 edges, SHA-256 `d7ba9e6a…f2bb`. Its three-model D4-TTA listing therefore adds no independent ensemble vote and receives no submission or experiment ID. The newer Anhad run was still `RUNNING`, so neither its order nor its prior snapshot output was treated as completed evidence.
+
 ## Run record template
 
 Copy this block for every new run:
