@@ -1,0 +1,28 @@
+{
+  "id": "dmitriigluzdov/biohub-exp008-three-unet-flip-tta",
+  "title": "Biohub EXP008 Three UNet Flip TTA",
+  "code_file": "best-score.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "keywords": [
+    "gpu"
+  ],
+  "dataset_sources": [
+    "pilkwang/biohub-tracking-support-pack-50ep-v1",
+    "xiaoleilian/biohub-unet3d-weights",
+    "xiaoleilian/biohub-unet3d-weights-v2models"
+  ],
+  "kernel_sources": [
+    "xiaoleilian/biohub-m001-ens3-sm6-sim2"
+  ],
+  "competition_sources": [
+    "biohub-cell-tracking-during-development"
+  ],
+  "model_sources": [],
+  "docker_image": "gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461",
+  "machine_shape": "NvidiaTeslaT4"
+}
