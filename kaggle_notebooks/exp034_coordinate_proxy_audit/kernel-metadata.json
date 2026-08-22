@@ -23,7 +23,8 @@
     "dmitriigluzdov/biohub-exp022-coordinate-blend",
     "dmitriigluzdov/biohub-exp023-agreement-gated-coordinates",
     "dmitriigluzdov/biohub-exp031-multi-detector-coordinate-consensus",
-    "dmitriigluzdov/biohub-exp035-guarded-division-consensus"
+    "dmitriigluzdov/biohub-exp035-guarded-division-consensus",
+    "dmitriigluzdov/biohub-exp052-registered-relink"
   ],
   "competition_sources": ["biohub-cell-tracking-during-development"],
   "model_sources": []
