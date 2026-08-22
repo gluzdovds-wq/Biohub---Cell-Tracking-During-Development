@@ -85,11 +85,11 @@ def score_graph(name: str, graph) -> dict:
     return {"dataset": name, **per_sample_metrics(result, estimated_nodes(name), recall)}
 
 
-contract_paths = list(PARENT.glob(f"**/loeo_{HOLDOUT_EMBRYO}_contract.json"))
-weight_paths = list(PARENT.glob("**/edge_predictor_best.pth"))
-if len(contract_paths) != 1 or len(weight_paths) != 1:
-    raise RuntimeError({"contracts": [str(p) for p in contract_paths], "weights": [str(p) for p in weight_paths]})
-contract = json.loads(contract_paths[0].read_text())
+contract_path = PARENT / f"loeo_{HOLDOUT_EMBRYO}_contract.json"
+weight_path = PARENT / f"loeo_holdout_{HOLDOUT_EMBRYO}" / "edge_predictor_best.pth"
+if not contract_path.is_file() or not weight_path.is_file():
+    raise RuntimeError({"contract": str(contract_path), "weight": str(weight_path)})
+contract = json.loads(contract_path.read_text())
 if contract.get("status") != "training_complete" or contract.get("holdout_embryo") != HOLDOUT_EMBRYO:
     raise RuntimeError(contract)
 train_names = set(contract["train"])
@@ -104,7 +104,7 @@ np.random.seed(SEED)
 torch.manual_seed(SEED)
 torch.backends.cudnn.benchmark = False
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model, window_size, downsample = load_model(weight_paths[0], device)
+model, window_size, downsample = load_model(weight_path, device)
 model.eval()
 
 
@@ -144,7 +144,7 @@ selected = max(
 selection = {
     "status": "threshold_frozen_before_audit",
     "holdout_embryo": HOLDOUT_EMBRYO,
-    "weights_sha256": hashlib.sha256(weight_paths[0].read_bytes()).hexdigest(),
+    "weights_sha256": hashlib.sha256(weight_path.read_bytes()).hexdigest(),
     "calibration_movies": calibration_names,
     "audit_movies": audit_names,
     "threshold_grid": CALIBRATION_THRESHOLDS,
