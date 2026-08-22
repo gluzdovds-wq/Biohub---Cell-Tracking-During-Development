@@ -1,6 +1,6 @@
 param(
     [Parameter(Mandatory = $true)]
-    [ValidateSet("EXP014", "EXP019", "EXP022", "EXP023", "EXP040", "EXP041", "EXP045")]
+    [ValidateSet("EXP014", "EXP019", "EXP022", "EXP023", "EXP040", "EXP041", "EXP045", "EXP047")]
     [string]$Candidate,
     [switch]$Submit
 )
@@ -78,6 +78,14 @@ $candidates = @{
         File = "exp045_submission.csv"
         Sha256 = "4d93515ed72e76ea5be0d84c7a20d1e268e20ba37a8e4ce1ff50459d21399f88"
         Message = "EXP-045 coordinate consensus plus physical division prune"
+        SubmissionReady = $false
+    }
+    "EXP047" = @{
+        Kernel = "dmitriigluzdov/biohub-exp048-strict-coordinate-division"
+        Path = "outputs\exp048_kaggle_v1\exp047_submission.csv"
+        File = "exp047_submission.csv"
+        Sha256 = "5dd662d8d12f91120425a11a7667059529ce53ad7eab4f756879e9477cf363f2"
+        Message = "EXP-047 coordinate consensus plus strict physical division prune"
         SubmissionReady = $false
     }
 }
