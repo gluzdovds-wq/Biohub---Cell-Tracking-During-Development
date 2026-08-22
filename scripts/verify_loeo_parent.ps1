@@ -7,6 +7,28 @@ param(
 
 $ErrorActionPreference = "Stop"
 
+function Invoke-KaggleRead([string[]]$CliArguments, [string]$Description) {
+    $lastText = ""
+    for ($attempt = 1; $attempt -le 3; $attempt++) {
+        $previousErrorAction = $ErrorActionPreference
+        $ErrorActionPreference = "Continue"
+        try {
+            $lastText = (& kaggle @CliArguments 2>&1 | Out-String).Trim()
+            $exitCode = $LASTEXITCODE
+        }
+        finally {
+            $ErrorActionPreference = $previousErrorAction
+        }
+        if ($exitCode -eq 0) {
+            return $lastText
+        }
+        if ($attempt -lt 3) {
+            Start-Sleep -Seconds 2
+        }
+    }
+    throw "Could not read ${Description} after 3 attempts: $lastText"
+}
+
 $contracts = @{
     "44b6" = @{
         Kernel = "dmitriigluzdov/biohub-exp009-loeo-holdout-44b6"
@@ -26,10 +48,7 @@ $contracts = @{
     }
 }
 $expected = $contracts[$Embryo]
-$statusText = (& kaggle kernels status $expected.Kernel 2>&1 | Out-String).Trim()
-if ($LASTEXITCODE -ne 0) {
-    throw "Could not read parent status: $statusText"
-}
+$statusText = Invoke-KaggleRead @("kernels", "status", $expected.Kernel) "parent status"
 if ($statusText -notmatch 'KernelWorkerStatus\.COMPLETE') {
     throw "Parent is not COMPLETE: $statusText"
 }
@@ -39,9 +58,15 @@ New-Item -ItemType Directory -Force -Path $destination | Out-Null
 $contractName = "loeo_${Embryo}_contract.json"
 $weightRelative = "loeo_holdout_${Embryo}/edge_predictor_best.pth"
 $pattern = "($([regex]::Escape($contractName))|$([regex]::Escape($weightRelative)))$"
-& kaggle kernels output $expected.Kernel -p $destination --file-pattern $pattern --page-size 20
-if ($LASTEXITCODE -ne 0) {
-    throw "Failed to download the parent contract/checkpoint"
+$downloadText = Invoke-KaggleRead @(
+    "kernels", "output", $expected.Kernel,
+    "-p", $destination,
+    "--file-pattern", $pattern,
+    "--page-size", "20",
+    "--force"
+) "parent contract/checkpoint"
+if ($downloadText) {
+    Write-Host $downloadText
 }
 
 $contractPath = Join-Path $destination $contractName
