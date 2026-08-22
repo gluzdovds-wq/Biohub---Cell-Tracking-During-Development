@@ -17,6 +17,13 @@ Reach the medal zone with a reproducible, leakage-safe pipeline. As of 2026-08-2
 
 Raw competition data, GEFF/Zarr stores, outputs, and submission CSVs are intentionally excluded from git.
 
+Validate a downloaded visible-test artifact before submission:
+
+```powershell
+kaggle kernels output <owner/kernel> -p outputs/<experiment> --file-pattern '^submission\.csv$'
+./scripts/audit_submission.ps1 -Path outputs/<experiment>/submission.csv -ExpectedDatasetCount 4
+```
+
 ## Experiment discipline
 
 1. Split by embryo, never by crop. Public checkpoints trained on all 199 labelled movies cannot provide honest local validation.
