@@ -19,7 +19,9 @@ RECEIPT = WORK / "exp014_receipt.json"
 
 BASE_SHA256 = "5c852379cbf2a0b8a007a1bee32bfadafc2759ab2978750b16252b7f37211f4d"
 DONOR_SHA256 = "d7ba9e6af86a6bb0be8bd04a36d0c61564e857e03fbadf9a81508211a4a4f2bb"
-EXPECTED_OUTPUT_SHA256 = "6fcc8d2298144ad84dc5f151e589989829a540169ed3e9fa1aea762333b42109"
+EXPECTED_COORDINATE_FINGERPRINT = (
+    "ed6a731c94570de7b22578a267428ae8af410c0bd22cf3cf9edba1bbb23c814e"
+)
 EXPECTED_NODES = 122_266
 EXPECTED_EDGES = 118_156
 EXPECTED_MATCHES = 93_630
@@ -47,6 +49,17 @@ def sha256(path: Path) -> str:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def coordinate_fingerprint(frame: pd.DataFrame) -> str:
+    """Hash node coordinates at precision stable across pandas CSV parsers."""
+    coordinates = frame.loc[frame["row_type"] == "node", SPATIAL].to_numpy(
+        dtype=np.float64
+    )
+    if not np.isfinite(coordinates).all():
+        raise ValueError("Node coordinates must all be finite")
+    quantized = np.rint(coordinates * 100_000_000).astype("<i8", copy=False)
+    return hashlib.sha256(quantized.tobytes(order="C")).hexdigest()
 
 
 def locate_parent(expected_sha256: str) -> Path:
@@ -131,11 +144,24 @@ if len(distances) != EXPECTED_MATCHES:
     raise AssertionError({"matched_nodes": len(distances), "expected": EXPECTED_MATCHES})
 
 result.index.name = "id"
-result.to_csv(OUTPUT)
+# Pandas' default float rendering changed between the local and Kaggle runtimes even
+# though the parsed float64 values were identical.  Pin a round-trip-safe format so
+# the byte-level provenance check is stable across supported Python/pandas versions.
+result.to_csv(
+    OUTPUT,
+    float_format="%.17g",
+    lineterminator="\n",
+    na_rep="",
+)
 output_sha256 = sha256(OUTPUT)
-if output_sha256 != EXPECTED_OUTPUT_SHA256:
+serialized_result = pd.read_csv(OUTPUT, index_col=0)
+output_coordinate_fingerprint = coordinate_fingerprint(serialized_result)
+if output_coordinate_fingerprint != EXPECTED_COORDINATE_FINGERPRINT:
     raise AssertionError(
-        {"output_sha256": output_sha256, "expected_output_sha256": EXPECTED_OUTPUT_SHA256}
+        {
+            "output_coordinate_fingerprint": output_coordinate_fingerprint,
+            "expected_coordinate_fingerprint": EXPECTED_COORDINATE_FINGERPRINT,
+        }
     )
 
 distance_array = np.asarray(distances)
@@ -148,6 +174,8 @@ receipt = {
     "donor_sha256": sha256(donor_path),
     "output": str(OUTPUT),
     "output_sha256": output_sha256,
+    "coordinate_fingerprint_precision_pixels": 1e-8,
+    "output_coordinate_fingerprint": output_coordinate_fingerprint,
     "alpha": ALPHA,
     "gate_um": GATE_UM,
     "scale_zyx_um": SCALE.tolist(),
