@@ -1,0 +1,19 @@
+{
+  "id": "dmitriigluzdov/biohub-exp053-coordinate-registered",
+  "title": "Biohub EXP053 Coordinate Registered",
+  "code_file": "coordinate_registered.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "keywords": ["postprocessing", "ensemble", "cell-tracking"],
+  "dataset_sources": [],
+  "kernel_sources": [
+    "dmitriigluzdov/biohub-exp014-coordinate-ensemble",
+    "dmitriigluzdov/biohub-exp052-registered-relink"
+  ],
+  "competition_sources": ["biohub-cell-tracking-during-development"],
+  "model_sources": []
+}
