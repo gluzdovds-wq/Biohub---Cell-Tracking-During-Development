@@ -45,9 +45,20 @@ def canonical(frame: pd.DataFrame, row_type: str, columns: list[str]) -> pd.Data
     )
 
 
-def build(left_path: Path, right_path: Path, output_path: Path, left_weight: float) -> dict:
+def build(
+    left_path: Path,
+    right_path: Path,
+    output_path: Path,
+    left_weight: float,
+    base_path: Path | None = None,
+    min_cosine: float | None = None,
+) -> dict:
     if not 0.0 <= left_weight <= 1.0:
         raise ValueError(f"left_weight must be in [0, 1], got {left_weight}")
+    if (base_path is None) != (min_cosine is None):
+        raise ValueError("base_path and min_cosine must be provided together")
+    if min_cosine is not None and not -1.0 <= min_cosine <= 1.0:
+        raise ValueError(f"min_cosine must be in [-1, 1], got {min_cosine}")
     right_weight = 1.0 - left_weight
     left = pd.read_csv(left_path, index_col=0)
     right = pd.read_csv(right_path, index_col=0)
@@ -67,9 +78,50 @@ def build(left_path: Path, right_path: Path, output_path: Path, left_weight: flo
 
     left_coords = left.loc[left_nodes["_row_index"], SPATIAL_COLUMNS].to_numpy(dtype=float)
     right_coords = right.loc[right_nodes["_row_index"], SPATIAL_COLUMNS].to_numpy(dtype=float)
-    blended_coords = left_weight * left_coords + right_weight * right_coords
-    result = left.copy(deep=True)
-    result.loc[left_nodes["_row_index"], SPATIAL_COLUMNS] = blended_coords
+    proposed_coords = left_weight * left_coords + right_weight * right_coords
+    eligibility = None
+    direction_receipt = None
+    if base_path is None:
+        result = left.copy(deep=True)
+        result_nodes = left_nodes
+        blended_coords = proposed_coords
+    else:
+        base = pd.read_csv(base_path, index_col=0)
+        if list(base.columns) != EXPECTED_COLUMNS or len(base) != len(left):
+            raise ValueError({"base_columns": list(base.columns), "base_rows": len(base)})
+        base_nodes = canonical(base, "node", IDENTITY_COLUMNS)
+        base_edges = canonical(base, "edge", EDGE_COLUMNS)
+        if not base_nodes[IDENTITY_COLUMNS].equals(left_nodes[IDENTITY_COLUMNS]):
+            raise AssertionError("base node IDs or times differ")
+        if not base_edges[EDGE_COLUMNS].equals(left_edges[EDGE_COLUMNS]):
+            raise AssertionError("base edge topology differs")
+        base_coords = base.loc[base_nodes["_row_index"], SPATIAL_COLUMNS].to_numpy(dtype=float)
+        left_delta = (left_coords - base_coords) * SCALE_ZYX_UM
+        right_delta = (right_coords - base_coords) * SCALE_ZYX_UM
+        left_norm = np.linalg.norm(left_delta, axis=1)
+        right_norm = np.linalg.norm(right_delta, axis=1)
+        both_changed = (left_norm > 1e-9) & (right_norm > 1e-9)
+        cosine = np.full(len(base_coords), np.nan, dtype=float)
+        cosine[both_changed] = np.sum(
+            left_delta[both_changed] * right_delta[both_changed], axis=1
+        ) / (left_norm[both_changed] * right_norm[both_changed])
+        eligibility = both_changed & (cosine >= float(min_cosine))
+        blended_coords = base_coords.copy()
+        blended_coords[eligibility] = proposed_coords[eligibility]
+        result = base.copy(deep=True)
+        result_nodes = base_nodes
+        direction_receipt = {
+            "base": str(base_path),
+            "base_sha256": sha256(base_path),
+            "min_cosine": min_cosine,
+            "both_changed": int(both_changed.sum()),
+            "eligible_nodes": int(eligibility.sum()),
+            "eligible_fraction": float(eligibility.mean()),
+            "cosine_mean_on_both_changed": float(np.nanmean(cosine)),
+            "cosine_median_on_both_changed": float(np.nanmedian(cosine)),
+        }
+    result[SPATIAL_COLUMNS] = result[SPATIAL_COLUMNS].astype(float)
+    result.loc[result_nodes["_row_index"], SPATIAL_COLUMNS] = blended_coords
     result.index.name = "id"
     output_path.parent.mkdir(parents=True, exist_ok=True)
     result.to_csv(output_path)
@@ -78,13 +130,18 @@ def build(left_path: Path, right_path: Path, output_path: Path, left_weight: flo
     right_shift = np.linalg.norm((blended_coords - right_coords) * SCALE_ZYX_UM, axis=1)
     receipt = {
         "status": "PASS",
-        "method": "identity-aligned convex coordinate blend",
+        "method": (
+            "direction-gated identity-aligned convex coordinate blend"
+            if base_path is not None
+            else "identity-aligned convex coordinate blend"
+        ),
         "left": str(left_path),
         "left_sha256": sha256(left_path),
         "right": str(right_path),
         "right_sha256": sha256(right_path),
         "left_weight": left_weight,
         "right_weight": right_weight,
+        "direction_gate": direction_receipt,
         "output_sha256": sha256(output_path),
         "nodes": len(left_nodes),
         "edges": len(left_edges),
@@ -113,10 +170,19 @@ def main() -> None:
     parser.add_argument("--right", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--left-weight", type=float, required=True)
+    parser.add_argument("--base", type=Path)
+    parser.add_argument("--min-cosine", type=float)
     args = parser.parse_args()
     print(
         json.dumps(
-            build(args.left, args.right, args.output, args.left_weight),
+            build(
+                args.left,
+                args.right,
+                args.output,
+                args.left_weight,
+                args.base,
+                args.min_cosine,
+            ),
             indent=2,
         )
     )
