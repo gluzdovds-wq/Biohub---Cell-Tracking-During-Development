@@ -26,12 +26,16 @@ TRAIN_DIR = INPUT / "competitions" / COMPETITION / "train"
 SUPPORT = INPUT / "datasets" / "pilkwang" / "biohub-tracking-support-pack-50ep-v1"
 if not SUPPORT.exists():
     SUPPORT = INPUT / "biohub-tracking-support-pack-50ep-v1"
-PARENT = INPUT / PARENT_SLUG
-if not PARENT.exists():
-    matches = [path for path in INPUT.glob("*") if path.name.endswith(PARENT_SLUG)]
-    if len(matches) != 1:
-        raise FileNotFoundError({"parent": str(PARENT), "matches": [str(p) for p in matches]})
-    PARENT = matches[0]
+parent_candidates = [
+    INPUT / "notebooks" / "dmitriigluzdov" / PARENT_SLUG,
+    INPUT / PARENT_SLUG,
+]
+matches = [path for path in parent_candidates if path.exists()]
+if len(matches) != 1:
+    raise FileNotFoundError(
+        {"parent_candidates": [str(path) for path in parent_candidates], "matches": [str(path) for path in matches]}
+    )
+PARENT = matches[0]
 
 subprocess.check_call(
     [
