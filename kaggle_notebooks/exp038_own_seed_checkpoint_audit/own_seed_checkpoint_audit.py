@@ -40,9 +40,25 @@ for path in sorted([*INPUT.rglob("*.pth"), *INPUT.rglob("*.pt")]):
     for name, expected in SHAS.items():
         if digest == expected:
             matches[name].append(path)
+canonical_suffixes = {
+    "own": "/biohub-exp038-own-seed-v1-checkpoint/weights/unet_transformer/split_0/edge_predictor_best.pth",
+    "primary": "/biohub-tracking-support-pack-50ep-v1/weights/unet_transformer/split_0/edge_predictor_best.pth",
+    "secondary": "/biohub-temporal-unet3d-seed314159-v1/weights/unet_transformer/split_0/edge_predictor_best.pth",
+}
+selected = {}
 for name, paths in matches.items():
-    if len(paths) != 1:
-        raise RuntimeError({"checkpoint": name, "matches": list(map(str, paths)), "inventory": inventory})
+    canonical = [path for path in paths if path.as_posix().endswith(canonical_suffixes[name])]
+    if len(canonical) != 1:
+        raise RuntimeError(
+            {
+                "checkpoint": name,
+                "canonical_suffix": canonical_suffixes[name],
+                "canonical_matches": list(map(str, canonical)),
+                "all_sha_matches": list(map(str, paths)),
+                "inventory": inventory,
+            }
+        )
+    selected[name] = canonical[0]
 
 
 def tensor_state(path: Path) -> tuple[dict[str, torch.Tensor], list[str]]:
@@ -67,7 +83,7 @@ def tensor_state(path: Path) -> tuple[dict[str, torch.Tensor], list[str]]:
 states = {}
 wrappers = {}
 for name in SHAS:
-    states[name], wrappers[name] = tensor_state(matches[name][0])
+    states[name], wrappers[name] = tensor_state(selected[name])
 
 
 def comparison(reference_name: str) -> dict[str, object]:
@@ -137,11 +153,14 @@ comparisons = [comparison("primary"), comparison("secondary")]
 if comparisons[0]["parameters"] != comparisons[1]["parameters"]:
     raise AssertionError("Existing seeds disagree on architecture size")
 
-own_root = matches["own"][0].parent
+own_root = selected["own"].parents[3]
 manifest_path = own_root / "ARTIFACT_MANIFEST.json"
 archive_path = own_root / "weights.zip"
-if not manifest_path.is_file() or not archive_path.is_file():
-    raise FileNotFoundError({"manifest": str(manifest_path), "archive": str(archive_path)})
+weights_dir = own_root / "weights"
+if not manifest_path.is_file() or (not weights_dir.is_dir() and not archive_path.is_file()):
+    raise FileNotFoundError(
+        {"manifest": str(manifest_path), "weights_dir": str(weights_dir), "archive": str(archive_path)}
+    )
 manifest = json.loads(manifest_path.read_text())
 if manifest.get("model", {}).get("weight_sha256") != SHAS["own"]:
     raise AssertionError("Staging manifest SHA contract failed")
@@ -154,25 +173,40 @@ expected_config = {
 }
 weight_member = "unet_transformer/split_0/edge_predictor_best.pth"
 config_member = "unet_transformer/split_0/config.json"
-with zipfile.ZipFile(archive_path) as archive:
-    names = archive.namelist()
-    if weight_member not in names or config_member not in names:
-        raise AssertionError({"missing_archive_contract": [weight_member, config_member], "members": names})
-    with tempfile.TemporaryDirectory() as temp_dir:
-        archive.extractall(temp_dir)
-        extracted_weight = Path(temp_dir) / weight_member
-        extracted_config = Path(temp_dir) / config_member
-        if sha256(extracted_weight) != SHAS["own"]:
-            raise AssertionError("Extracted checkpoint SHA mismatch")
-        if json.loads(extracted_config.read_text()) != expected_config:
-            raise AssertionError("Extracted model config mismatch")
+if weights_dir.is_dir():
+    materialization_mode = "directory"
+    names = sorted(path.relative_to(weights_dir).as_posix() for path in weights_dir.rglob("*") if path.is_file())
+    extracted_weight = weights_dir / weight_member
+    extracted_config = weights_dir / config_member
+else:
+    materialization_mode = "archive"
+    with zipfile.ZipFile(archive_path) as archive:
+        names = archive.namelist()
+        if weight_member not in names or config_member not in names:
+            raise AssertionError({"missing_archive_contract": [weight_member, config_member], "members": names})
+        temp_handle = tempfile.TemporaryDirectory()
+        archive.extractall(temp_handle.name)
+        extracted_weight = Path(temp_handle.name) / weight_member
+        extracted_config = Path(temp_handle.name) / config_member
+if weight_member not in names or config_member not in names:
+    raise AssertionError({"missing_loader_contract": [weight_member, config_member], "members": names})
+try:
+    if sha256(extracted_weight) != SHAS["own"]:
+        raise AssertionError("Materialized checkpoint SHA mismatch")
+    if json.loads(extracted_config.read_text()) != expected_config:
+        raise AssertionError("Materialized model config mismatch")
+finally:
+    if materialization_mode == "archive":
+        temp_handle.cleanup()
 
 loader_contract = {
     "manifest_path": str(manifest_path),
     "manifest_weight_sha256": manifest["model"]["weight_sha256"],
+    "materialization_mode": materialization_mode,
+    "weights_dir": str(weights_dir),
     "archive_path": str(archive_path),
-    "archive_sha256": sha256(archive_path),
-    "archive_members": names,
+    "archive_sha256": sha256(archive_path) if archive_path.is_file() else None,
+    "materialized_members": names,
     "expected_weight_member": weight_member,
     "expected_config_member": config_member,
     "status": "PASS_UNCHANGED_EXP006_LOADER_CONTRACT",
@@ -182,9 +216,9 @@ receipt = {
     "status": "PASS_NEW_COMPATIBLE_CHECKPOINT",
     "checkpoints": {
         name: {
-            "path": str(matches[name][0]),
+            "path": str(selected[name]),
             "sha256": SHAS[name],
-            "bytes": matches[name][0].stat().st_size,
+            "bytes": selected[name].stat().st_size,
             "wrappers": wrappers[name],
         }
         for name in SHAS
