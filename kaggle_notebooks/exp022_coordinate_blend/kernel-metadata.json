@@ -1,0 +1,19 @@
+{
+  "id": "dmitriigluzdov/biohub-exp022-coordinate-blend",
+  "title": "Biohub EXP022 Coordinate Blend",
+  "code_file": "coordinate_blend.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "keywords": ["postprocessing", "ensemble", "cell-tracking"],
+  "dataset_sources": [],
+  "kernel_sources": [
+    "dmitriigluzdov/biohub-exp014-coordinate-ensemble",
+    "dmitriigluzdov/biohub-exp019-intensity-coordinate-refine"
+  ],
+  "competition_sources": ["biohub-cell-tracking-during-development"],
+  "model_sources": []
+}
