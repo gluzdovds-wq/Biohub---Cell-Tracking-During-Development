@@ -17,6 +17,7 @@ SEED = 314159
 EXPECTED_EPOCHS = 5
 EXPECTED_SPLIT_SIZES = {"train": 128, "checkpoint_validation": 4, "calibration": 8, "audit": 63}
 CALIBRATION_THRESHOLDS = (0.95, 0.97, 0.985, 0.99, 0.995)
+EDGE_CANDIDATE_THRESHOLD = 0.5
 COMPETITION = "biohub-cell-tracking-during-development"
 
 INPUT = Path("/kaggle/input")
@@ -147,7 +148,7 @@ def infer_candidates(name: str, threshold: float):
         det_tta=True,
         pool_kernel_um=3.0,
         edge_activation="softmax",
-        threshold=0.5,
+        threshold=EDGE_CANDIDATE_THRESHOLD,
         use_ilp=True,
     )
     return predict_video(
@@ -241,7 +242,7 @@ def graph_for_policy(coords, edges, policy: str, scale):
     if not graph.num_edges():
         return graph
     if policy == "ilp_public":
-        appearance_weight, disappearance_weight = 0.0, 1.4
+        appearance_weight, disappearance_weight = 0.0, 1.5
     elif policy == "ilp_support":
         appearance_weight, disappearance_weight = 0.1, 0.1
     else:
@@ -301,6 +302,10 @@ selection = {
     "confirmation_movies": confirmation_names,
     "audit_movies": audit_names,
     "threshold_grid": CALIBRATION_THRESHOLDS,
+    "edge_candidate_threshold": EDGE_CANDIDATE_THRESHOLD,
+    "candidate_pool_degree_limits": None,
+    "ilp_public_appearance_disappearance": [0.0, 1.5],
+    "ilp_support_appearance_disappearance": [0.1, 0.1],
     "selected_threshold": selected["threshold"],
     "selected_policy": selected["policy"],
     "tuning_results": tuning,
