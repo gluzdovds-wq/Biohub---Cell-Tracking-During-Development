@@ -271,6 +271,107 @@ def graph_for_policy(coords, edges, policy: str, scale):
     return solver.solve(graph)
 
 
+PHYSICAL_PRUNE_ARMS = {
+    "selected_base": None,
+    "physical_prune_4_2": (4.0, 2.0),
+    "physical_prune_7_4": (7.0, 4.0),
+}
+
+
+def physical_division_prune(graph, minimum_bad_residual_um: float, minimum_margin_um: float, scale):
+    """Remove only the worse child of a high-residual two-child fork.
+
+    This isolates the fixed physical gate used inside H040/H041. It does not
+    claim to reproduce their independent EXP005/008 donor-consensus gate.
+    """
+    node_rows = list(graph.node_attrs().iter_rows(named=True))
+    edge_rows = list(graph.edge_attrs().iter_rows(named=True))
+    id_to_row = {int(row["node_id"]): row for row in node_rows}
+    id_to_index = {int(row["node_id"]): index for index, row in enumerate(node_rows)}
+    incoming = {}
+    outgoing = {}
+    for row in edge_rows:
+        source = int(row["source_id"])
+        target = int(row["target_id"])
+        incoming.setdefault(target, []).append(source)
+        outgoing.setdefault(source, []).append(target)
+
+    scale_array = np.asarray(scale, dtype=float)
+
+    def point(node_id: int) -> np.ndarray:
+        row = id_to_row[node_id]
+        return np.asarray([row["z"], row["y"], row["x"]], dtype=float) * scale_array
+
+    removals = set()
+    changes = []
+    for parent_id, children in sorted(outgoing.items()):
+        if len(children) != 2 or len(incoming.get(parent_id, [])) != 1:
+            continue
+        predecessor_id = incoming[parent_id][0]
+        predecessor = id_to_row[predecessor_id]
+        parent = id_to_row[parent_id]
+        child_rows = [id_to_row[child_id] for child_id in children]
+        if not (
+            int(parent["t"]) == int(predecessor["t"]) + 1
+            and all(int(child["t"]) == int(parent["t"]) + 1 for child in child_rows)
+        ):
+            continue
+        predicted = point(parent_id) + (point(parent_id) - point(predecessor_id))
+        residuals = [(float(np.linalg.norm(point(child_id) - predicted)), child_id) for child_id in children]
+        residuals.sort()
+        retained_residual, retained_id = residuals[0]
+        removed_residual, removed_id = residuals[1]
+        residual_margin = removed_residual - retained_residual
+        if removed_residual < minimum_bad_residual_um or residual_margin < minimum_margin_um:
+            continue
+        removals.add((parent_id, removed_id))
+        changes.append(
+            {
+                "parent_id": parent_id,
+                "predecessor_id": predecessor_id,
+                "retained_target_id": retained_id,
+                "removed_target_id": removed_id,
+                "retained_cv_residual_um": retained_residual,
+                "removed_cv_residual_um": removed_residual,
+                "residual_margin_um": residual_margin,
+            }
+        )
+
+    coords = np.asarray(
+        [[row["t"], row["z"], row["y"], row["x"]] for row in node_rows], dtype=float
+    )
+    kept_edges = []
+    for row in edge_rows:
+        source = int(row["source_id"])
+        target = int(row["target_id"])
+        if (source, target) in removals:
+            continue
+        probability = float(row.get("edge_prob", 1.0))
+        distance = float(row.get("edge_dist", np.linalg.norm(point(source) - point(target))))
+        kept_edges.append((id_to_index[source], id_to_index[target], probability, distance))
+    pruned = build_graph(coords, kept_edges)
+    if pruned.num_nodes() != graph.num_nodes() or pruned.num_edges() != graph.num_edges() - len(removals):
+        raise AssertionError("physical division prune graph contract failed")
+    return pruned, {
+        "minimum_bad_residual_um": minimum_bad_residual_um,
+        "minimum_margin_um": minimum_margin_um,
+        "base_edges": graph.num_edges(),
+        "edges": pruned.num_edges(),
+        "accepted_prunes": len(changes),
+        "changes": changes,
+    }
+
+
+def frozen_physical_arms(graph, scale):
+    arms = {"selected_base": graph}
+    telemetry = {"selected_base": {"accepted_prunes": 0}}
+    for arm, thresholds in PHYSICAL_PRUNE_ARMS.items():
+        if thresholds is None:
+            continue
+        arms[arm], telemetry[arm] = physical_division_prune(graph, *thresholds, scale)
+    return arms, telemetry
+
+
 tuning = []
 for threshold in CALIBRATION_THRESHOLDS:
     policy_rows = {
@@ -326,6 +427,9 @@ selection = {
     "ilp_support_appearance_disappearance": [0.1, 0.1],
     "selected_threshold": selected["threshold"],
     "selected_policy": selected["policy"],
+    "postselection_physical_arms": PHYSICAL_PRUNE_ARMS,
+    "postselection_arm_status": "frozen_before_confirmation_and_untouched_audit",
+    "postselection_scope": "mechanism-only; independent EXP005/008 donor consensus is not reproduced",
     "tuning_results": tuning,
 }
 selection_path = WORK / f"loeo_{HOLDOUT_EMBRYO}_selection.json"
@@ -336,18 +440,27 @@ print(
     flush=True,
 )
 
-confirmation_rows = []
+confirmation_rows_by_arm = {arm: [] for arm in PHYSICAL_PRUNE_ARMS}
+confirmation_prune_telemetry = []
 for name in confirmation_names:
     coords, edges = infer_candidates(name, selected["threshold"])
     scale = open_dataset(TRAIN_DIR / name, require_tracks=False).scale
     graph = graph_for_policy(coords, edges, selected["policy"], scale)
-    confirmation_rows.append(score_graph(name, graph))
+    arms, telemetry = frozen_physical_arms(graph, scale)
+    confirmation_prune_telemetry.append({"dataset": name, "arms": telemetry})
+    for arm, arm_graph in arms.items():
+        confirmation_rows_by_arm[arm].append(score_graph(name, arm_graph))
 confirmation = {
     "status": "confirmation_complete_without_reselection",
     "selected_threshold": selected["threshold"],
     "selected_policy": selected["policy"],
-    "summary": summarise(confirmation_rows),
-    "per_movie": confirmation_rows,
+    "summary": summarise(confirmation_rows_by_arm["selected_base"]),
+    "per_movie": confirmation_rows_by_arm["selected_base"],
+    "summary_by_physical_arm": {
+        arm: summarise(rows) for arm, rows in confirmation_rows_by_arm.items()
+    },
+    "per_movie_by_physical_arm": confirmation_rows_by_arm,
+    "physical_prune_telemetry": confirmation_prune_telemetry,
 }
 (WORK / f"loeo_{HOLDOUT_EMBRYO}_confirmation.json").write_text(
     json.dumps(jsonable(confirmation), indent=2), encoding="utf-8"
@@ -356,25 +469,39 @@ print(json.dumps(jsonable(confirmation["summary"])), flush=True)
 
 audit_dir = WORK / f"loeo_{HOLDOUT_EMBRYO}_audit_predictions"
 audit_dir.mkdir(exist_ok=True)
-audit_rows = []
+audit_rows_by_arm = {arm: [] for arm in PHYSICAL_PRUNE_ARMS}
+audit_prune_telemetry = []
 for name in audit_names:
     coords, edges = infer_candidates(name, selected["threshold"])
     scale = open_dataset(TRAIN_DIR / name, require_tracks=False).scale
     graph = graph_for_policy(coords, edges, selected["policy"], scale)
     save_graph(graph, audit_dir / f"{name}.geff")
-    row = score_graph(name, graph)
-    audit_rows.append(row)
-    print(json.dumps(jsonable(row)))
+    arms, telemetry = frozen_physical_arms(graph, scale)
+    audit_prune_telemetry.append({"dataset": name, "arms": telemetry})
+    movie_rows = {}
+    for arm, arm_graph in arms.items():
+        row = score_graph(name, arm_graph)
+        audit_rows_by_arm[arm].append(row)
+        movie_rows[arm] = row
+    print(json.dumps(jsonable({"dataset": name, "physical_arms": movie_rows})))
 
 result = {
     **selection,
     "status": "audit_complete",
     "confirmation_summary": confirmation["summary"],
-    "confirmation_per_movie": confirmation_rows,
-    "audit_summary": summarise(audit_rows),
-    "audit_per_movie": audit_rows,
+    "confirmation_per_movie": confirmation_rows_by_arm["selected_base"],
+    "confirmation_summary_by_physical_arm": confirmation["summary_by_physical_arm"],
+    "confirmation_per_movie_by_physical_arm": confirmation_rows_by_arm,
+    "confirmation_physical_prune_telemetry": confirmation_prune_telemetry,
+    "audit_summary": summarise(audit_rows_by_arm["selected_base"]),
+    "audit_per_movie": audit_rows_by_arm["selected_base"],
+    "audit_summary_by_physical_arm": {
+        arm: summarise(rows) for arm, rows in audit_rows_by_arm.items()
+    },
+    "audit_per_movie_by_physical_arm": audit_rows_by_arm,
+    "audit_physical_prune_telemetry": audit_prune_telemetry,
 }
 (WORK / f"loeo_{HOLDOUT_EMBRYO}_audit_result.json").write_text(
     json.dumps(jsonable(result), indent=2), encoding="utf-8"
 )
-print(json.dumps(jsonable(result["audit_summary"]), indent=2))
+print(json.dumps(jsonable(result["audit_summary_by_physical_arm"]), indent=2))
