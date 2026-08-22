@@ -58,6 +58,7 @@ def ensure_tracksdata():
         specs = [
             "tracksdata", "zarr>=3.0.10,<4", "geff>=1.1.3.1.1", "geff-spec<1.2",
             "polars>=1.36", "polars-runtime-32", "rustworkx>=0.17.1", "networkx>=3.2.1",
+            "ilpy>=0.5.1", "pyscipopt",
             "pydantic>=2.11", "pydantic-core", "annotated-types", "typing-extensions>=4.13",
             "typing-inspection", "bidict>=0.23.1", "psygnal>=0.14", "rich",
             "markdown-it-py", "pygments", "numcodecs>=0.13,<0.16", "donfig>=0.8",
