@@ -61,6 +61,8 @@ The same audit attributed 57% of losses to wrong partners, 32% to a detected pai
 - Node/edge schema mistakes can yield 0.0 or scoring errors despite good local graph scores.
 - Metric-hack notebooks used fake forks outside the image; the host acknowledged the report. They are excluded from our plan.
 
+The apparent top of Kaggle's current `scoreDescending` kernel list is therefore misleading. Direct code inspection found explicit negative-time/out-of-volume hub and fork augmentation in `xiaoleilian/biohub-ct-mix-divaug`, three Kaiwalya variants, `amanatar/biohub-v6-ultra-best`, and `muhammaddanyalmalik/cell-tracking`; the other leading notebooks advertise the same hack lineage. The highest clean artifact we can both attribute and reproduce remains the Yunus `0.923` run. Our EXP-007 and EXP-008 reproduce their respective clean public source CSVs exactly, but neither provides evidence above `0.923` yet.
+
 ## Research priorities
 
 1. Honest LOEO training/validation with no public-weight leakage.
