@@ -1,6 +1,6 @@
 # Public frontier audit
 
-Snapshot date: 2026-08-22. Public leaderboard: rank 1 `0.958`, rank 10 `0.943`, rank 50 `0.929`, rank 100 `0.921`. Strong clean public kernels advertise about `0.908–0.920`; the practical first medal threshold is therefore just above the public plateau, although all cutoffs will move.
+Snapshot downloaded 2026-08-22 11:27 UTC (2,628 rows): rank 1 `0.958`, rank 10 `0.943`, rank 50 `0.929`, rank 87 `0.923`, rank 107 `0.921`, and rank 132 `0.920`. Scores of at least `0.917` extend through rank 354 because of ties, while `0.913` extends through rank 783. The current account score `0.826` is rank 1836. The clean reproduced `0.923` frontier is therefore already above the rank-263 line (10% of this snapshot), but official medal eligibility and final cutoffs are separate and will move as teams merge and scores improve.
 
 ## Main public solution families
 

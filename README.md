@@ -4,7 +4,7 @@ Competition workspace for [Biohub — Cell Tracking During Development](https://
 
 ## Current objective
 
-Reach the medal zone with a reproducible, leakage-safe pipeline. As of 2026-08-22 the public leader is `0.958`, rank 10 is `0.943`, rank 50 is `0.929`, and rank 100 is `0.921`; the strongest audited clean open run is around `0.923`.
+Reach the medal zone with a reproducible, leakage-safe pipeline. In the full public-leaderboard snapshot downloaded on 2026-08-22 11:27 UTC, the leader is `0.958`, rank 10 is `0.943`, rank 50 is `0.929`, and the reproducible clean open score `0.923` reaches rank 87. The current account score `0.826` is rank 1836; submitted clean candidates are still pending.
 
 ## Repository map
 
