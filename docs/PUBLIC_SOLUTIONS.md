@@ -1,6 +1,6 @@
 # Public frontier audit
 
-Snapshot downloaded 2026-08-22 11:27 UTC (2,628 rows): rank 1 `0.958`, rank 10 `0.943`, rank 50 `0.929`, rank 87 `0.923`, rank 107 `0.921`, and rank 132 `0.920`. Scores of at least `0.917` extend through rank 354 because of ties, while `0.913` extends through rank 783. The current account score `0.826` is rank 1836. The clean reproduced `0.923` frontier is therefore already above the rank-263 line (10% of this snapshot), but official medal eligibility and final cutoffs are separate and will move as teams merge and scores improve.
+Snapshot downloaded 2026-08-22 14:44 UTC (2,633 rows): rank 1 `0.958`, rank 10 `0.943`, and rank 50 `0.929`. Ties give 90 teams at least `0.923`, 175 at least `0.920`, 360 at least `0.917`, and 786 at least `0.913`. The current account best is EXP-004 at `0.912`, rank 859, while the exact clean EXP-006 `0.923` reproduction remains pending. The nominal 5%/10% score lines are `0.920/0.917`; official eligibility and final private cutoffs are separate and will move as teams merge and scores improve.
 
 ## Main public solution families
 
