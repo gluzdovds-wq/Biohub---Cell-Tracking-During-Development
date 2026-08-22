@@ -9,7 +9,10 @@ All four kernels are private forks used to establish a reproducible score ladder
 - `exp005_harmonic_frontier` -> `dmitriigluzdov/biohub-exp005-harmonic-frontier`
 - `exp006_kimi_division_frontier` -> `dmitriigluzdov/biohub-exp006-kimi-division-frontier`
 - `exp031_multi_detector_coordinate_consensus` -> `dmitriigluzdov/biohub-exp031-multi-detector-coordinate-consensus`
+- `exp034_coordinate_proxy_audit` -> `dmitriigluzdov/biohub-exp034-coordinate-proxy-audit`
 
 The notebooks have internet disabled and attach the official competition data. GPU notebooks retain the public checkpoint/support datasets declared by their source metadata. EXP-005 is the clean public `0.920` family: dual-seed detection with harmonic forward/reverse association and DeepCenter-gated graph repair. EXP-006 adds widened division geometry protected by mutual-nearest-neighbor, divergence, and DeepCenter vetoes; its source run coincides with the author's public `0.923` result.
 
 EXP-031 is a gated CPU-only reproducibility wrapper. It locates all three frozen parent artifacts by SHA-256, applies the pre-registered two-donor directional coordinate consensus, verifies the exact node/edge/topology contract and a runtime-stable coordinate fingerprint, and remains ineligible for submission until the EXP-014/019 localization parents provide positive LB evidence.
+
+EXP-034 is a CPU-only reused-label diagnostic, never a submission candidate. It first requires EXP-006 to reproduce its logged four-movie proxy, then scores the frozen coordinate-only family under one matcher. Positive deltas cannot promote because these labels are reused; a calibrated negative delta can prevent wasting a daily LB slot.
