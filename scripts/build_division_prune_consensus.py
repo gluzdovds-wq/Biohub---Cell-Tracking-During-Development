@@ -31,6 +31,7 @@ def verify_sha(path: Path, expected: str, label: str) -> str:
 
 
 def build(
+    experiment: str,
     base_path: Path,
     tracker_a_path: Path,
     tracker_b_path: Path,
@@ -198,7 +199,7 @@ def build(
 
     receipt: dict[str, object] = {
         "status": "PASS",
-        "experiment": "EXP040",
+        "experiment": experiment,
         "method": "two-frozen-tracker unanimous singleton plus constant-velocity division prune",
         "input_sha256": input_sha256,
         "output_sha256": sha256(output_path),
@@ -233,6 +234,7 @@ def build(
 
 def main() -> None:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--experiment", default="EXP040")
     parser.add_argument("--base", type=Path, required=True)
     parser.add_argument("--tracker-a", type=Path, required=True)
     parser.add_argument("--tracker-b", type=Path, required=True)
@@ -248,6 +250,7 @@ def main() -> None:
     )
     args = parser.parse_args()
     receipt = build(
+        experiment=args.experiment,
         base_path=args.base,
         tracker_a_path=args.tracker_a,
         tracker_b_path=args.tracker_b,
