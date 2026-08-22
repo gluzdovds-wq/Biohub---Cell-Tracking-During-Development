@@ -1,6 +1,6 @@
 # Public frontier audit
 
-Snapshot date: 2026-08-22. Public leaderboard top: `0.958`. Strong clean public kernels advertise about `0.908–0.920`; the current medal zone is roughly `0.94+` and will move.
+Snapshot date: 2026-08-22. Public leaderboard: rank 1 `0.958`, rank 10 `0.943`, rank 50 `0.929`, rank 100 `0.921`. Strong clean public kernels advertise about `0.908–0.920`; the practical first medal threshold is therefore just above the public plateau, although all cutoffs will move.
 
 ## Main public solution families
 
@@ -67,6 +67,11 @@ The same audit attributed 57% of losses to wrong partners, 32% to a detected pai
 4. Model diversity: independent seeds/preprocessing, classical detector ensemble, possibly Trackastra/Ultrack candidate graphs.
 5. Conservative topology: divisions and gap repair only with independent evidence.
 
+Two especially promising community directions are still under-exploited by the public plateau:
+
+- train a temporal affinity/displacement field from adjacent 3D frames, so association is predicted as local motion rather than inferred only from centroid distance;
+- create dense high-precision pseudo-labels from agreement among Cellpose/DoG detections and multiple open trackers (Ultrack, Trackastra, rules), then train the learned linker on far more than the <1% sparsely labelled edges. A public 18.5 GB synthetic dataset with 165k labelled divisions may add useful topology diversity, subject to domain-gap validation.
+
 ## Public references audited
 
 - https://www.kaggle.com/code/inversion/cell-tracking-getting-started-w-nearest-neighbor
@@ -76,3 +81,4 @@ The same audit attributed 57% of losses to wrong partners, 32% to a detected pai
 - https://www.kaggle.com/code/tomasa2/biohub-what-worked-and-what-didnt-for-me
 - https://www.kaggle.com/competitions/biohub-cell-tracking-during-development/discussion/730160
 - https://www.kaggle.com/competitions/biohub-cell-tracking-during-development/discussion/724283
+- https://www.kaggle.com/competitions/biohub-cell-tracking-during-development/discussion/723655

@@ -4,7 +4,7 @@ Competition workspace for [Biohub — Cell Tracking During Development](https://
 
 ## Current objective
 
-Reach the medal zone with a reproducible, leakage-safe pipeline. The current public frontier is about `0.958`; strong clean public notebooks are around `0.908–0.920` as of 2026-08-22.
+Reach the medal zone with a reproducible, leakage-safe pipeline. As of 2026-08-22 the public leader is `0.958`, rank 10 is `0.943`, rank 50 is `0.929`, and rank 100 is `0.921`; strong clean public notebooks are around `0.908–0.920`.
 
 ## Repository map
 
