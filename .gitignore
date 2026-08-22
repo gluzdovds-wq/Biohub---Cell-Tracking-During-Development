@@ -5,6 +5,8 @@ submissions/*.csv
 kaggle_datasets/**/weights/
 kaggle_datasets/**/*.pth
 kaggle_datasets/**/*.zip
+kaggle_datasets/**/submission.csv
+kaggle_datasets/**/submission.receipt.json
 *.zarr/
 *.geff/
 
