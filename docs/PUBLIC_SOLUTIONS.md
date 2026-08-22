@@ -32,6 +32,8 @@ Usefulness: cheap diversity, interpretable error decomposition, robust fallback.
 
 The exact EXP-005→EXP-006 logs isolate the guarded division widening. On the four reused labelled movies, adjusted edge Jaccard fell `0.9152→0.9135`, while division Jaccard rose `0.0→0.1` (`TP/FP/FN 0/1/5→1/5/4`), moving the proxy `0.9152→0.9235`. The attributable public LB moved only `0.920→0.923`. Thus conservative division expansion was directionally useful, but this sparse in-sample proxy overstated the transferable gain by roughly 2–3×; it cannot justify further veto relaxation without independent evidence.
 
+The completed one-line DeepCenter ablation confirms that warning. The refreshed Yunus run lowers only `DEEPCENTER_SAFE_DIV_THRESHOLD` from `0.12` to `0.08`, yet the capped proposal selection replaces 73 of 455 division parents and cascades into 93 removed / 35 added node IDs, 461 coordinate changes, and 143 removed / 100 added edges. The artifact is clean (122,208 nodes, 118,113 edges, SHA-256 `a15e99ba…c9f4`) and remains physically close to EXP-006 at `2 µm` (`0.997222/0.995869` node/edge Jaccard), but its reused-label diagnostic loses the only division TP (`1/5/4→0/5/5`) and drops the proxy `0.9235→0.9131`. EXP-028 is therefore rejected without spending a submission slot.
+
 ## Measured positive results from an open ablation notebook
 
 Source: `tomasa2/biohub-what-worked-and-what-didnt-for-me` (public LB 0.841, 11 paired changes).
