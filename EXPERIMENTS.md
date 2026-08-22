@@ -83,6 +83,8 @@ The newly checked `kunaldesale2408/biohub-cell-tracking` entry is clean but not 
 
 The completed 2026-08-22 refresh of `navazshfathi/best-score` independently produced EXP-006 byte-for-byte (`SHA-256 5c852379…1f4d`; 122,266 nodes, 118,156 edges, audit PASS). Its source was a clean harmonic/safe-division reimplementation, so this is useful reproducibility evidence for the `0.923` base rather than a new candidate.
 
+Fresh `backtracking/biohub-general-v4` and `saitejabandaruin/biohub-masterpiece-tracker-version-16` artifacts are both clean and audit PASS, but neither moves the frontier. General V4 emits 119,563 nodes / 115,208 edges / 334 divisions (`SHA-256 eddb0ff9…a5f7`) and derives from a source-described verified `0.916` lane; its boundary rescue and division-continuation guard are retained only as future LOEO ablations. Masterpiece V16 exactly matches its documented `0.913` artifact (`SHA-256 8c1605b5…9e3f`; 120,797 / 116,501 / 314). No submission slot is allocated to either.
+
 ## Run record template
 
 Copy this block for every new run:

@@ -67,6 +67,10 @@ An additional 2026-08-22 audit of `kunaldesale2408/biohub-cell-tracking` found a
 
 The same day's completed refresh of `navazshfathi/best-score` produced the clean EXP-006 artifact byte-for-byte (`SHA-256 5c852379…1f4d`, 122,266 nodes, 118,156 edges, maximum degrees 1/2). The new source is a harmonic/safe-division reimplementation. It independently confirms the reproducibility of the `0.923` base but does not move the clean frontier.
 
+Two newly refreshed public notebooks were also downloaded and audited on 2026-08-22. `backtracking/biohub-general-v4` is clean and introduces boundary-track rescue plus a confidence/continuation division guard, but its own source describes the frozen parent as a verified `0.916` pipeline. Its artifact passes schema/topology checks with 119,563 nodes, 115,208 edges and 334 divisions (`SHA-256 eddb0ff9…a5f7`); at `2 µm` it overlaps EXP-006 by `0.833774/0.796725` node/edge Jaccard. This is an ablation source, not a new clean frontier.
+
+`saitejabandaruin/biohub-masterpiece-tracker-version-16` is also clean, but reproduces its explicitly documented `0.913` artifact exactly (`SHA-256 8c1605b5…9e3f`; 120,797 nodes, 116,501 edges, 314 divisions; audit PASS). Its per-frame dual-seed candidate-retention guard is interesting for honest LOEO testing, but its measured leaderboard evidence is below EXP-006.
+
 ## Research priorities
 
 1. Honest LOEO training/validation with no public-weight leakage.
@@ -89,6 +93,8 @@ Two especially promising community directions are still under-exploited by the p
 - https://www.kaggle.com/code/yunusgmsoy/lb-0-920-biohub-cell-tracking-v17
 - https://www.kaggle.com/code/yunusgmsoy/kimi-notebook-v17
 - https://www.kaggle.com/code/ericwang03/biohub-daily-probe-lane-5
+- https://www.kaggle.com/code/backtracking/biohub-general-v4
+- https://www.kaggle.com/code/saitejabandaruin/biohub-masterpiece-tracker-version-16
 - https://www.kaggle.com/code/boristown/dark-agi-biohub-cell-tracking-solution
 - https://www.kaggle.com/code/tomasa2/biohub-what-worked-and-what-didnt-for-me
 - https://www.kaggle.com/competitions/biohub-cell-tracking-during-development/discussion/730160
