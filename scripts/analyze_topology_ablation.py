@@ -54,6 +54,13 @@ def outgoing(edges: set[tuple[str, int, int]]) -> dict[tuple[str, int], set[int]
     return result
 
 
+def incoming(edges: set[tuple[str, int, int]]) -> dict[tuple[str, int], set[int]]:
+    result: dict[tuple[str, int], set[int]] = defaultdict(set)
+    for dataset, source, target in edges:
+        result[(dataset, target)].add(source)
+    return result
+
+
 def edge_length(nodes: dict[tuple[str, int], tuple[int, np.ndarray]], dataset: str, source: int, target: int) -> float:
     source_t, source_point = nodes[(dataset, source)]
     target_t, target_point = nodes[(dataset, target)]
@@ -72,6 +79,26 @@ def sister_distance(
     if left_t != right_t:
         raise AssertionError(f"Division daughters are not contemporaneous: {(dataset, targets)}")
     return float(np.linalg.norm((right_point - left_point) * SCALE_ZYX_UM))
+
+
+def constant_velocity_residual(
+    nodes: dict[tuple[str, int], tuple[int, np.ndarray]],
+    incoming_edges: dict[tuple[str, int], set[int]],
+    dataset: str,
+    source: int,
+    target: int,
+) -> float | None:
+    predecessors = incoming_edges.get((dataset, source), set())
+    if len(predecessors) != 1:
+        return None
+    predecessor = next(iter(predecessors))
+    predecessor_t, predecessor_point = nodes[(dataset, predecessor)]
+    source_t, source_point = nodes[(dataset, source)]
+    target_t, target_point = nodes[(dataset, target)]
+    if predecessor_t != source_t - 1 or target_t != source_t + 1:
+        return None
+    predicted = 2.0 * source_point - predecessor_point
+    return float(np.linalg.norm((target_point - predicted) * SCALE_ZYX_UM))
 
 
 def analyse(control_path: Path, candidate_path: Path) -> dict:
@@ -94,6 +121,8 @@ def analyse(control_path: Path, candidate_path: Path) -> dict:
 
     control_out = outgoing(control_edges)
     candidate_out = outgoing(candidate_edges)
+    control_in = incoming(control_edges)
+    candidate_in = incoming(candidate_edges)
     control_divisions = {key for key, targets in control_out.items() if len(targets) == 2}
     candidate_divisions = {key for key, targets in candidate_out.items() if len(targets) == 2}
     if any(len(targets) > 2 for targets in control_out.values()) or any(
@@ -121,6 +150,18 @@ def analyse(control_path: Path, candidate_path: Path) -> dict:
                 ],
                 "candidate_edge_lengths_um": [
                     edge_length(candidate_nodes, dataset, source, target) for target in new_targets
+                ],
+                "control_constant_velocity_residuals_um": [
+                    constant_velocity_residual(
+                        control_nodes, control_in, dataset, source, target
+                    )
+                    for target in old_targets
+                ],
+                "candidate_constant_velocity_residuals_um": [
+                    constant_velocity_residual(
+                        candidate_nodes, candidate_in, dataset, source, target
+                    )
+                    for target in new_targets
                 ],
                 "control_sister_distance_um": sister_distance(
                     control_nodes, dataset, old_targets
