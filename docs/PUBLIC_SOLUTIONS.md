@@ -57,6 +57,12 @@ The same audit attributed 57% of losses to wrong partners, 32% to a detected pai
 - Public model checkpoints were trained on all 199 annotated movies; evaluating them on those movies is memorisation, not validation.
 - Movie-to-movie score spread is large (reported roughly `0.46–0.984` in one LOEO setup), and public LB may be about 10% optimistic.
 - Some consecutive frames are frozen and some sequences contain sudden global jumps.
+
+### Newly released synthetic supervision
+
+The public CC0 builder `josefreitasalvesneto/biohub-synthetic-dataset` exposes 18.503 GB: 1,539 static native-resolution volumes and 2,174 six-frame pooled sequences with 4,056,226 nodes, 3,460,295 edges and 165,267 labelled divisions. Its motion constants are fitted to real training edges (median step `1.86 µm`, lag-1 persistence `0.30`, sister separation `7.24 µm`), but appearance matching is explicitly partial and divisions are deliberately inflated to `4.07%` of nodes versus roughly `0.26%` in the real annotations. It is suitable as pretraining supervision, not as a calibrated real-data model.
+
+There is also a coordinate-contract trap in the released sequences: image tensors are already `(T,64,64,64)`, while node y/x values remain in the native 256-grid (confirmed on `seq_0000`, y/x up to `243.17`). EXP-024 therefore divides y/x by four before any crop or target construction and fails closed if the source contract changes. Any reported gain must survive a compute-matched real fine-tune and both untouched LOEO audits.
 - Dense graph operations can exceed runtime if implemented with cubic complexity.
 - Node/edge schema mistakes can yield 0.0 or scoring errors despite good local graph scores.
 - Metric-hack notebooks used fake forks outside the image; the host acknowledged the report. They are excluded from our plan.
