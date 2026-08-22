@@ -97,6 +97,8 @@ Two newly refreshed public notebooks were also downloaded and audited on 2026-08
 
 The refreshed `xiaoleilian/biohub-m001-ens3-sm6-sim2` output is clean but not independent: its 126,419-node / 121,191-edge CSV has exact SHA-256 `d7ba9e6a…f2bb`, identical to EXP-008. Multiple rows in Kaggle's kernel ordering therefore represent the same prediction artifact and must not be counted as ensemble diversity.
 
+The subsequently audited `dalloliogm/biohub-exp203-classical-three-model-ensemble` is another exact EXP-008 reproduction: full schema/topology audit PASS, 126,419 nodes / 121,191 edges / 352 divisions, and byte-identical SHA-256 `d7ba9e6a…f2bb`. Despite its separate title and `scoreDescending` row, it supplies neither a new candidate nor an independent teacher vote.
+
 ## Research priorities
 
 1. Honest LOEO training/validation with no public-weight leakage.
