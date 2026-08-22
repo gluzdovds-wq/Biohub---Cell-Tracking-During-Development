@@ -40,7 +40,7 @@ function Assert-LocalContracts {
     $sourcePath = Join-Path $repoRoot "kaggle_notebooks/exp049_cross_embryo_production/cross_embryo_production.py"
     $metadataPath = Join-Path $repoRoot "kaggle_notebooks/exp049_cross_embryo_production/kernel-metadata.json"
     $sourceSha = (Get-FileHash -LiteralPath $sourcePath -Algorithm SHA256).Hash.ToLowerInvariant()
-    if ($sourceSha -ne "9a9cc28c31505d685fddb21c77ee947ec19706e1216af08d394c836f53266836") {
+    if ($sourceSha -ne "fb164ff9da63399a6683aca856e69044c25a1a68e2998fcf5dd7520f9067fc2e") {
         throw "EXP049 source SHA drift: $sourceSha"
     }
     $metadata = Get-Content -LiteralPath $metadataPath -Raw | ConvertFrom-Json

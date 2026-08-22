@@ -100,7 +100,7 @@ def estimated_nodes(name: str) -> float:
 
 
 def score_graph(name: str, graph) -> dict:
-    dataset = open_dataset(TRAIN_DIR / name, require_tracks=True)
+    dataset = open_dataset(TRAIN_DIR / name, require_tracks=True, load_image=False)
     result = evaluate(graph, dataset.tracks, scale=dataset.scale)
     recall = node_recall(graph, dataset.tracks) if graph.num_nodes() and graph.num_edges() else 0.0
     return {"dataset": name, **per_sample_metrics(result, estimated_nodes(name), recall)}
@@ -430,7 +430,7 @@ def evaluate_pair(names):
     mechanism_telemetry = []
     for name in names:
         coords, edges = infer_candidates(name, selected_threshold)
-        scale = open_dataset(TRAIN_DIR / name, require_tracks=False).scale
+        scale = open_dataset(TRAIN_DIR / name, require_tracks=False, load_image=False).scale
         movie = {}
         for arm in ARMS:
             row = score_graph(name, graph_for_policy(coords, edges, arm, scale))

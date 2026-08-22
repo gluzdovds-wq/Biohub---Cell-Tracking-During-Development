@@ -19,7 +19,7 @@ $settings = @{
         Kernel = "dmitriigluzdov/biohub-exp012-audit-loeo-6bba"
         Directory = "kaggle_notebooks\exp012_audit_loeo_6bba"
         Source = "kaggle_notebooks\exp012_audit_loeo_6bba\audit_loeo_6bba.py"
-        SourceSha = "039bde3e4e4ea138820b17313cddc6754c97b9fb5bd8e9e071253dc32ca7e7bb"
+        SourceSha = "a0a4f5ed76b0afa0dacf5d4341941fb9147bf2fbaeb19ae72fa07f38b6b1d04e"
     }
 }
 $audit = $settings[$Embryo]

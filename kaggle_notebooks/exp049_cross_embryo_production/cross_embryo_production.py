@@ -315,7 +315,7 @@ for embryo in FOLDS:
             unet_batch_size=unet_batch_size,
             downsample=downsample,
         )
-        scale = open_dataset(path, require_tracks=False).scale
+        scale = open_dataset(path, require_tracks=False, load_image=False).scale
         graph = graph_for_policy(coords, edges, fold["selected_policy"], scale)
         graphs[path.stem] = graph
         run_stats.append(
@@ -358,7 +358,9 @@ with submission_path.open("w", newline="", encoding="utf-8") as handle:
         node_by_id = {int(row["node_id"]): row for row in node_rows}
         if len(node_by_id) != len(node_rows):
             raise AssertionError(f"{dataset}: duplicate node ids")
-        shape = open_dataset(TEST_DIR / f"{dataset}.zarr", require_tracks=False).image_shape
+        shape = open_dataset(
+            TEST_DIR / f"{dataset}.zarr", require_tracks=False, load_image=False
+        ).image_shape
         outdegree = {}
         indegree = {}
         for row in node_rows:

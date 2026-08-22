@@ -89,7 +89,7 @@ def estimated_nodes(name: str) -> float:
 
 
 def score_graph(name: str, graph) -> dict:
-    dataset = open_dataset(TRAIN_DIR / name, require_tracks=True)
+    dataset = open_dataset(TRAIN_DIR / name, require_tracks=True, load_image=False)
     result = evaluate(graph, dataset.tracks, scale=dataset.scale)
     recall = node_recall(graph, dataset.tracks) if graph.num_nodes() and graph.num_edges() else 0.0
     return {"dataset": name, **per_sample_metrics(result, estimated_nodes(name), recall)}
@@ -390,7 +390,7 @@ for threshold in CALIBRATION_THRESHOLDS:
     }
     for name in checkpoint_names:
         coords, edges = infer_candidates(name, threshold)
-        scale = open_dataset(TRAIN_DIR / name, require_tracks=False).scale
+        scale = open_dataset(TRAIN_DIR / name, require_tracks=False, load_image=False).scale
         for policy, rows in policy_rows.items():
             rows.append(score_graph(name, graph_for_policy(coords, edges, policy, scale)))
     for policy, rows in policy_rows.items():
@@ -448,7 +448,7 @@ confirmation_rows_by_arm = {arm: [] for arm in PHYSICAL_PRUNE_ARMS}
 confirmation_prune_telemetry = []
 for name in confirmation_names:
     coords, edges = infer_candidates(name, selected["threshold"])
-    scale = open_dataset(TRAIN_DIR / name, require_tracks=False).scale
+    scale = open_dataset(TRAIN_DIR / name, require_tracks=False, load_image=False).scale
     graph = graph_for_policy(coords, edges, selected["policy"], scale)
     arms, telemetry = frozen_physical_arms(graph, scale)
     confirmation_prune_telemetry.append({"dataset": name, "arms": telemetry})
@@ -477,7 +477,7 @@ audit_rows_by_arm = {arm: [] for arm in PHYSICAL_PRUNE_ARMS}
 audit_prune_telemetry = []
 for name in audit_names:
     coords, edges = infer_candidates(name, selected["threshold"])
-    scale = open_dataset(TRAIN_DIR / name, require_tracks=False).scale
+    scale = open_dataset(TRAIN_DIR / name, require_tracks=False, load_image=False).scale
     graph = graph_for_policy(coords, edges, selected["policy"], scale)
     save_graph(graph, audit_dir / f"{name}.geff")
     arms, telemetry = frozen_physical_arms(graph, scale)
