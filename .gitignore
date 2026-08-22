@@ -4,6 +4,7 @@ outputs/
 submissions/*.csv
 kaggle_datasets/**/weights/
 kaggle_datasets/**/*.pth
+kaggle_datasets/**/*.zip
 *.zarr/
 *.geff/
 

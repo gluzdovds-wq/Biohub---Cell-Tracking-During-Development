@@ -12,3 +12,7 @@ competition diagnostic.
 The binary is not committed to git. This staging copy does not change the
 original attribution or license and is not itself validation or promotion
 evidence.
+
+Dataset v3 also includes a fail-closed artifact manifest and `weights.zip`
+using the exact public model configuration. This lets the unchanged EXP006
+artifact loader materialize the checkpoint without special inference code.

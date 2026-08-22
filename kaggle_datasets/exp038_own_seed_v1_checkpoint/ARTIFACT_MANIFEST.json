@@ -1,0 +1,26 @@
+{
+  "artifact_name": "biohub-exp038-own-seed-v1-checkpoint",
+  "generated_at_utc": "2026-08-22T16:26:58Z",
+  "model": {
+    "method": "unet_transformer",
+    "weight_path": "weights/unet_transformer/split_0/edge_predictor_best.pth",
+    "weight_bytes": 8357783,
+    "weight_sha256": "b1507f6918192c0f5c15fd5091d97ff565b1fab14e67e01101446534abb6a7b7",
+    "config": {
+      "unet_out_channels": 32,
+      "unet_layers": [32, 64, 128],
+      "downsample": [1, 4, 4],
+      "window_size": 2,
+      "pool_kernel_um": 5.0
+    }
+  },
+  "source": {
+    "public_kernel": "luffyh04/harshini-1",
+    "original_output": "own_seed_v1_edge_predictor_best.pth",
+    "kernel_terminal_state": "CANCEL_ACKNOWLEDGED"
+  },
+  "notes": [
+    "Private immutable staging only; original attribution and license are unchanged.",
+    "Architecture compatibility was independently verified by EXP038 before inference."
+  ]
+}
