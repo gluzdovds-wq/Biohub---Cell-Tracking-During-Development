@@ -117,6 +117,8 @@ EXP011 v1 failed before dependency/model/data access on the canonical parent-mou
 
 The frozen LOEO physical-arm analyzer requires each arm to fire on both folds and separately requires non-negative total score, adjusted-edge Jaccard and division TP on each untouched fold. It cannot authorize a submission by itself and explicitly treats donor consensus as out of scope; its source is committed before either audit exists.
 
+The reciprocal EXP050/051 analyzer independently reconstructs the official micro-aggregate from the per-movie counts, enforces non-negative H050 score on each fold plus a positive pooled delta, and reports the amortized greedy physical arms separately. Geometry-only mechanism evidence is permanently marked `submission_authority=false`; it cannot be confused with the missing EXP005/008 donor-consensus gate.
+
 EXP-007 from `ericwang03/biohub-daily-probe-lane-5` tests H-013 with equal-weight eight-view D4 edge TTA on shared detections. The public source does not claim a measured LB gain; timestamp proximity to a leaderboard entry is explicitly treated as insufficient evidence.
 
 ## Cross-prediction diversity (visible four movies)
