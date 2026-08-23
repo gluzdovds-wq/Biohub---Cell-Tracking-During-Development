@@ -1,0 +1,28 @@
+{
+  "status": "PASS_EXP057_BUILD",
+  "base": "kaggle_notebooks\\exp006_kimi_division_frontier\\kimi-notebook-v17.ipynb",
+  "base_sha256": "211421c2237f9f077a5e12b2faba26498190b4d300d513d21c9e57a10d5012af",
+  "donor_phase": "kaggle_notebooks\\exp056_detector_registered_production\\detector_registered_production.ipynb",
+  "donor_phase_sha256": "c9cfcc8f7db4b360d91517bc03952b03922411fc8e8288b465dd3656542bdf77",
+  "output": "kaggle_notebooks\\exp057_coordinate_frontier_production\\coordinate_frontier_production.ipynb",
+  "output_sha256": "75744cd1409cb705f6d31f636801d8362f85b38006752de100eb9572f7914b85",
+  "appended_cells": 3,
+  "declared_candidates": [
+    "EXP057",
+    "EXP058",
+    "EXP059"
+  ],
+  "dataset_sources": [
+    "pilkwang/biohub-deepcenter-unet3d-center-prior-v1",
+    "pilkwang/biohub-temporal-unet3d-seed314159-v1",
+    "pilkwang/biohub-tracking-support-pack-50ep-v1",
+    "xiaoleilian/biohub-unet3d-weights",
+    "xiaoleilian/biohub-unet3d-weights-v2models"
+  ],
+  "hidden_test_dynamic": {
+    "public_submission_artifact_input": false,
+    "base_full_inference": true,
+    "donor_full_inference": true,
+    "test_stem_discovery_preserved": true
+  }
+}
