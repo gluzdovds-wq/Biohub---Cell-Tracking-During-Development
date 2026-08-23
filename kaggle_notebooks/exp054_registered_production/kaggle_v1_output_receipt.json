@@ -1,0 +1,21 @@
+{
+  "status": "PASS_EXP054_KAGGLE_V1_EXACT_PARENT_SEMANTICS",
+  "candidate_sha256": "09d692a4d00975ff474bcc63ee249accb21332ed21442b9fe9f46d7f20baf7a6",
+  "base_node_parent_sha256": "5c852379cbf2a0b8a007a1bee32bfadafc2759ab2978750b16252b7f37211f4d",
+  "edge_parent_sha256": "3791f74f9247be99d3a9e673cd2ff9fd942764f1ad0b1d0a597d150b7a7c9fab",
+  "nodes": 122266,
+  "edges": 117708,
+  "node_identity_and_coordinates_exact": true,
+  "edge_set_exact": true,
+  "missing_edges": 0,
+  "extra_edges": 0,
+  "divisions": 0,
+  "maximum_in_degree": 1,
+  "maximum_out_degree": 1,
+  "datasets": [
+    "44b6_0113de3b",
+    "44b6_0b24845f",
+    "6bba_05b6850b",
+    "6bba_05db0fb1"
+  ]
+}
