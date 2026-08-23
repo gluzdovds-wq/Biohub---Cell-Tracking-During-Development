@@ -121,7 +121,7 @@ $candidates = @{
         File = "submission.csv"
         Sha256 = "09d692a4d00975ff474bcc63ee249accb21332ed21442b9fe9f46d7f20baf7a6"
         Message = "EXP-054 hidden-compatible registered motion relink"
-        SubmissionReady = $false
+        SubmissionReady = $true
     }
     "EXP055" = @{
         Kernel = "dmitriigluzdov/biohub-exp055-intensity-registered-production"

@@ -168,8 +168,15 @@ def main() -> None:
         fold_rows = {}
         supportive_each_fold = True
         for embryo, payload in payloads.items():
-            base = payload["audit_greedy_physical_summary_by_arm"]["greedy_base"]
-            candidate = payload["audit_greedy_physical_summary_by_arm"][candidate_arm]
+            # Upstream summaries expose aggregate metric values but not pooled
+            # edge counts. Recompute both arms from the immutable per-movie rows
+            # so metric_delta has the same complete schema as pooled analysis.
+            base = summarise(
+                payload["audit_greedy_physical_per_movie_by_arm"]["greedy_base"]
+            )
+            candidate = summarise(
+                payload["audit_greedy_physical_per_movie_by_arm"][candidate_arm]
+            )
             delta = metric_delta(candidate, base)
             prunes = sum(
                 int(movie["arms"][telemetry_arm]["accepted_prunes"])
