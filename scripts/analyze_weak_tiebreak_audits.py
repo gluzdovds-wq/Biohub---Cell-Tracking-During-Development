@@ -125,6 +125,44 @@ def main() -> None:
         and pooled_h050_delta["score"] > 0.0
     )
 
+    # H052 uses the same already-computed paired movies but asks the distinct
+    # production question: is registered motion safer than the greedy linker?
+    h052_folds = {}
+    for embryo, payload in payloads.items():
+        registered = summarise(
+            payload["audit_per_movie_by_arm"]["registered_hungarian"]
+        )
+        greedy = summarise(
+            payload["audit_greedy_physical_per_movie_by_arm"]["greedy_base"]
+        )
+        h052_folds[embryo] = {
+            "registered": registered,
+            "greedy": greedy,
+            "delta_registered_minus_greedy": metric_delta(registered, greedy),
+        }
+    pooled_h052_registered = summarise(
+        [
+            row
+            for payload in payloads.values()
+            for row in payload["audit_per_movie_by_arm"]["registered_hungarian"]
+        ]
+    )
+    pooled_h052_greedy = summarise(
+        [
+            row
+            for payload in payloads.values()
+            for row in payload["audit_greedy_physical_per_movie_by_arm"]["greedy_base"]
+        ]
+    )
+    pooled_h052_delta = metric_delta(pooled_h052_registered, pooled_h052_greedy)
+    h052_promote = (
+        all(
+            fold["delta_registered_minus_greedy"]["score"] >= 0.0
+            for fold in h052_folds.values()
+        )
+        and pooled_h052_delta["score"] > 0.0
+    )
+
     mechanism = {}
     for candidate_arm, telemetry_arm in MECHANISM_MAP.items():
         fold_rows = {}
@@ -177,6 +215,14 @@ def main() -> None:
         "pooled_h050_summary_by_arm": pooled_h050,
         "pooled_h050_delta": pooled_h050_delta,
         "h050_decision": "promote" if h050_promote else "reject",
+        "h052_registered_vs_greedy": {
+            "folds": h052_folds,
+            "pooled_registered": pooled_h052_registered,
+            "pooled_greedy": pooled_h052_greedy,
+            "pooled_delta_registered_minus_greedy": pooled_h052_delta,
+            "decision": "promote" if h052_promote else "reject",
+            "promotion_contract": "registered score non-negative versus greedy on each untouched fold and positive pooled",
+        },
         "physical_mechanism": mechanism,
         "physical_mechanism_scope": "geometry-only on greedy graphs; no EXP005/008 donor consensus",
         "physical_mechanism_submission_authority": False,
