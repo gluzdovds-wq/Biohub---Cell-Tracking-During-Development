@@ -47,12 +47,12 @@ try {
         @{
             Embryo = "44b6"
             Upstream = "dmitriigluzdov/biohub-exp011-audit-loeo-44b6"
-            Target = "dmitriigluzdov/biohub-exp050-weak-tiebreak-44b6"
+            Target = "dmitriigluzdov/biohub-exp050-weak-tie-break-44b6"
         },
         @{
             Embryo = "6bba"
             Upstream = "dmitriigluzdov/biohub-exp012-audit-loeo-6bba"
-            Target = "dmitriigluzdov/biohub-exp051-weak-tiebreak-6bba"
+            Target = "dmitriigluzdov/biohub-exp051-weak-tie-break-6bba"
         }
     )
 
