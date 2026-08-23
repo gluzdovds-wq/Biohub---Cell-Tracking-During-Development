@@ -1,6 +1,6 @@
 param(
     [Parameter(Mandatory = $true)]
-    [ValidateSet("EXP014", "EXP019", "EXP022", "EXP023", "EXP040", "EXP041", "EXP045", "EXP047", "EXP052", "EXP053", "EXP054")]
+    [ValidateSet("EXP014", "EXP019", "EXP022", "EXP023", "EXP040", "EXP041", "EXP045", "EXP047", "EXP052", "EXP053", "EXP054", "EXP055")]
     [string]$Candidate,
     [switch]$Submit
 )
@@ -121,6 +121,15 @@ $candidates = @{
         File = "submission.csv"
         Sha256 = "09d692a4d00975ff474bcc63ee249accb21332ed21442b9fe9f46d7f20baf7a6"
         Message = "EXP-054 hidden-compatible registered motion relink"
+        SubmissionReady = $false
+    }
+    "EXP055" = @{
+        Kernel = "dmitriigluzdov/biohub-exp055-intensity-registered-production"
+        Version = 1
+        Path = "outputs\exp055_kaggle_v1\submission.csv"
+        File = "submission.csv"
+        Sha256 = "2db755ce91647915ced8c1bd4c65873b9e185c978c8807f1480613f1ba1d8fd1"
+        Message = "EXP-055 hidden-compatible intensity coordinates plus registered relink"
         SubmissionReady = $false
     }
 }
