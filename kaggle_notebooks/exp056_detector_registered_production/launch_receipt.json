@@ -1,0 +1,9 @@
+{
+  "status": "BLOCKED_BEFORE_EXECUTION",
+  "date_utc": "2026-08-23",
+  "kernel": "dmitriigluzdov/biohub-exp056-detector-registered-production",
+  "requested_version": 1,
+  "error": "Maximum weekly GPU quota of 30.00 hours reached.",
+  "submission_slot_spent": false,
+  "retry_policy": "retry after Kaggle weekly GPU quota reset; require COMPLETE public reproduction and full graph audit before submission"
+}
