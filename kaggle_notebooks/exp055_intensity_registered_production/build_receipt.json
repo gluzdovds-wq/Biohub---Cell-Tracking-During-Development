@@ -1,0 +1,29 @@
+{
+  "status": "PASS_EXP055_HIDDEN_COMPATIBLE_BUILD",
+  "hypothesis": "H055",
+  "source_sha256": "a6ad5103e5707873d6cf9644e226e6f5f1f577a4f23b81730924109a88092706",
+  "output_sha256": "e113228de7f717ee2608c80d6ca5fa56d75be9c96d0226d77e700c2d3c6722ee",
+  "changed_cells": [
+    3,
+    6
+  ],
+  "tag_replacements": 1,
+  "anchor_replacements": {
+    "function_anchor": 1,
+    "call_anchor": 1,
+    "writer_anchor": 1
+  },
+  "hidden_test_dynamic": true,
+  "topology_frozen_before_coordinate_refinement": true,
+  "public_artifact_input": false,
+  "intensity_policy": {
+    "radius_zyx": [
+      2,
+      5,
+      5
+    ],
+    "background_percentile": 20.0,
+    "max_raw_shift_um": 1.5,
+    "alpha": 0.35
+  }
+}
