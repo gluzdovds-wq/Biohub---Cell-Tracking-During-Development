@@ -31,7 +31,7 @@ $candidates = @{
         File = "submission.csv"
         Sha256 = "c970d9433e68a91060894515714ae7f027b05457b98b412b625fe84482544de0"
         Message = "EXP-014 coordinate-only detector consensus"
-        SubmissionReady = $true
+        SubmissionReady = $false
     }
     "EXP019" = @{
         Kernel = "dmitriigluzdov/biohub-exp019-intensity-coordinate-refine"
@@ -40,7 +40,7 @@ $candidates = @{
         File = "submission.csv"
         Sha256 = "7487ecb7de8c110caffd35bd043902b484ee4634ec58d020caebabfad9296c6d"
         Message = "EXP-019 intensity COM coordinate refinement"
-        SubmissionReady = $true
+        SubmissionReady = $false
     }
     "EXP022" = @{
         Kernel = "dmitriigluzdov/biohub-exp022-coordinate-blend"
@@ -49,7 +49,7 @@ $candidates = @{
         File = "submission.csv"
         Sha256 = "91e24e750dc2a305943713618bbaa3f0de95283cbeb2de9e9b2d6ecef3f8fb6a"
         Message = "EXP-022 detector intensity coordinate blend"
-        SubmissionReady = $true
+        SubmissionReady = $false
     }
     "EXP023" = @{
         Kernel = "dmitriigluzdov/biohub-exp023-agreement-gated-coordinates"
@@ -58,7 +58,7 @@ $candidates = @{
         File = "submission.csv"
         Sha256 = "8bff01ab65cc2f9e022684822cd09240265417567abd5406387b808f7e052de3"
         Message = "EXP-023 agreement gated coordinate blend"
-        SubmissionReady = $true
+        SubmissionReady = $false
     }
     "EXP040" = @{
         Kernel = "dmitriigluzdov/biohub-exp044-division-prune-artifacts"
