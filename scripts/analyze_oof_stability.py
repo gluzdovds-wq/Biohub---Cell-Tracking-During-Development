@@ -175,6 +175,30 @@ def main() -> None:
     pooled_weak = summarise(all_weak)
     fold_scores = [fold["registered_score"] for fold in embryo_folds.values()]
     fold_gap = max(fold_scores) - min(fold_scores)
+    per_movie = []
+    for embryo, arms in groups.items():
+        for dataset in sorted(arms[REGISTERED]):
+            registered_row = arms[REGISTERED][dataset]
+            greedy_row = arms[GREEDY][dataset]
+            weak_row = arms[WEAK][dataset]
+            registered_score = summarise([registered_row])["score"]
+            greedy_score = summarise([greedy_row])["score"]
+            weak_score = summarise([weak_row])["score"]
+            per_movie.append(
+                {
+                    "embryo": embryo,
+                    "dataset": dataset,
+                    "registered_score": registered_score,
+                    "greedy_score": greedy_score,
+                    "weak_score": weak_score,
+                    "registered_minus_greedy": registered_score - greedy_score,
+                    "weak_minus_registered": weak_score - registered_score,
+                    "registered_edge_tp": int(registered_row["edge_tp"]),
+                    "registered_edge_fp": int(registered_row["edge_fp"]),
+                    "registered_edge_fn": int(registered_row["edge_fn"]),
+                    "registered_node_recall": float(registered_row["node_recall"]),
+                }
+            )
 
     receipt = {
         "status": "PASS_OOF_STABILITY_ANALYSIS",
@@ -203,6 +227,7 @@ def main() -> None:
                 [float(row["adj_edge_jaccard"]) for row in all_registered]
             ),
         },
+        "per_movie": per_movie,
         "bootstrap": {
             "stratified_registered_absolute": distribution(stratified_absolute),
             "paired_registered_minus_greedy": distribution(registered_minus_greedy)
