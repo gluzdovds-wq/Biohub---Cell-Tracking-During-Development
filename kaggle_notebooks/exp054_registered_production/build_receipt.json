@@ -1,0 +1,37 @@
+{
+  "status": "PASS_EXP054_HIDDEN_COMPATIBLE_BUILD",
+  "hypothesis": "H054",
+  "source": "kaggle_notebooks\\exp006_kimi_division_frontier\\kimi-notebook-v17.ipynb",
+  "source_sha256": "211421c2237f9f077a5e12b2faba26498190b4d300d513d21c9e57a10d5012af",
+  "output": "kaggle_notebooks\\exp054_registered_production\\registered_production.ipynb",
+  "output_sha256": "a6ad5103e5707873d6cf9644e226e6f5f1f577a4f23b81730924109a88092706",
+  "changed_cells": [
+    3,
+    6
+  ],
+  "tag_replacements": 1,
+  "function_anchor_replacements": 1,
+  "call_anchor_replacements": 1,
+  "hidden_test_dynamic": {
+    "competition_source_preserved": [
+      "biohub-cell-tracking-during-development"
+    ],
+    "public_submission_artifact_input": false,
+    "test_stem_discovery_preserved": true,
+    "full_model_inference_preserved": true
+  },
+  "registered_policy": {
+    "coordinates": "final EXP006 submission-rounded node positions",
+    "scale_um": [
+      1.625,
+      0.40625,
+      0.40625
+    ],
+    "shift": "median nearest displacement; recompute on <=4um inliers when >=3",
+    "gate_um_strict": 7.0,
+    "motion_scale_um": 3.0,
+    "assignment": "Hungarian with per-source unmatched dummy",
+    "maximum_in_degree": 1,
+    "maximum_out_degree": 1
+  }
+}

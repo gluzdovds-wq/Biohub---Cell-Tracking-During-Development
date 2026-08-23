@@ -1,0 +1,47 @@
+{
+  "status": "PASS_EXACT_EXP052_EDGE_EQUIVALENCE",
+  "notebook_sha256": "a6ad5103e5707873d6cf9644e226e6f5f1f577a4f23b81730924109a88092706",
+  "base_sha256": "5c852379cbf2a0b8a007a1bee32bfadafc2759ab2978750b16252b7f37211f4d",
+  "reference_sha256": "3791f74f9247be99d3a9e673cd2ff9fd942764f1ad0b1d0a597d150b7a7c9fab",
+  "nodes": 122266,
+  "expected_edges": 117708,
+  "observed_edges": 117708,
+  "missing_edges": 0,
+  "extra_edges": 0,
+  "datasets": [
+    "44b6_0113de3b",
+    "44b6_0b24845f",
+    "6bba_05b6850b",
+    "6bba_05db0fb1"
+  ],
+  "telemetry": {
+    "44b6_0113de3b": {
+      "registered_hungarian_edges": 24722,
+      "registered_hungarian_frames": 99,
+      "registered_hungarian_initial_inliers": 24586,
+      "registered_hungarian_residual_median_milli_um": 1149,
+      "registered_hungarian_residual_max_milli_um": 6749
+    },
+    "44b6_0b24845f": {
+      "registered_hungarian_edges": 18586,
+      "registered_hungarian_frames": 99,
+      "registered_hungarian_initial_inliers": 18396,
+      "registered_hungarian_residual_median_milli_um": 1724,
+      "registered_hungarian_residual_max_milli_um": 6700
+    },
+    "6bba_05b6850b": {
+      "registered_hungarian_edges": 5930,
+      "registered_hungarian_frames": 99,
+      "registered_hungarian_initial_inliers": 5909,
+      "registered_hungarian_residual_median_milli_um": 908,
+      "registered_hungarian_residual_max_milli_um": 6500
+    },
+    "6bba_05db0fb1": {
+      "registered_hungarian_edges": 68470,
+      "registered_hungarian_frames": 99,
+      "registered_hungarian_initial_inliers": 68221,
+      "registered_hungarian_residual_median_milli_um": 1149,
+      "registered_hungarian_residual_max_milli_um": 6749
+    }
+  }
+}
