@@ -1,0 +1,24 @@
+{
+  "status": "PASS_EXP056_BUILD",
+  "hypothesis": "H056",
+  "base": "kaggle_notebooks\\exp054_registered_production\\registered_production.ipynb",
+  "base_sha256": "a6ad5103e5707873d6cf9644e226e6f5f1f577a4f23b81730924109a88092706",
+  "donor": "kaggle_notebooks\\exp008_three_unet_flip_tta\\best-score.ipynb",
+  "donor_sha256": "52064d5e3a7ce0ca36853df0abc7da70afe1c79a5f0a5e6bdfdc1c29a13b50d4",
+  "output": "kaggle_notebooks\\exp056_detector_registered_production\\detector_registered_production.ipynb",
+  "output_sha256": "c9cfcc8f7db4b360d91517bc03952b03922411fc8e8288b465dd3656542bdf77",
+  "appended_cells": 3,
+  "dataset_sources": [
+    "pilkwang/biohub-deepcenter-unet3d-center-prior-v1",
+    "pilkwang/biohub-temporal-unet3d-seed314159-v1",
+    "pilkwang/biohub-tracking-support-pack-50ep-v1",
+    "xiaoleilian/biohub-unet3d-weights",
+    "xiaoleilian/biohub-unet3d-weights-v2models"
+  ],
+  "hidden_test_dynamic": {
+    "public_submission_artifact_input": false,
+    "base_full_inference": true,
+    "donor_full_inference": true,
+    "test_stem_discovery_preserved": true
+  }
+}

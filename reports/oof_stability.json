@@ -1,0 +1,169 @@
+{
+  "status": "PASS_OOF_STABILITY_ANALYSIS",
+  "seed": 20260823,
+  "bootstrap_iterations": 10000,
+  "inputs": {
+    "44b6": {
+      "path": "outputs\\exp050_kaggle_v1\\loeo_44b6_weak_tiebreak_result.json",
+      "sha256": "28323303b5e73e5fed2d78ff4615a2d78a82f8f8e510908dcde684eb62122b4c"
+    },
+    "6bba": {
+      "path": "outputs\\exp051_kaggle_v1\\loeo_6bba_weak_tiebreak_result.json",
+      "sha256": "07b183fd3623576ef008f22c3e3bf44ba9c5655f9b54aa6199f4782de464e063"
+    }
+  },
+  "validation_unit": "movie grouped inside leave-one-embryo-out holdouts",
+  "embryo_folds": {
+    "44b6": {
+      "movies": 63,
+      "registered_score": 0.7441304862478569,
+      "greedy_score": 0.5799403929501171,
+      "weak_score": 0.7448643645315745,
+      "registered_minus_greedy": 0.16419009329773981,
+      "weak_minus_registered": 0.0007338782837175151,
+      "registered_movie_bootstrap": {
+        "n": 10000,
+        "mean": 0.7440018965277696,
+        "stdev": 0.021314997689105296,
+        "q025": 0.702443147201878,
+        "q25": 0.7296138771019978,
+        "median": 0.744129426865709,
+        "q75": 0.758623808469751,
+        "q975": 0.7851180650809914,
+        "min": 0.6524507411598248,
+        "max": 0.8164831455848531
+      }
+    },
+    "6bba": {
+      "movies": 120,
+      "registered_score": 0.5957674691708152,
+      "greedy_score": 0.4661800404903989,
+      "weak_score": 0.5965384379540195,
+      "registered_minus_greedy": 0.12958742868041634,
+      "weak_minus_registered": 0.0007709687832042622,
+      "registered_movie_bootstrap": {
+        "n": 10000,
+        "mean": 0.5958696926100879,
+        "stdev": 0.013600820416127068,
+        "q025": 0.5690550527288499,
+        "q25": 0.5866850486024758,
+        "median": 0.5959759139974542,
+        "q75": 0.6050836081744443,
+        "q975": 0.6223528058837301,
+        "min": 0.5359259476672523,
+        "max": 0.6490504031155794
+      }
+    }
+  },
+  "between_embryo": {
+    "fold_score_gap": 0.1483630170770417,
+    "fold_mean": 0.6699489777093361,
+    "fold_stdev": 0.10490849545247173,
+    "caution": "Only two embryo domains exist in train, so this gap is a stress test, not a precise population confidence interval."
+  },
+  "pooled": {
+    "movies": 183,
+    "registered_score": 0.6159795039220235,
+    "greedy_score": 0.48119795396335313,
+    "weak_score": 0.6167465281775519,
+    "registered_minus_greedy": 0.13478154995867037,
+    "weak_minus_registered": 0.0007670242555284368,
+    "registered_movie_scores": {
+      "n": 183,
+      "mean": 0.6469071628505775,
+      "stdev": 0.14916485280792155,
+      "q025": 0.3978130568718867,
+      "q25": 0.5469381641453117,
+      "median": 0.6265329314435966,
+      "q75": 0.7506539715607761,
+      "q975": 0.9291966596808442,
+      "min": 0.11676509247059601,
+      "max": 0.9635914703437336
+    }
+  },
+  "bootstrap": {
+    "stratified_registered_absolute": {
+      "n": 10000,
+      "mean": 0.6159673862648244,
+      "stdev": 0.012243916582096464,
+      "q025": 0.5915589761104958,
+      "q25": 0.607697872167833,
+      "median": 0.6160606574512899,
+      "q75": 0.6242195775795365,
+      "q975": 0.6400479546930663,
+      "min": 0.5709662023154616,
+      "max": 0.6633223666549913
+    },
+    "paired_registered_minus_greedy": {
+      "n": 10000,
+      "mean": 0.134623682272761,
+      "stdev": 0.010371303582078863,
+      "q025": 0.1147575905224103,
+      "q25": 0.12748911498876556,
+      "median": 0.13441470426680457,
+      "q75": 0.14135165299892544,
+      "q975": 0.15575024782750735,
+      "min": 0.10352640137683644,
+      "max": 0.17957909002333217,
+      "probability_positive": 1.0
+    },
+    "paired_weak_minus_registered": {
+      "n": 10000,
+      "mean": 0.0007659082585414538,
+      "stdev": 0.0002989552330384635,
+      "q025": 0.00018560427145126456,
+      "q25": 0.0005651221627886172,
+      "median": 0.0007631117375635488,
+      "q75": 0.0009688333435007024,
+      "q975": 0.0013566496969640433,
+      "min": -0.0004288512433511249,
+      "max": 0.0019254379027050517,
+      "probability_positive": 0.9948
+    },
+    "four_movie_public_like": {
+      "n": 10000,
+      "mean": 0.6196752098582465,
+      "stdev": 0.08178868489380138,
+      "q025": 0.45168303412868555,
+      "q25": 0.5687376816791686,
+      "median": 0.6157842807946234,
+      "q75": 0.6705236711352055,
+      "q975": 0.7866895905957588,
+      "min": 0.1971463884434797,
+      "max": 0.9121219242255592
+    },
+    "large_130_movie_private_like": {
+      "n": 10000,
+      "mean": 0.6157495935257529,
+      "stdev": 0.015127754859681191,
+      "q025": 0.5856315830249638,
+      "q25": 0.6055448116226037,
+      "median": 0.6158361825557578,
+      "q75": 0.6260878124042307,
+      "q975": 0.6454859804964247,
+      "min": 0.5577955470227995,
+      "max": 0.6695190979073409
+    },
+    "scope": "Movie resampling measures finite-movie noise conditional on the two observed embryo domains; it does not cover unseen-embryo domain shift."
+  },
+  "random_five_fold": {
+    "fold_scores_across_200_repeats": {
+      "n": 1000,
+      "mean": 0.6163803849170418,
+      "stdev": 0.02707233966849045,
+      "q025": 0.5622213272932637,
+      "q25": 0.5977940898353011,
+      "median": 0.6173040952966058,
+      "q75": 0.6347955957886169,
+      "q975": 0.6696989848499859,
+      "min": 0.5290892956904205,
+      "max": 0.6885517285503824
+    },
+    "warning": "Random movie folds mix embryo identity and therefore understate deployment domain shift."
+  },
+  "decision": {
+    "algorithm_selection": "Trust paired leave-one-embryo-out deltas that agree in sign on both embryo folds.",
+    "absolute_score": "Treat absolute OOF and public LB as domain-conditional estimates, not interchangeable predictions of private score.",
+    "leaderboard": "Use the four-movie public LB as a broad sanity check only; do not optimize tiny deltas against it."
+  }
+}
