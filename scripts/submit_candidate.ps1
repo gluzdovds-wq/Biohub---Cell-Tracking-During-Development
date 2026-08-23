@@ -130,7 +130,7 @@ $candidates = @{
         File = "submission.csv"
         Sha256 = "2db755ce91647915ced8c1bd4c65873b9e185c978c8807f1480613f1ba1d8fd1"
         Message = "EXP-055 hidden-compatible intensity coordinates plus registered relink"
-        SubmissionReady = $false
+        SubmissionReady = $true
     }
 }
 $selected = $candidates[$Candidate]
