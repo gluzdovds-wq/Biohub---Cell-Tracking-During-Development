@@ -1,6 +1,6 @@
 param(
     [Parameter(Mandatory = $true)]
-    [ValidateSet("EXP014", "EXP019", "EXP022", "EXP023", "EXP040", "EXP041", "EXP045", "EXP047", "EXP052", "EXP053", "EXP054", "EXP055")]
+    [ValidateSet("EXP005", "EXP008", "EXP014", "EXP019", "EXP022", "EXP023", "EXP040", "EXP041", "EXP045", "EXP047", "EXP052", "EXP053", "EXP054", "EXP055")]
     [string]$Candidate,
     [switch]$Submit
 )
@@ -24,6 +24,24 @@ function Invoke-KaggleRead([string[]]$CliArguments, [string]$Description) {
 }
 
 $candidates = @{
+    "EXP005" = @{
+        Kernel = "dmitriigluzdov/biohub-exp005-harmonic-frontier"
+        Version = 1
+        Path = "outputs\exp005\submission.csv"
+        File = "submission.csv"
+        Sha256 = "9507eccb663635e1f761b8e3e2357952c8e208b24857ab4a16be60e6ecb66425"
+        Message = "EXP-005 clean harmonic frontier exact 0.920 parent reproduction"
+        SubmissionReady = $true
+    }
+    "EXP008" = @{
+        Kernel = "dmitriigluzdov/biohub-exp008-three-unet-flip-tta"
+        Version = 1
+        Path = "outputs\exp008\submission.csv"
+        File = "submission.csv"
+        Sha256 = "d7ba9e6af86a6bb0be8bd04a36d0c61564e857e03fbadf9a81508211a4a4f2bb"
+        Message = "EXP-008 detector-diverse three-UNet flip-TTA tracker"
+        SubmissionReady = $true
+    }
     "EXP014" = @{
         Kernel = "dmitriigluzdov/biohub-exp014-coordinate-ensemble"
         Version = 2
