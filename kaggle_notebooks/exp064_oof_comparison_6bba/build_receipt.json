@@ -1,0 +1,21 @@
+{
+  "status": "PASS_EXP064_BUILD",
+  "experiment": "EXP064",
+  "holdout_embryo": "6bba",
+  "source": "kaggle_notebooks\\exp051_weak_tiebreak_6bba\\weak_tiebreak_6bba.py",
+  "source_sha256": "37492dec18d8e2cbbb171171034af9b4db7bd58ff350d9a9aa81b97db471ca50",
+  "output": "kaggle_notebooks\\exp064_oof_comparison_6bba\\oof_comparison_6bba.py",
+  "output_sha256": "e2b7772db61e93cfed71c5977643da3cc6dd0e1ddcddf760b57f65c3b880abf2",
+  "comparison_arms": [
+    "registered_hungarian",
+    "registered_weak_hungarian",
+    "registered_prob_hungarian",
+    "ilp_public",
+    "ilp_support",
+    "greedy_base",
+    "greedy_prune_4_2",
+    "greedy_prune_7_4"
+  ],
+  "candidate_cache_export": true,
+  "labels_used_only_after_each_arm_graph_is_frozen": true
+}

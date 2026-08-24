@@ -1,0 +1,26 @@
+{
+  "id": "dmitriigluzdov/biohub-exp063-oof-comparison-44b6",
+  "title": "Biohub EXP063 OOF Comparison 44b6",
+  "code_file": "oof_comparison_44b6.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "keywords": [
+    "gpu"
+  ],
+  "dataset_sources": [
+    "pilkwang/biohub-tracking-support-pack-50ep-v1"
+  ],
+  "kernel_sources": [
+    "dmitriigluzdov/biohub-exp009-loeo-holdout-44b6",
+    "dmitriigluzdov/biohub-exp011-audit-loeo-44b6"
+  ],
+  "competition_sources": [
+    "biohub-cell-tracking-during-development"
+  ],
+  "model_sources": [],
+  "machine_shape": "NvidiaTeslaT4"
+}

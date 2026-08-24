@@ -25,4 +25,4 @@ These values do not map to the absolute `0.920` scale because the trained models
 1. Keep EXP005 as the primary clean leader.
 2. Evaluate EXP008 (`55732259`) as the detector-diverse hedge and EXP007 (`55732491`) as the higher-count D4 association-TTA probe; do not replace EXP005 solely on a tiny public delta.
 3. Next production priority is EXP060/061: exact EXP005 topology with `0.50/0.25` detector-consensus coordinate doses. Both local artifacts pass full graph audit; hidden-compatible inference is built but weekly GPU quota currently prevents execution.
-4. After the one EXP007 information probe, do not spend the three remaining slots on EXP039, registered-relink descendants, or public-artifact wrappers: they are reject-only negative, empirically worse, or invalid for hidden reruns.
+4. EXP039 and EXP028 were subsequently authorized as controlled LB probes despite negative reject-only diagnostics. One daily slot remains; do not spend it on registered-relink descendants or public-artifact wrappers because they are empirically worse or invalid for hidden reruns.
