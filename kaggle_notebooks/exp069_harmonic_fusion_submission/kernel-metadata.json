@@ -1,0 +1,16 @@
+{
+  "id": "dmitriigluzdov/biohub-exp069-harmonic-fusion-submission",
+  "title": "Biohub EXP069 Harmonic Fusion Submission",
+  "code_file": "submit_verified_output.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "keywords": ["cpu", "submission"],
+  "dataset_sources": [],
+  "kernel_sources": ["flexonafft/biohub-harmonic-fusion"],
+  "competition_sources": ["biohub-cell-tracking-during-development"],
+  "model_sources": []
+}

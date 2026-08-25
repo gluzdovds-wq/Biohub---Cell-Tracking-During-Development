@@ -1,0 +1,16 @@
+{
+  "id": "dmitriigluzdov/biohub-exp068-mcflow-submission",
+  "title": "Biohub EXP068 MCFlow Submission",
+  "code_file": "submit_verified_output.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "keywords": ["cpu", "submission"],
+  "dataset_sources": [],
+  "kernel_sources": ["pawanmali/biohub-mcflow-v1"],
+  "competition_sources": ["biohub-cell-tracking-during-development"],
+  "model_sources": []
+}
