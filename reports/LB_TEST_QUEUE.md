@@ -12,10 +12,10 @@
 - EXP065 (`55761017`, pending): exact clean source-attributed `0.927` frontier.
 - EXP066 (`55761018`, pending): exact clean source-attributed `0.926` division-sub frontier.
 - EXP067 (`55761031`, pending): General-V8 continuation guard / daughter completion, edge overlap `0.793` to EXP005.
-- EXP068 (`55761370`, pending): global min-cost-flow, edge overlap `0.602` to EXP005.
-- EXP069 (`55761371`, pending): harmonic-fusion high-score calibration with 470 divisions.
+- EXP068 (`55761370`, invalid hidden format): public-output wrapper rejected. Retry exact full-inference `pawanmali/biohub-mcflow-v1` v2 after the UTC quota reset.
+- EXP069 (`55761371`, invalid hidden format): public-output wrapper rejected. Retry exact full-inference `flexonafft/biohub-harmonic-fusion` v11 after the UTC quota reset.
 
-All five are code submissions or fail-closed code wrappers. Direct CSV attempts were rejected by the notebook-only competition gate and did not consume quota.
+The two wrapper errors did consume quota despite receiving no score. Exact immutable-version retries were attempted immediately and rejected with the explicit five-per-day limit. `scripts/resubmit_exp068_exp069.py` is duplicate-safe and ready for the next UTC reset.
 
 ## Ready immediately after GPU quota resets
 
