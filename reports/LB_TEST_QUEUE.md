@@ -12,8 +12,8 @@
 - EXP065 (`55761017`, pending): exact clean source-attributed `0.927` frontier.
 - EXP066 (`55761018`, pending): exact clean source-attributed `0.926` division-sub frontier.
 - EXP067 (`55761031`, pending): General-V8 continuation guard / daughter completion, edge overlap `0.793` to EXP005.
-- EXP068 (CPU wrapper v1 running): global min-cost-flow, edge overlap `0.602` to EXP005.
-- EXP069 (CPU wrapper v1 running): harmonic-fusion high-score calibration with 470 divisions.
+- EXP068 (`55761370`, pending): global min-cost-flow, edge overlap `0.602` to EXP005.
+- EXP069 (`55761371`, pending): harmonic-fusion high-score calibration with 470 divisions.
 
 All five are code submissions or fail-closed code wrappers. Direct CSV attempts were rejected by the notebook-only competition gate and did not consume quota.
 
