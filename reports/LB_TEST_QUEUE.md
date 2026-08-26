@@ -17,6 +17,16 @@
 
 The two wrapper errors did consume quota despite receiving no score. Exact immutable-version retries were attempted immediately and rejected with the explicit five-per-day limit. `scripts/resubmit_exp068_exp069.py` is duplicate-safe and ready for the next UTC reset.
 
+## Submitted on 2026-08-26
+
+- EXP068R (`55781325`, pending): corrected full-inference MCFlow v2.
+- EXP069R (`55781326`, pending): corrected full-inference Flex v11.
+- EXP070 (`55781466`, pending): Ahmet v1; subsequently proven byte-identical to EXP069R.
+- EXP071 (`55781467`, pending): bidirectional/harmonic weight `0.40`, materially different graph.
+- EXP072 (`55781468`, pending): controlled reverse-association weight `0.20`.
+
+All five daily slots were registered as full code submissions. Version-specific output audit after registration found EXP069R and EXP070 share SHA `2dbb8d02…4fa7`; treat today as four unique graphs.
+
 ## Ready immediately after GPU quota resets
 
 1. EXP060: exact `0.920` EXP005 topology plus detector-consensus coordinates, `alpha=0.50`.

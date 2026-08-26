@@ -4,7 +4,7 @@ Competition workspace for [Biohub — Cell Tracking During Development](https://
 
 ## Current objective
 
-Reach the medal zone with a reproducible, leakage-safe pipeline. In the full public-leaderboard snapshot downloaded on 2026-08-22 18:00 UTC, the leader is `0.958`, rank 10 is `0.943`, and rank 50 is `0.929`. The current account best is EXP-006 at `0.919`, rank 203 of 2,636 (`7.70%`, nominal public bronze zone); the final private leaderboard and eligibility still control actual medals. Although the submitted artifact is the exact SHA-verified public EXP-006 graph, its current account score is below the source-attributed historical `0.923`, so external notebook score claims are no longer used as portable evidence. The live API lists the competition deadline as 2026-09-29 23:59 UTC.
+Reach the medal zone with a reproducible, leakage-safe pipeline. The current confirmed account best is EXP-066 at `0.926`; EXP-065 scored `0.924` despite its source title claiming `0.927`, so external notebook score labels are not treated as portable evidence. Five additional full-inference submissions were registered on 2026-08-26 and are pending. The final private leaderboard and eligibility still control actual medals, and exact public-weight OOF remains unavailable because those checkpoints used all labelled movies. The live API lists the competition deadline as 2026-09-29 23:59 UTC.
 
 ## Repository map
 
@@ -12,6 +12,7 @@ Reach the medal zone with a reproducible, leakage-safe pipeline. In the full pub
 - `docs/COMPETITION.md` — task, data, metric, validation and constraints.
 - `docs/PUBLIC_SOLUTIONS.md` — audited public approaches and measured positive/negative results.
 - `docs/ROGII_COMPARISON.md` — transferable lessons from our ROGII campaign.
+- `reports/SUBMISSION_CV_MATRIX.md` — every account submission mapped to exact/related OOF evidence, LB state and private-stability interpretation.
 - `kaggle_notebooks/` — self-contained Kaggle code-competition kernels.
 - `scripts/` — repeatable Kaggle push/submit helpers.
 
