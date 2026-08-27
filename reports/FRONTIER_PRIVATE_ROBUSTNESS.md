@@ -1,28 +1,35 @@
 # Frontier private-robustness decision
 
-Generated 2026-08-24 before EXP008 received an account leaderboard score.
+Updated 2026-08-27 after the previous batch completed and four new submissions were registered.
 
 ## Verdict
 
-EXP005 at `0.920` is the strongest clean public control, but the score alone is not enough to call it private-robust. Its public weights used all labelled movies, so the exact model has no honest unseen-embryo OOF. The `+0.001` lead over EXP006 is far smaller than the observed embryo/domain and four-movie sampling uncertainty.
+EXP066 at `0.926` is the strongest confirmed control. EXP069R/070 also scored `0.926`, but do not add independent robustness evidence. Public weights used labelled competition movies, so no submitted exact pipeline has honest unseen-embryo OOF. A small public lead cannot certify private ordering.
 
-Use EXP005 as the primary final candidate, not as a private guarantee. Preserve one final slot for a structurally different detector family and promote new changes only when they preserve the clean graph or have paired embryo-disjoint evidence.
+The three **validation priorities**, not a claim of three available final-submission slots, are EXP066, EXP071 and EXP008. Reconsider the second priority if EXP073/074/075 produce a stronger confirmed result. These are structurally diverse, not proven error-uncorrelated.
 
 ## Structural evidence
 
-- EXP005 versus EXP006 at `2 µm`: node Jaccard `0.992594`, edge Jaccard `0.988545`; they are effectively the same detector/linker family. Their public scores `0.920/0.919` do not provide two independent estimates.
-- EXP005 versus EXP008 at `2 µm`: node Jaccard `0.605883`, edge Jaccard `0.548440`. EXP008 is a materially different detector/linker hedge, despite its exact-source attribution of `0.917`.
-- EXP005 has only 67 predicted divisions versus 455 in EXP006 and 352 in EXP008. This is conservative and reduces division-FP exposure, but private division prevalence is unknown.
+- EXP066 (`0.926`): dual-seed/DeepCenter, forward association and guarded divisions; main accuracy control.
+- EXP071 (`0.923`): bidirectional harmonic association at weight 0.40. Against EXP066, physical 2-micrometre node/edge/division Jaccard is `0.900011 / 0.873648 / 0.274162`.
+- EXP008 (`0.917`): independent multi-U-Net detector/physical-linking family. Against EXP066 the corresponding overlap is `0.603450 / 0.545528 / 0.023644`. It sacrifices 0.009 public score for much stronger structural diversity.
+- New EXP073 (pending, author `0.927`) versus EXP066: node/edge/division overlap `0.877350 / 0.847210 / 0.235294`.
+- New EXP073 versus EXP074 (pending, author `0.927`): node/edge/division overlap `0.903837 / 0.877430 / 0.391727`.
+
+These are label-free visible-test graph comparisons. Low overlap is not necessarily good and is not the correlation of metric errors; min-cost-flow EXP068R is a counterexample (`0.884`). Error correlation requires paired labelled predictions on a common split.
 
 ## Honest stability evidence
 
-The saved LOEO experiment evaluates mechanisms trained on the opposite embryo, not the exact public EXP005 weights. Registered motion scores `0.744130` on held-out `44b6` and `0.595767` on held-out `6bba`, an embryo gap of `0.148363`. A four-movie public-like resample has a very wide conditional interval (`0.451683–0.786690`), while a 130-movie private-like resample is narrower (`0.585632–0.645486`). See `reports/oof_stability.json` for every movie, fold aggregate and 10,000 bootstrap replicates.
+The saved LOEO experiment evaluates mechanisms trained on the opposite embryo, not the exact public weights. Registered motion scores `0.744130` on held-out `44b6` and `0.595767` on held-out `6bba`, an embryo gap of `0.148363`. The four- and 130-movie resamples in `reports/oof_stability.json` are conditional simulations; neither is a confidence interval for the actual hidden private score. The visible four movies are not proven to equal the scored public subset.
 
-These values do not map to the absolute `0.920` scale because the trained models differ. They do show that a one-thousandth public delta is not a reliable private ordering signal.
+These values cannot map to the absolute `0.926` scale because the trained models differ. Two training embryos also limit any estimate of new-embryo uncertainty, regardless of the number of crops or bootstrap repetitions.
 
-## Current submission policy
+## Affordable validation policy
 
-1. Keep EXP005 as the primary clean leader.
-2. Evaluate EXP008 (`55732259`) as the detector-diverse hedge and EXP007 (`55732491`) as the higher-count D4 association-TTA probe; do not replace EXP005 solely on a tiny public delta.
-3. Next production priority is EXP060/061: exact EXP005 topology with `0.50/0.25` detector-consensus coordinate doses. Both local artifacts pass full graph audit; hidden-compatible inference is built but weekly GPU quota currently prevents execution.
-4. EXP039 and EXP028 were subsequently authorized as controlled LB probes despite negative reject-only diagnostics. One daily slot remains; do not spend it on registered-relink descendants or public-artifact wrappers because they are empirically worse or invalid for hidden reruns.
+1. Keep data and checkpoints on Kaggle. No 80+ GB local download is needed. Use Colab only as an alternative cloud GPU with per-movie transfer/resume and no guarantees of free-GPU availability.
+2. Freeze a 24-movie, two-embryo pilot using existing reciprocal checkpoints. It screens mechanisms, not exact submitted detector ensembles. See `reports/validation_budget_20260827.json` for movie IDs and measured-runtime extrapolation.
+3. Extend cache export to preserve the forward/reverse evidence needed by the selected association policies; disable or retrain learned vetoes that saw held-out data. Existing EXP063/064 alone do not do this.
+4. If the pilot is useful, run the larger fixed validation set once and reuse caches on CPU. Report official pooled score, each embryo, paired deltas/intervals, lower-tail performance and division errors. Any subsequently tuned variant requires a reserved confirmation set.
+5. For exact EXP008 and dual-seed detector ranking, new fold-trained checkpoints or a genuinely independent annotated embryo are needed. No cheap same-training-data proxy can substitute for this.
+
+Full reproducible cost/scope details are in `reports/OOF_MODEL_COMPARISON.md`. No training or Colab session was launched on 2026-08-27.

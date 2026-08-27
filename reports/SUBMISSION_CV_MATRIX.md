@@ -1,6 +1,6 @@
 # Submission ↔ CV/OOF matrix
 
-Updated 2026-08-26 after submissions `55781325–55781468` were registered.
+Updated 2026-08-27 after the August 26 batch completed and EXP073–076 were registered. The August 27 addendum below corrects historical artifact-version provenance.
 
 ## Bottom line
 
@@ -34,16 +34,25 @@ Thus LB is useful for hidden-runtime validation and rejecting large regressions,
 | EXP007 / `55732491` | `0.900` | no | no exact association-TTA OOF | large regression; reject |
 | EXP039 / `55732718` | `0.906` | no | reject-only local delta `−0.00319`, not OOF | checkpoint unstable; reject |
 | EXP028 / `55732720` | `0.919` | no | leaky proxy negative (`0.9131` vs `0.9235`) | sign agrees with LB; reject relaxed veto |
-| EXP065 / `55761017` | `0.924` | no | related LOEO family only | strong, but source title `0.927` failed to reproduce; medium uncertainty |
+| EXP065 / `55761017` | `0.924` | no | related LOEO family only | v12 also scores 0.924 for the author; the title's best 0.927 belongs to v11, not runtime instability |
 | EXP066 / `55761018` | **`0.926`** | no | related LOEO family only | current leader; high public confidence, unknown unseen-embryo ordering |
 | EXP067 / `55761031` | `0.919` | no | no exact continuation-guard OOF | orthogonal graph but lower LB; hedge only |
 | EXP068 wrapper / `55761370` | invalid format | no | no min-cost-flow OOF | replaced by EXP068R |
 | EXP069 wrapper / `55761371` | invalid format | no | none | replaced by EXP069R |
-| EXP068R / `55781325` | pending | no | min-cost-flow arm awaits EXP063/064 caches | highly orthogonal, very uncertain; only 5 public divisions |
-| EXP069R / `55781326` | pending | no | related LOEO family only | current Flex v11; exact duplicate of EXP070 |
-| EXP070 / `55781466` | pending | no | related LOEO family only | duplicate of EXP069R, not an independent stability vote |
-| EXP071 / `55781467` | pending | no | related LOEO family only | materially different bidirectional/harmonic hedge |
-| EXP072 / `55781468` | pending | no | related LOEO family only | controlled reverse-weight hedge; moderately correlated with EXP066 |
+| EXP068R / `55781325` | `0.884` | no | min-cost-flow arm awaits candidate caches | reject this pipeline; diversity alone did not help |
+| EXP069R / `55781326` | `0.926` | no | related LOEO family only | correlated Flex v11; exact submitted-version artifact identity not verified |
+| EXP070 / `55781466` | `0.926` | no | related LOEO family only | near-identical to EXP066; byte-identical to latest Flex v17, not independent evidence |
+| EXP071 / `55781467` | `0.923` | no | related LOEO family only | chosen association-diverse validation candidate |
+| EXP072 / `55781468` | `0.918` | no | related LOEO family only | reject standalone reverse-0.20 variant |
+
+## August 27 additions
+
+- EXP073 / `55808574`: pending; source SDW60 v1 score `0.927`; exact OOF **unavailable**. Detection-fusion change requires re-inference, not only CPU relinking.
+- EXP074 / `55808576`: pending; source Anhad v21 score `0.927`; exact OOF **unavailable**. Different harmonic/division graph, but shared public-weight family.
+- EXP075 / `55808638`: pending; historical source v11 score `0.927`; exact OOF **unavailable**. Version-correction probe; immutable local output audit unavailable. The CLI had silently downloaded v12 when passed `/11`.
+- EXP076 / `55808636`: pending; source SEC25 v1 score `0.923`; exact OOF **unavailable**. Secondary edge-weight hypothesis, lower-priority exploratory test.
+
+For all four: author scores are not account results or private estimates. See `submission_batch_20260827.json` for source/artifact hashes and the historical-version exception.
 
 ## What must happen next
 

@@ -1,0 +1,59 @@
+{
+  "date": "2026-08-27",
+  "images_downloaded": false,
+  "folds": {
+    "44b6": {
+      "audit_movies": 63,
+      "evaluated_movies": 67,
+      "observed_wall_seconds": 5162.790374409,
+      "gpu_devices": 2,
+      "pilot_movies": [
+        "44b6_415c0a3a.zarr",
+        "44b6_abf82518.zarr",
+        "44b6_267148e4.zarr",
+        "44b6_c96cfa10.zarr",
+        "44b6_2a2eff9f.zarr",
+        "44b6_e57ff5c6.zarr",
+        "44b6_e29f0176.zarr",
+        "44b6_c771cb04.zarr",
+        "44b6_a21120c2.zarr",
+        "44b6_3a861e03.zarr",
+        "44b6_40c45f5a.zarr",
+        "44b6_a2bb48bb.zarr"
+      ],
+      "pilot_wall_seconds_linear_estimate": 924.6788730284776,
+      "source_log_sha256": "b14ff5c03bae1d090b07bdd04c6c202db8fa3fd77ea6bda892570d471404b728"
+    },
+    "6bba": {
+      "audit_movies": 120,
+      "evaluated_movies": 124,
+      "observed_wall_seconds": 8814.000753879,
+      "gpu_devices": 2,
+      "pilot_movies": [
+        "6bba_96833384.zarr",
+        "6bba_55c70843.zarr",
+        "6bba_283bf9f1.zarr",
+        "6bba_d3da753b.zarr",
+        "6bba_bb9f20c3.zarr",
+        "6bba_32db13fc.zarr",
+        "6bba_a5e926bb.zarr",
+        "6bba_1ebfb80d.zarr",
+        "6bba_ebdf3b34.zarr",
+        "6bba_474be664.zarr",
+        "6bba_372c8cb8.zarr",
+        "6bba_05db0fb1.zarr"
+      ],
+      "pilot_wall_seconds_linear_estimate": 852.967814891516,
+      "source_log_sha256": "a92fe29ebc1c3d15628ce844654477ce95f515ff4bfd5e7702198ca2741ca773"
+    }
+  },
+  "existing_full_run_wall_hours": 3.88244198008,
+  "existing_full_run_device_gpu_hours": 7.76488396016,
+  "pilot_wall_hours_linear_estimate": 0.49379074664444267,
+  "limits": [
+    "Measured runtime is for the old single-seed LOEO detector, not the exact public dual-seed/DeepCenter pipeline.",
+    "The 24-movie pilot screens large regressions; it cannot establish a 0.001 private gain.",
+    "Bootstrap over movies is conditional on only two embryos, not an uncertainty interval for unseen private embryos.",
+    "Kaggle quota billing units must not be inferred from physical GPU-device hours."
+  ]
+}

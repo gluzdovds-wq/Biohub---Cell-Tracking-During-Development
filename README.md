@@ -4,7 +4,9 @@ Competition workspace for [Biohub — Cell Tracking During Development](https://
 
 ## Current objective
 
-Reach the medal zone with a reproducible, leakage-safe pipeline. The current confirmed account best is EXP-066 at `0.926`; EXP-065 scored `0.924` despite its source title claiming `0.927`, so external notebook score labels are not treated as portable evidence. Five additional full-inference submissions were registered on 2026-08-26 and are pending. The final private leaderboard and eligibility still control actual medals, and exact public-weight OOF remains unavailable because those checkpoints used all labelled movies. The live API lists the competition deadline as 2026-09-29 23:59 UTC.
+Reach the medal zone with a reproducible, leakage-safe pipeline. The confirmed account best is `0.926` (EXP066/069R/070). The August 26 batch also returned EXP071 `0.923`, EXP072 `0.918`, and EXP068R `0.884`. Four more full-inference submissions, EXP073–076, were registered on August 27 and are pending. EXP065's `0.924` was a version-selection issue: the author's best `0.927` belongs to v11, not the submitted v12. EXP075 now probes v11 explicitly. The final private leaderboard and eligibility control actual medals; exact public-weight OOF remains unavailable.
+
+Validation priorities are EXP066, EXP071 and detector-diverse EXP008, with new candidates reconsidered after their scores arrive. The affordable plan is a 24-movie pilot on existing reciprocal checkpoints, followed by a shared GPU cache pass and CPU comparisons. This is mechanism-level evidence, not exact submitted-model OOF. Keep the images on Kaggle; no 80+ GB local download is necessary. See `reports/OOF_MODEL_COMPARISON.md` and `reports/validation_budget_20260827.json` for compute scope and caveats.
 
 ## Repository map
 
@@ -38,6 +40,8 @@ python ./scripts/tail_kaggle_kernel.py <owner/kernel> --pattern 'Epoch|batches|T
 ```
 
 The submit helper checks kernel completion, the canonical artifact SHA, full schema/topology invariants and the live daily quota before spending a slot. It never retries the mutating submission request automatically.
+
+Version warning (2026-08-27): the installed `kernels output owner/slug/version` implementation ignores the version suffix and downloads the latest output. Do not use its directory name as proof of artifact provenance. The new `scripts/submit_frontier_batch.py` checks explicit audit receipts; historical EXP075 is separately documented as lacking an immutable local artifact. No public-output-copy wrappers are submitted.
 
 The LOEO transition is also fail closed. A single watcher instance (guarded by a global mutex) polls the two parent kernels, verifies the completed split contract and checkpoint SHA through `verify_loeo_parent.ps1`, and only then pushes the corresponding untouched-audit kernel:
 

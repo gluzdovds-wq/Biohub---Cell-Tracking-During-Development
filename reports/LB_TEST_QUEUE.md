@@ -1,5 +1,15 @@
 # Leaderboard test queue
 
+## Current update: 2026-08-27
+
+August 26 results are complete: EXP068R `0.884`, EXP069R `0.926`, EXP070 `0.926`, EXP071 `0.923`, EXP072 `0.918`. Best stays `0.926`.
+
+Four new full-inference submissions are registered and pending: EXP073 SDW60 v1 (`55808574`), EXP074 Anhad v21 (`55808576`), EXP075 historical Evgen v11 (`55808638`), EXP076 SEC25 v1 (`55808636`). The first three have author-version score `0.927`; SEC25 has `0.923` and is exploratory. One daily slot remains and is not authorized by this four-submit request.
+
+Version correction: Evgen v11, not v12, is the 0.927 version. The installed output CLI ignores `/version`; previous claims of exact historical output downloads are invalid unless independently verified. In particular, the latest Flex v17/Ahmet v1 duplicate does not itself prove submitted Flex v11 identity. The old dated sections below are historical records, not the current queue.
+
+Next compute priority is the bounded paired-validation pilot, not another high-cost training batch. See `OOF_MODEL_COMPARISON.md`.
+
 ## Results from 2026-08-24
 
 - EXP008 (`55732259`): `0.917`, detector diversity is useful but below EXP005.

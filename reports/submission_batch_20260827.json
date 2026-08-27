@@ -1,0 +1,70 @@
+{
+  "date": "2026-08-27",
+  "authorization": "User requested four additional submissions",
+  "candidates": [
+    {
+      "experiment": "EXP073",
+      "submission_ref": 55808574,
+      "account_status_at_registration": "PENDING",
+      "kernel": "arnav170/biohub-sdw60",
+      "version": 1,
+      "description": "EXP-073 SDW60 detection-weight-060 harmonic frontier v1",
+      "source_path": "outputs/research/frontier_20260827/arnav170__biohub-sdw60__1/biohub-sdw60.ipynb",
+      "source_sha256": "98f8010a4f5761c754f11f7ba2af060914471a12401b2c16efc053240f3dce26",
+      "artifact_path": "outputs/research/frontier_20260827/arnav170__biohub-sdw60__1/output/submission.csv",
+      "artifact_sha256": "1237f162efe3d6f535d2ab73dcc3e8bd03e623826bbb2e7fc2d3ec6286fb15c3",
+      "artifact_version_verified": "UI Version 1 of 1; API latest version 1",
+      "source_review": "PASS_FULL_INFERENCE_NO_METRIC_HACK",
+      "author_lb": 0.927,
+      "honest_oof": null
+    },
+    {
+      "experiment": "EXP074",
+      "submission_ref": 55808576,
+      "account_status_at_registration": "PENDING",
+      "kernel": "anhadmahajan06/biohub-track-your-cells-development",
+      "version": 21,
+      "description": "EXP-074 Anhad harmonic directional-division frontier v21",
+      "source_path": "outputs/research/frontier_20260827/anhadmahajan06__biohub-track-your-cells-development__21/biohub-track-your-cells-development.ipynb",
+      "source_sha256": "650127deb79de7536bf99906dd6d176b47d0061379881e91c3799d4fe62a41f6",
+      "artifact_path": "outputs/research/frontier_20260827/anhadmahajan06__biohub-track-your-cells-development__21/output/submission.csv",
+      "artifact_sha256": "188e0e7995a59ba9eb2ece6b623b0f7afe1cb3d7c00523461dce2826fbe6efe8",
+      "artifact_version_verified": "UI Version 21 of 21; API latest version 21",
+      "source_review": "PASS_FULL_INFERENCE_NO_METRIC_HACK",
+      "author_lb": 0.927,
+      "honest_oof": null
+    },
+    {
+      "experiment": "EXP076",
+      "submission_ref": 55808636,
+      "account_status_at_registration": "PENDING",
+      "kernel": "arnav170/biohub-sec25",
+      "version": 1,
+      "description": "EXP-076 secondary-edge-weight-025 harmonic controlled probe v1",
+      "source_path": "outputs/research/frontier_20260827/arnav170__biohub-sec25__1/biohub-sec25.ipynb",
+      "source_sha256": "9977ffb2b3305108210829e5d6c7dd805fcaedde24ec2a854e876f5bce77d680",
+      "artifact_path": "outputs/research/frontier_20260827/arnav170__biohub-sec25__1/output/submission.csv",
+      "artifact_sha256": "59b204c02027d4347f79cd11a3773c0980d8a1368e9bab592748a8291fa132cb",
+      "artifact_version_verified": "UI Version 1 of 1; API latest version 1",
+      "source_review": "PASS_FULL_INFERENCE_NO_METRIC_HACK",
+      "author_lb": 0.923,
+      "honest_oof": null
+    }
+  ],
+  "historical_candidate": {
+    "experiment": "EXP075",
+    "submission_ref": 55808638,
+    "account_status_at_registration": "PENDING",
+    "kernel": "evgendvorkin/biohub-0-927-lb",
+    "version": 11,
+    "script_version_id": 344633968,
+    "description": "EXP-075 historical best harmonic frontier v11 not v12",
+    "source_url": "https://www.kaggle.com/code/evgendvorkin/biohub-0-927-lb?scriptVersionId=344633968",
+    "author_lb": 0.927,
+    "source_review": "Historical rendered notebook inspected; immutable source download unavailable",
+    "artifact_version_verified": false,
+    "artifact_sha256": null,
+    "honest_oof": null,
+    "caveat": "CLI output ignores the version suffix; the downloaded 33c179b0 artifact belongs to latest v12 and must NOT be attributed to v11. This is an explicit historical-version LB probe, not a fully artifact-verified reproduction."
+  }
+}

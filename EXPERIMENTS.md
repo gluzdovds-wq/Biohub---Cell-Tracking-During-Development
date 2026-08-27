@@ -2,6 +2,25 @@
 
 This file is the competition source of truth. Update it before launching an experiment and after every CV/LB result.
 
+## 2026-08-27 update (supersedes older pending/version interpretations)
+
+Completed August 26 results: EXP068R `0.884`; EXP069R `0.926`; EXP070 `0.926`; EXP071 `0.923`; EXP072 `0.918`. Confirmed best remains `0.926`.
+
+The user authorized four further exploratory LB tests. These are source-attributed public full-inference notebooks, not newly trained proprietary architectures:
+
+- EXP073 / `55808574`: `arnav170/biohub-sdw60` v1, secondary detection fusion weight 0.60 with harmonic association. Author's version score `0.927`; account score pending. Artifact SHA `1237f162efe3d6f535d2ab73dcc3e8bd03e623826bbb2e7fc2d3ec6286fb15c3`; 121,815 nodes / 117,548 edges / 267 divisions; full structural audit PASS. New detection mixture rather than another radius sweep.
+- EXP074 / `55808576`: `anhadmahajan06/biohub-track-your-cells-development` v21, harmonic association plus guarded division recovery. Author's version score `0.927`; account score pending. SHA `188e0e7995a59ba9eb2ece6b623b0f7afe1cb3d7c00523461dce2826fbe6efe8`; 122,156 / 117,923 / 305; full structural audit PASS. Its graph differs materially from EXP073 (physical edge overlap 0.877430).
+- EXP075 / `55808638`: `evgendvorkin/biohub-0-927-lb` v11, explicitly the historical `0.927` version, not v12/EXP065 (`0.924`). Account score pending. Historical page and rendered code inspected; immutable source/artifact download was unavailable, so no local SHA or complete artifact audit is claimed for v11. This is a separately documented version-correction LB probe.
+- EXP076 / `55808636`: `arnav170/biohub-sec25` v1, secondary edge-logit weight 0.25; author score `0.923`; account pending. SHA `59b204c02027d4347f79cd11a3773c0980d8a1368e9bab592748a8291fa132cb`; 122,378 / 118,093 / 267; full structural audit PASS. Lower-priority exploratory arm, not an evidence-backed promise to exceed 0.926.
+
+Frozen metadata and exceptions are in `reports/submission_batch_20260827.json`. No new exact OOF scores were generated and no new training was launched. Every new experiment's honest-OOF field remains null.
+
+Provenance correction: installed Kaggle CLI `kernels_output()` parses but never sends the version suffix. The purported v11 download with SHA `33c179b0...` was actually latest v12 and is not a v11 artifact. Similarly, latest Flex v17 is byte-identical to Ahmet v1, but that alone does not prove the submitted Flex v11 was byte-identical. Retain version-specific submission IDs as authoritative and retract unsupported immutable-artifact claims in earlier entries.
+
+The old EXP065 title mismatch is **not** evidence of runtime/private instability: the UI explicitly shows v12 public score 0.924 and best v11 score 0.927. No generic portability conclusion follows from that example.
+
+Validation shortlist: EXP066 (`0.926`), EXP071 (`0.923`, edge overlap 0.873648 to EXP066), EXP008 (`0.917`, edge overlap 0.545528). These are graph-diverse, not proven error-uncorrelated. Reconsider EXP073/074 once their account results exist. The 24-movie pilot and exact-model limitations are recorded in `reports/OOF_MODEL_COMPARISON.md`; previous 40–70 GPU-hour claims are not a measured budget for exact-model reproduction.
+
 ## Decision gates
 
 - Primary CV: leave-one-embryo-out (LOEO); report each embryo/movie and pooled official metric.
