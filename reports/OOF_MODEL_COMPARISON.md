@@ -2,9 +2,9 @@
 
 ## What is already honest
 
-The current OOF detector is a TemporalUNet3D plus node transformer trained twice. The `44b6` checkpoint sees only `6bba` during training; the reciprocal checkpoint sees only `44b6`. Threshold/policy selection uses four checkpoint movies, confirmation uses four separate movies, and the reported audit covers 63/120 untouched movies.
+The current held-out detector is a TemporalUNet3D plus node transformer trained twice. The `44b6` checkpoint sees only `6bba` during gradient training; the reciprocal checkpoint sees only `44b6`. Threshold/policy and checkpoint selection use four movies of the evaluated embryo, confirmation uses four separate movies, and the reported audit covers 63/120 movies excluded from those selection steps. Consequently this is movie-held-out evaluation, not a pristine unseen-embryo test of the entire training-and-selection procedure.
 
-Existing untouched results on identical detections:
+Existing held-out results on identical detections (now reused development evidence, not a fresh final test):
 
 - Holdout `44b6`: registered `0.744130`, weak learned tie-break `0.744864`, greedy `0.579940`, broad/strict physical prune `0.583013/0.582320`.
 - Holdout `6bba`: registered `0.595767`, weak learned tie-break `0.596538`, greedy `0.466180`, broad/strict physical prune `0.473658/0.473254`.
@@ -14,7 +14,7 @@ This is an honest comparison of linker/postprocess mechanisms. It is not an hone
 
 ## EXP063/064 comparison contract
 
-The prepared reciprocal runs infer each untouched movie once, then compare these policies on exactly the same detections and learned edge candidates:
+The prepared reciprocal runs infer each audit movie once, then compare these policies on exactly the same detections and learned edge candidates:
 
 1. registered motion Hungarian;
 2. registered plus 10% learned tie-break;
@@ -29,7 +29,9 @@ Every movie also exports a compressed cache of coordinates and edge candidates b
 
 ## CPU decision
 
-CPU is appropriate for metric calculation, bootstraps, graph optimization and new linkers after candidate export. It is not appropriate for the full detector comparison under Kaggle's 12-hour notebook limit.
+CPU is appropriate for metric calculation, bootstraps, graph optimization and new linkers after candidate export. The earlier categorical rejection of CPU detector inference was unsupported by a CPU benchmark. A full exact-model comparison may be expensive; measure a pilot and shard across bounded sessions before deciding.
+
+EXP077 v1 is now running on Kaggle CPU: four full hash-selected audit movies, no flip TTA, shared candidates for registered/weak/local-deformation/ILP controls, six-hour total budget. Model and split contracts passed; the API confirms GPU disabled and exact local/remote source equality. It includes our own leave-self-out local deformation linker. First full movie finished in `356.032 s` (`289.963 s` inference), with local-flow minus weak control `0.0`; ILP scored higher. The reciprocal embryo has started. This establishes feasibility, not improvement or complete OOF. See `CPU_LOCAL_FLOW_PILOT.md`.
 
 Corrected 2026-08-27 using actual EXP050/051 logs: those single-seed OOF evaluation jobs took 5,162.79 and 8,814.00 seconds, or **3.882 hours of combined wall time on T4 x2** (7.765 physical GPU-device hours). They evaluated 67/124 movies including confirmation. The earlier 28–38-hour extrapolation from the much heavier public dual-seed notebooks was not appropriate for these jobs. Kaggle quota units are not automatically equal to physical GPU-device hours.
 

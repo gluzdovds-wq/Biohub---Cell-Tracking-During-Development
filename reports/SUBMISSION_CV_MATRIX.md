@@ -6,7 +6,7 @@ Updated 2026-08-27 after the August 26 batch completed and EXP073–076 were reg
 
 No submitted public-weight model currently has an **exact honest OOF score**. The dominant public TemporalUNet/dual-seed checkpoints were trained on all labelled competition movies. Evaluating those same checkpoints on train data is leakage, even when the notebook calls several volumes “validation”.
 
-Our honest leave-one-embryo-out evidence belongs to separately retrained reciprocal checkpoints and therefore supports mechanisms, not the absolute `0.90–0.93` LB scale:
+Our movie-held-out evidence belongs to separately retrained reciprocal checkpoints and therefore supports mechanisms, not the absolute `0.90–0.93` LB scale. Gradient training excludes the evaluated embryo, but checkpoint/threshold selection used separate movies of that embryo; this is not a fully independent unseen-embryo test:
 
 - registered Hungarian: `0.744130` on held-out `44b6`, `0.595767` on held-out `6bba`, pooled `0.615980`;
 - weak learned tie-break minus registered: `+0.000734/+0.000771`;
@@ -15,6 +15,8 @@ Our honest leave-one-embryo-out evidence belongs to separately retrained recipro
 - four-movie public-like bootstrap interval: `0.451683–0.786690` versus private-like 130-movie interval `0.585632–0.645486`.
 
 Thus LB is useful for hidden-runtime validation and rejecting large regressions, but differences of `0.001–0.003` are not evidence of private ordering.
+
+EXP077 CPU pilot is **not an LB submission**. It compares our new local-deformation linker with registered/weak and public-style ILP controls on four full audit movies using no-TTA reciprocal weights. Launched 2026-08-27, v1 RUNNING with contracts verified; first movie complete in `356.032 s`, paired local-flow minus weak control `0.0`, full pilot CV pending. Saved results contain each movie/embryo and paired deltas. Existing audit scores have already been inspected, so neither this pilot nor a later reuse is an untouched final holdout. Bootstrap intervals above are conditional resampling diagnostics, not intervals for the actual hidden leaderboard.
 
 ## Every account submission
 

@@ -1,0 +1,20 @@
+{
+  "id": "dmitriigluzdov/biohub-exp077-cpu-held-out-local-flow-pilot",
+  "title": "Biohub EXP077 CPU Held-out Local Flow Pilot",
+  "code_file": "cpu_local_flow.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "dataset_sources": ["pilkwang/biohub-tracking-support-pack-50ep-v1"],
+  "kernel_sources": [
+    "dmitriigluzdov/biohub-exp009-loeo-holdout-44b6",
+    "dmitriigluzdov/biohub-exp010-loeo-holdout-6bba",
+    "dmitriigluzdov/biohub-exp011-audit-loeo-44b6",
+    "dmitriigluzdov/biohub-exp012-audit-loeo-6bba"
+  ],
+  "competition_sources": ["biohub-cell-tracking-during-development"],
+  "model_sources": []
+}

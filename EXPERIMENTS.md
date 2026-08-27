@@ -2,6 +2,18 @@
 
 This file is the competition source of truth. Update it before launching an experiment and after every CV/LB result.
 
+## 2026-08-27 CPU / own-method follow-up
+
+Attribution: EXP073–076 are public-source reproductions, not our newly trained models. Our own EXP039 secondary checkpoint, EXP054 registered relinking and EXP055 intensity composition scored `0.906`, `0.905`, `0.893`; they have not surpassed the public-derived frontier. EXP009/010 are our reciprocal training runs of the public architecture, not a new architecture.
+
+H065 / EXP077 is pre-registered before launch: CPU-only, four **full** movies (first two per embryo from the already frozen 24-movie hash-selected pilot), no flip TTA, one independently trained checkpoint per holdout. All four arms share detections/candidates: registered Hungarian, 10% learned tie-break, **our new leave-self-out robust local deformation field + tie-break**, and a public-style ILP control. Local motion uses unambiguous mutual anchors; each cell excludes its own anchor; uncertain neighborhoods revert to global registration. No new training, no LB submission and no GPU allocation.
+
+The run is capped at six hours / 90 minutes per movie, with per-movie caches and scores. It is a speed and large-regression pilot, not complete OOF or evidence for a `0.001` private improvement. Training excludes evaluated movies and their embryo, but checkpoint/calibration used other movies of that embryo. These audit movies were also scored in previous experiments. Therefore call this a **movie-held-out paired audit**, not an untouched embryo-independent final test. No-TTA changes the pipeline; existing thresholds remain frozen, not retuned on these four movies.
+
+Implementation: `kaggle_notebooks/exp077_cpu_local_flow/cpu_local_flow.py`; ten synthetic/control-parity tests pass. Status: Kaggle v1 RUNNING, model/cfg/selection hashes verified; runtime and metric pending. API confirms GPU disabled and exact remote/local code SHA `5b79389f998de936d39d98c1aba49057372010ffaa1b7bc5db31658dbff5a36a`. Kaggle created slug `dmitriigluzdov/biohub-exp077-cpu-held-out-local-flow-pilot` from the title; local metadata now uses that actual slug. All arm graphs are frozen before labels are read; official aggregation and per-embryo deltas are saved. See `reports/CPU_LOCAL_FLOW_PILOT.md` for scope and continuation.
+
+First v1 result: `44b6_415c0a3a.zarr` completes all four arms and official scoring in `356.032 s` on CPU (`289.963 s` neural inference), exit 0. Registered `0.677837`, weak `0.669063`, local flow `0.669063`, ILP `0.718948`; own-method paired delta `0.0`. No divisions in this movie. CPU feasibility is demonstrated; an own-method gain is **not** demonstrated. Second embryo inference has started; complete fold/pilot metrics remain pending. First-movie evidence is saved in `reports/cpu_pilot_launch_20260827.json`.
+
 ## 2026-08-27 update (supersedes older pending/version interpretations)
 
 Completed August 26 results: EXP068R `0.884`; EXP069R `0.926`; EXP070 `0.926`; EXP071 `0.923`; EXP072 `0.918`. Confirmed best remains `0.926`.
