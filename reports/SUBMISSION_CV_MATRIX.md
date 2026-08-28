@@ -1,6 +1,6 @@
 # Submission ↔ CV/OOF matrix
 
-Updated 2026-08-27 after the August 26 batch completed and EXP073–076 were registered. The August 27 addendum below corrects historical artifact-version provenance.
+Updated 2026-08-28: EXP073–076 scored, EXP077 CPU pilot complete, EXP078–082 registered. Historical artifact-version exceptions remain explicit.
 
 ## Bottom line
 
@@ -16,7 +16,7 @@ Our movie-held-out evidence belongs to separately retrained reciprocal checkpoin
 
 Thus LB is useful for hidden-runtime validation and rejecting large regressions, but differences of `0.001–0.003` are not evidence of private ordering.
 
-EXP077 CPU pilot is **not an LB submission**. It compares our new local-deformation linker with registered/weak and public-style ILP controls on four full audit movies using no-TTA reciprocal weights. Launched 2026-08-27, v1 RUNNING with contracts verified; first movie complete in `356.032 s`, paired local-flow minus weak control `0.0`, full pilot CV pending. Saved results contain each movie/embryo and paired deltas. Existing audit scores have already been inspected, so neither this pilot nor a later reuse is an untouched final holdout. Bootstrap intervals above are conditional resampling diagnostics, not intervals for the actual hidden leaderboard.
+EXP077 CPU pilot is **not an LB submission**. COMPLETE on four full audit movies in 20.30 minutes, with no failures. It compares our local-deformation linker with registered/weak and public-style ILP controls using no-TTA reciprocal weights. Local-flow minus weak control is `0.0` on each embryo and pooled; pooled scores are `0.624991 / 0.624970 / 0.624970 / 0.613500`. No GT divisions occur. These are not exact public-model OOF scores. Saved results contain each movie/embryo, sufficient statistics and paired deltas. Existing audit scores have already been inspected, so neither this pilot nor a later reuse is an untouched final holdout. Bootstrap intervals above are conditional resampling diagnostics, not intervals for the actual hidden leaderboard.
 
 ## Every account submission
 
@@ -37,7 +37,7 @@ EXP077 CPU pilot is **not an LB submission**. It compares our new local-deformat
 | EXP039 / `55732718` | `0.906` | no | reject-only local delta `−0.00319`, not OOF | checkpoint unstable; reject |
 | EXP028 / `55732720` | `0.919` | no | leaky proxy negative (`0.9131` vs `0.9235`) | sign agrees with LB; reject relaxed veto |
 | EXP065 / `55761017` | `0.924` | no | related LOEO family only | v12 also scores 0.924 for the author; the title's best 0.927 belongs to v11, not runtime instability |
-| EXP066 / `55761018` | **`0.926`** | no | related LOEO family only | current leader; high public confidence, unknown unseen-embryo ordering |
+| EXP066 / `55761018` | `0.926` | no | related LOEO family only | former leader; unknown unseen-embryo ordering |
 | EXP067 / `55761031` | `0.919` | no | no exact continuation-guard OOF | orthogonal graph but lower LB; hedge only |
 | EXP068 wrapper / `55761370` | invalid format | no | no min-cost-flow OOF | replaced by EXP068R |
 | EXP069 wrapper / `55761371` | invalid format | no | none | replaced by EXP069R |
@@ -49,15 +49,25 @@ EXP077 CPU pilot is **not an LB submission**. It compares our new local-deformat
 
 ## August 27 additions
 
-- EXP073 / `55808574`: pending; source SDW60 v1 score `0.927`; exact OOF **unavailable**. Detection-fusion change requires re-inference, not only CPU relinking.
-- EXP074 / `55808576`: pending; source Anhad v21 score `0.927`; exact OOF **unavailable**. Different harmonic/division graph, but shared public-weight family.
-- EXP075 / `55808638`: pending; historical source v11 score `0.927`; exact OOF **unavailable**. Version-correction probe; immutable local output audit unavailable. The CLI had silently downloaded v12 when passed `/11`.
-- EXP076 / `55808636`: pending; source SEC25 v1 score `0.923`; exact OOF **unavailable**. Secondary edge-weight hypothesis, lower-priority exploratory test.
+- EXP073 / `55808574`: COMPLETE, account **`0.927`**; SDW60 v1. Exact OOF **unavailable**. Detection-fusion change requires re-inference, not only CPU relinking.
+- EXP074 / `55808576`: COMPLETE, account **`0.927`**; Anhad v21. Exact OOF **unavailable**. Different harmonic/division graph, but shared public-weight family.
+- EXP075 / `55808638`: COMPLETE, account **`0.927`**; historical Evgen v11. Exact OOF **unavailable**. Version-correction probe; immutable local output audit unavailable. The CLI had silently downloaded v12 when passed `/11`.
+- EXP076 / `55808636`: COMPLETE, account `0.923`; SEC25 v1. Exact OOF **unavailable**. Secondary edge-weight hypothesis, lower-priority exploratory test.
 
-For all four: author scores are not account results or private estimates. See `submission_batch_20260827.json` for source/artifact hashes and the historical-version exception.
+All four account scores now independently match the corresponding source-version scores, but are not private estimates. See `submission_batch_20260827.json` for receipts and the historical-version exception.
+
+## August 28 additions
+
+- EXP078 / `55836059`: PENDING; SDW70 v1, author `0.928`; exact OOF **unavailable**. Detection weight 0.70, same source family as EXP073.
+- EXP079 / `55836064`: PENDING; Flex v22, author `0.928`; exact OOF **unavailable**. Epoch-2 DeepCenter and safe-division veto; not a new independent architecture.
+- EXP080 / `55836067`: PENDING; SDW75 v1, no displayed author score; exact OOF **unavailable**. Detection weight 0.75, exploratory.
+- EXP081 / `55836071`: PENDING; VEL10 v1, no displayed author score; exact OOF **unavailable**. Full velocity extrapolation on detection blend 0.475; exploratory.
+- EXP082 / `55836074`: PENDING; MTL8 v1, author `0.923`; exact OOF **unavailable**. Stricter short-track filtering; sensitivity control, not evidence of superior private robustness.
+
+All five are source-attributed full-code public reproductions, with frozen notebooks and unique audited output hashes. Author scores above are not account results. Daily quota: five used, zero available. Canonical manifest: `submission_batch_20260828.json`.
 
 ## What must happen next
 
-EXP063/064 are the prepared exact-detection linker comparison: registered, weak/heavy learned, two ILP policies, greedy/physical arms, and cached candidates for min-cost-flow, Kalman and particle-filter follow-ups. They are compile-clean but cannot run until the account GPU quota refreshes at `2026-08-29 00:00 UTC`; current usage exceeds the 6-hour weekly allowance.
+EXP063/064 are the prepared shared-detection linker comparison: registered, weak/heavy learned, two ILP policies, greedy/physical arms, and cached candidates for min-cost-flow, Kalman and particle-filter follow-ups. Their GPU configuration must wait for quota refresh at `2026-08-29 00:00 UTC`. EXP077 now demonstrates a cheaper CPU/no-TTA route; bounded CPU shards need not wait, but change the inference configuration and are not exact submitted-model OOF. No extended run was launched on August 28.
 
 For final selection, trust mechanisms with the same-sign paired embryo OOF first. Among models without exact OOF, retain several structurally different candidates rather than interpreting a `0.001` public lead as private certainty.

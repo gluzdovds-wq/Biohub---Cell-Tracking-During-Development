@@ -11,12 +11,27 @@ import hashlib
 import json
 from pathlib import Path
 
-from kaggle.api.kaggle_api_extended import KaggleApi
+from kaggle.api.kaggle_api_extended import ApiGetKernelRequest, KaggleApi
 
 from audit_submission_fast import audit
 
 ROOT = Path(__file__).resolve().parents[1]
 COMPETITION = "biohub-cell-tracking-during-development"
+
+
+def validate_batch(records):
+    if not records or len(records) > 5:
+        raise ValueError("Batch must contain one to five explicit candidates")
+    for key in ("artifact_sha256", "description"):
+        if len({r[key] for r in records}) != len(records):
+            raise ValueError(f"Duplicate {key} in batch")
+
+
+def validate_remote_source(current, record, source_path):
+    if current.metadata.current_version_number != record["version"]:
+        raise ValueError("Remote latest version changed; re-audit before submitting")
+    if current.blob.source.replace("\r\n", "\n") != source_path.read_text(encoding="utf-8"):
+        raise ValueError("Remote source differs from reviewed source")
 
 
 def main() -> None:
@@ -30,11 +45,7 @@ def main() -> None:
         records = [r for r in records if r["experiment"] in args.experiment]
         if set(args.experiment) != {r["experiment"] for r in records}:
             raise ValueError("Unknown experiment requested")
-    if not records or len(records) > 4:
-        raise ValueError("Batch must contain one to four explicit candidates")
-    hashes = [r["artifact_sha256"] for r in records]
-    if len(set(hashes)) != len(hashes):
-        raise ValueError("Duplicate artifacts in batch")
+    validate_batch(records)
     api = KaggleApi()
     api.authenticate()
     prior = {s.description for s in api.competition_submissions(COMPETITION)}
@@ -51,6 +62,14 @@ def main() -> None:
         source_hash = hashlib.sha256(source_path.read_bytes()).hexdigest()
         if source_hash != record["source_sha256"]:
             raise ValueError("Source SHA drift")
+        # Fail closed on latest-version drift: the installed output CLI silently
+        # ignores /version. A local vNN-looking directory is not provenance.
+        owner, slug = record["kernel"].split("/")
+        request = ApiGetKernelRequest()
+        request.user_name, request.kernel_slug = owner, slug
+        with api.build_kaggle_client() as client:
+            current = client.kernels.kernels_api_client.get_kernel(request)
+        validate_remote_source(current, record, source_path)
         receipt = audit(ROOT / record["artifact_path"], expected_datasets=4)
         if receipt["sha256"] != record["artifact_sha256"]:
             raise ValueError("Artifact SHA drift")

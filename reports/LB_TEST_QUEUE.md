@@ -1,14 +1,14 @@
 # Leaderboard test queue
 
-## Current update: 2026-08-27
+## Current update: 2026-08-28
 
-August 26 results are complete: EXP068R `0.884`, EXP069R `0.926`, EXP070 `0.926`, EXP071 `0.923`, EXP072 `0.918`. Best stays `0.926`.
+August 27 results are complete: EXP073 SDW60, EXP074 Anhad v21 and EXP075 Evgen v11 all scored **0.927**; EXP076 SEC25 scored **0.923**. Confirmed best is **0.927**. August 26 results: EXP068R `0.884`, EXP069R `0.926`, EXP070 `0.926`, EXP071 `0.923`, EXP072 `0.918`.
 
-Four new full-inference submissions are registered and pending: EXP073 SDW60 v1 (`55808574`), EXP074 Anhad v21 (`55808576`), EXP075 historical Evgen v11 (`55808638`), EXP076 SEC25 v1 (`55808636`). The first three have author-version score `0.927`; SEC25 has `0.923` and is exploratory. One daily slot remains and is not authorized by this four-submit request.
+Five new full-code submissions are registered and PENDING: EXP078 SDW70 v1 (`55836059`), EXP079 Flex v22 (`55836064`), EXP080 SDW75 v1 (`55836067`), EXP081 VEL10 v1 (`55836071`), EXP082 MTL8 v1 (`55836074`). First two have verified author-version score `0.928`; SDW75/VEL10 have no displayed author score. MTL8 is a lower-priority `0.923` sensitivity control. These are public reproductions, not our new neural models. Frozen source and artifact receipts: `submission_batch_20260828.json`. Daily quota is five used / zero available.
 
 Version correction: Evgen v11, not v12, is the 0.927 version. The installed output CLI ignores `/version`; previous claims of exact historical output downloads are invalid unless independently verified. In particular, the latest Flex v17/Ahmet v1 duplicate does not itself prove submitted Flex v11 identity. The old dated sections below are historical records, not the current queue.
 
-Next compute priority is the bounded paired-validation pilot, not another high-cost training batch. See `OOF_MODEL_COMPARISON.md`.
+EXP077's own local-flow CPU pilot is COMPLETE: four movies, 20.30 minutes, paired delta zero on both embryos, no annotated divisions. No promotion. The four candidate caches are now local (1.08 MB total), without an image download. Next compute priority is bounded CPU validation / new cached-linker hypotheses; neither the 24- nor 183-movie continuation has started. See `OOF_MODEL_COMPARISON.md`.
 
 ## Results from 2026-08-24
 

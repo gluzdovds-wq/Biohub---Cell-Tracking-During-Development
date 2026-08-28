@@ -2,6 +2,24 @@
 
 This file is the competition source of truth. Update it before launching an experiment and after every CV/LB result.
 
+## 2026-08-28 results and five authorized submissions
+
+Confirmed account scores: EXP073 SDW60 / `55808574` **0.927**, EXP074 Anhad v21 / `55808576` **0.927**, EXP075 Evgen v11 / `55808638` **0.927**, EXP076 SEC25 / `55808636` **0.923**. Best is now **0.927**. These remain public-source reproductions; exact submitted-model OOF is unavailable.
+
+EXP077 completed all four full movies on CPU in `1218.073 s` (20.30 minutes), no failures. Local-flow minus weak-registration is exactly `0.0` on both embryos and pooled. Pooled registered/weak/local-flow/ILP scores: `0.624991 / 0.624970 / 0.624970 / 0.613500`. Local-flow does alter graphs, but not the annotated metric counts on these four movies. No GT divisions occur in this pilot, so it provides no division-recall evidence. No own-method promotion follows; it establishes CPU feasibility only. These abbreviated no-TTA weights must not be assigned as CV scores to the 0.927 public models.
+
+Five candidates are frozen before submission in `reports/submission_batch_20260828.json`, with raw source notebooks archived in git under `research/frozen_sources_20260828/`. All five complete public outputs pass schema/topology checks, have distinct hashes, and have source/metadata versions checked before and after output download. Author score is taken from the version card, not the title. Eighteen local tests pass, including version/source-drift and five-submission guards.
+
+- H066 / EXP078: SDW70 v1 (`rishabhr0y/biohub-934-sdw70`), secondary detection weight 0.70. Author **0.928**, not 0.934. Main frontier probe.
+- H067 / EXP079: Flex v22 (`flexonafft/biohub-harmonic-fusion`), best epoch-2 DeepCenter checkpoint with safe-division veto on the inherited gap3/6.5um family. Author **0.928**. Do not infer effective bidirectional inference merely from an added environment flag.
+- H068 / EXP080: SDW75 v1 (`arnav170/biohub-sdw75`), detector-mixture extrapolation to 0.75. No author score displayed; exploratory.
+- H069 / EXP081: VEL10 v1 (`arnav170/biohub-vel10`), full constant-velocity extrapolation instead of half-velocity on the 0.475 detector mixture. No author score displayed; exploratory.
+- H070 / EXP082: MTL8 v1 (`arnav170/biohub-mtl8`), minimum component length 8 instead of 6, preserving division components. Author **0.923**. Lower-priority sensitivity control, not a justified record or private-stability claim.
+
+All five are attributed public reproductions, not new neural models trained by us. Our newly implemented local-flow candidate remains separate and unsubmitted. GPU training quota is still exhausted until 2026-08-29 00:00 UTC; no GPU training or paid compute is launched. Anhad v22 is excluded as code-identical to submitted v21; Evgen v13 (0.923/private source), Black Cat B (0.884), and the boundary-rescue lane without a verified frontier result are not selected.
+
+Submission status: all five registered once and API-confirmed PENDING: EXP078 `55836059`, EXP079 `55836064`, EXP080 `55836067`, EXP081 `55836071`, EXP082 `55836074`. Account scores are not yet available. Daily quota is now 5 used / 0 available, total account submissions 33. An initial SSL failure occurred during read-only preflight; the account list was checked before retrying, so no submission request was blindly repeated. User authorization: next five submissions.
+
 ## 2026-08-27 CPU / own-method follow-up
 
 Attribution: EXP073–076 are public-source reproductions, not our newly trained models. Our own EXP039 secondary checkpoint, EXP054 registered relinking and EXP055 intensity composition scored `0.906`, `0.905`, `0.893`; they have not surpassed the public-derived frontier. EXP009/010 are our reciprocal training runs of the public architecture, not a new architecture.

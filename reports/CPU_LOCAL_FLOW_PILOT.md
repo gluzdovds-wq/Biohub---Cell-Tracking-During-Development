@@ -2,7 +2,7 @@
 
 ## What is ours
 
-The latest four LB submissions (EXP073–076) are attributed public reproductions. Our own weight/geometry experiments exist, but none has beaten the public-derived best. This pilot does not rename a fork as a new architecture: the detector and edge transformer are public; training checkpoints EXP009/010 are ours; the leave-self-out local deformation linker is newly implemented here.
+The recent LB submissions (EXP073–076 and EXP078–082) are attributed public reproductions. Our own weight/geometry experiments exist, but none has beaten the public-derived best. This pilot does not rename a fork as a new architecture: the detector and edge transformer are public; training checkpoints EXP009/010 are ours; the leave-self-out local deformation linker is newly implemented here.
 
 Hypothesis H065: a single global displacement can miss coherent, spatially varying tissue motion. Estimate residual displacement from unambiguous mutual-nearest anchors within 20 microns, exclude the query's own anchor, require at least three neighbors with consistent residuals, and shrink the correction. Sparse/ambiguous neighborhoods fall back to global registration. Preserve detections and constrain assignment to the original physical gate. This is a testable physical association method, not a claim of scientific novelty or a new neural detector.
 
@@ -35,8 +35,18 @@ Four movies measure feasibility and can reject gross regressions. They cannot es
 
 Kaggle's documented CPU/GPU notebook session limit is 12 hours, so a two-day workload needs bounded sessions and saved outputs, not one uninterrupted session. [Kaggle notebook documentation](https://www.kaggle.com/docs/notebooks)
 
-Status: [Kaggle v1 RUNNING](https://www.kaggle.com/code/dmitriigluzdov/biohub-exp077-cpu-held-out-local-flow-pilot), with all parent contracts verified. API source matches the local code exactly (SHA `5b79389f998de936d39d98c1aba49057372010ffaa1b7bc5db31658dbff5a36a`) and GPU is disabled. Ten local tests pass, including parity of both controls with EXP063.
+## Completed results, checked 2026-08-28
 
-First complete movie observed in live v1 logs: `44b6_415c0a3a.zarr`, 100 frames; neural inference `289.963 s`, total inference/four linkers/scoring `356.032 s`, process exit 0. Candidate cache contains 63,436 nodes / 47,669 edges. Registered/weak/local-flow/ILP scores are `0.677837 / 0.669063 / 0.669063 / 0.718948`; no divisions occur on this movie. The new local field has paired delta **0.0** against its weak control and does not outperform ILP. No promotion follows. `6bba_96833384.zarr` has started; full pilot/embryo results remain pending.
+Status: [Kaggle v1 COMPLETE](https://www.kaggle.com/code/dmitriigluzdov/biohub-exp077-cpu-held-out-local-flow-pilot), all four full movies complete, exit codes zero. Total wall time `1218.073 s` (**20.30 minutes**). Parent contracts passed; verified source SHA `5b79389f998de936d39d98c1aba49057372010ffaa1b7bc5db31658dbff5a36a`, GPU disabled. Ten local geometry/control tests pass.
 
-This observation supports CPU feasibility. A rough one-movie linear extrapolation is about 2.4 CPU wall hours for 24 movies or 18.1 hours for 183, excluding setup between shards. These are **not measured complete-run budgets**; movie density, solver time and failures may change them. Neither estimate applies to training from scratch or the exact public dual-seed/TTA pipeline. Use bounded shards below the 12-hour session limit.
+Official aggregate scores, in the order registered / weak tie-break / local-flow / ILP:
+
+- `44b6`, two movies: `0.734515 / 0.730861 / 0.730861 / 0.725789`.
+- `6bba`, two movies: `0.590408 / 0.591441 / 0.591441 / 0.573284`.
+- Pooled, four movies: `0.624991 / 0.624970 / 0.624970 / 0.613500`.
+
+Local-flow minus weak tie-break is exactly **0.0** for each embryo and pooled. Its graph hashes differ from the control on all four movies, so the implementation is active, but changes do not improve the annotated metric counts here. All GT and predicted division counts are zero: this pilot cannot assess division recall. Do not promote the new method or use these scores as exact OOF for the public `0.927` models.
+
+Downloaded and checksum-verified four candidate caches total **1,081,582 bytes**, without any microscopy images. These can support new CPU linkers without repeated neural inference. The compact result, per-movie sufficient statistics, cache hashes and limitations are saved in `cpu_pilot_result_20260828.json`.
+
+Measured movie wall times are `356.032 / 231.767 / 267.494 / 311.469 s` in frozen execution order. A four-movie linear extrapolation is about **1.94 CPU wall hours for 24 movies / 14.83 hours for 183**, excluding repeated setup. These are estimates, not completed-run timings; density, solver behavior and failures may change them. They do not apply to full public-model inference or training. Use bounded shards; the 24/183-movie continuation has **not** been launched.
