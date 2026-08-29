@@ -1,0 +1,266 @@
+{
+  "date": "2026-08-29",
+  "authorization": "User explicitly authorized the next five submissions",
+  "known_best_before_batch": 0.928,
+  "clean_frontier_found": 0.931,
+  "source_policy": "Pinned full-code notebooks only; metric hacks and public-CSV wrappers excluded",
+  "registration_note": "All five unique descriptions registered exactly once. Two read-only TLS failures occurred before the EXP087 dry-run; the account list was reconciled and no ambiguous submission POST was retried.",
+  "quota_after_batch": {
+    "num_today": 5,
+    "num_total": 38,
+    "num_allowed_now": 0
+  },
+  "candidates": [
+    {
+      "experiment": "EXP083",
+      "kernel": "stephennedumpally/pls-upvote-share-higher-scoring-ideas",
+      "version": 1,
+      "script_version_id": 344481175,
+      "description": "EXP-083 source-attributed clean Stephen frontier v1",
+      "source_path": "research/frozen_sources_20260829/exp083_pls-upvote-share-higher-scoring-ideas_v1.ipynb",
+      "source_sha256": "b998e582e41d5ea8986572370c71ced39cba3233a02e536a9f4a9fee3f9bf307",
+      "artifact_path": "outputs/research/frontier_20260829/stephennedumpally__pls-upvote-share-higher-scoring-ideas__1/output/submission.csv",
+      "artifact_sha256": "e7ee404d499a06aaa5bd5a3f62f291687743685ea5154391487e476dff0e4905",
+      "artifact_version_verified": "API latest/source checked; current output downloaded with submission-only filter",
+      "source_review": "PASS_FULL_INFERENCE_NO_METRIC_HACK",
+      "mechanism": "wider division geometry plus reverse weight 0.15",
+      "author_lb": 0.931,
+      "account_lb": null,
+      "honest_oof": null,
+      "attribution": "public-source reproduction; not a newly trained model of ours",
+      "notebook_code_cells_compiled": 10,
+      "graph_audit": {
+        "status": "PASS",
+        "path": "C:\\Users\\Dmitry\\Desktop\\Kaggle\\Biohub - Cell Tracking During Development\\outputs\\research\\frontier_20260829\\stephennedumpally__pls-upvote-share-higher-scoring-ideas__1\\output\\submission.csv",
+        "sha256": "e7ee404d499a06aaa5bd5a3f62f291687743685ea5154391487e476dff0e4905",
+        "bytes": 12367560,
+        "rows": 237611,
+        "datasets": [
+          "44b6_0113de3b",
+          "44b6_0b24845f",
+          "6bba_05b6850b",
+          "6bba_05db0fb1"
+        ],
+        "nodes": 120847,
+        "edges": 116764,
+        "divisions": 320,
+        "max_in_degree": 1,
+        "max_out_degree": 2
+      },
+      "submission_ref": 55858606,
+      "submitted_at_utc": "2026-08-29T03:32:17.693000Z",
+      "account_status": "PENDING"
+    },
+    {
+      "experiment": "EXP084",
+      "kernel": "rishabhr0y/biohub-938-sdw85",
+      "version": 1,
+      "script_version_id": 345526668,
+      "description": "EXP-084 source-attributed SDW85 detector-weight085 v1",
+      "source_path": "research/frozen_sources_20260829/exp084_biohub-938-sdw85_v1.ipynb",
+      "source_sha256": "6d0f4314afdb1f90021898edb3559841152e21c4e3b197dcae460d368a52aedd",
+      "artifact_path": "outputs/research/frontier_20260829/rishabhr0y__biohub-938-sdw85__1/output/submission.csv",
+      "artifact_sha256": "d49f0cfb22eb37ee49ab04a62fb8c79c6800fa013089d84fe6fa366517caaad1",
+      "artifact_version_verified": "API latest/source checked; current output downloaded with submission-only filter",
+      "source_review": "PASS_FULL_INFERENCE_NO_METRIC_HACK",
+      "mechanism": "secondary detector mixture 0.85",
+      "author_lb": 0.929,
+      "account_lb": null,
+      "honest_oof": null,
+      "attribution": "public-source reproduction; not a newly trained model of ours",
+      "notebook_code_cells_compiled": 21,
+      "graph_audit": {
+        "status": "PASS",
+        "path": "C:\\Users\\Dmitry\\Desktop\\Kaggle\\Biohub - Cell Tracking During Development\\outputs\\research\\frontier_20260829\\rishabhr0y__biohub-938-sdw85__1\\output\\submission.csv",
+        "sha256": "d49f0cfb22eb37ee49ab04a62fb8c79c6800fa013089d84fe6fa366517caaad1",
+        "bytes": 12287496,
+        "rows": 236090,
+        "datasets": [
+          "44b6_0113de3b",
+          "44b6_0b24845f",
+          "6bba_05b6850b",
+          "6bba_05db0fb1"
+        ],
+        "nodes": 120190,
+        "edges": 115900,
+        "divisions": 257,
+        "max_in_degree": 1,
+        "max_out_degree": 2
+      },
+      "submission_ref": 55858609,
+      "submitted_at_utc": "2026-08-29T03:32:23.583000Z",
+      "account_status": "PENDING"
+    },
+    {
+      "experiment": "EXP085",
+      "kernel": "evgendvorkin/biohub-0-928-lb",
+      "version": 15,
+      "script_version_id": 345594775,
+      "description": "EXP-085 source-attributed Evgen current 0928 v15",
+      "source_path": "research/frozen_sources_20260829/exp085_biohub-0-928-lb_v15.ipynb",
+      "source_sha256": "81698d455b0344037118c1491e2d60422fe72dca462de1f2abb01fb9bd81cc3b",
+      "artifact_path": "outputs/research/frontier_20260829/evgendvorkin__biohub-0-928-lb__15/output/submission.csv",
+      "artifact_sha256": "d4fa2b7f78b8aeca08c1797ea5fb521f169b17d386c4bb7d9df04ee5b2544f83",
+      "artifact_version_verified": "API latest/source checked; current output downloaded with submission-only filter",
+      "source_review": "PASS_FULL_INFERENCE_NO_METRIC_HACK",
+      "mechanism": "detector mixture 0.70 plus gap3/6.5um",
+      "author_lb": 0.928,
+      "account_lb": null,
+      "honest_oof": null,
+      "attribution": "public-source reproduction; not a newly trained model of ours",
+      "notebook_code_cells_compiled": 12,
+      "graph_audit": {
+        "status": "PASS",
+        "path": "C:\\Users\\Dmitry\\Desktop\\Kaggle\\Biohub - Cell Tracking During Development\\outputs\\research\\frontier_20260829\\evgendvorkin__biohub-0-928-lb__15\\output\\submission.csv",
+        "sha256": "d4fa2b7f78b8aeca08c1797ea5fb521f169b17d386c4bb7d9df04ee5b2544f83",
+        "bytes": 12410141,
+        "rows": 238432,
+        "datasets": [
+          "44b6_0113de3b",
+          "44b6_0b24845f",
+          "6bba_05b6850b",
+          "6bba_05db0fb1"
+        ],
+        "nodes": 121318,
+        "edges": 117114,
+        "divisions": 302,
+        "max_in_degree": 1,
+        "max_out_degree": 2
+      },
+      "submission_ref": 55858612,
+      "submitted_at_utc": "2026-08-29T03:32:29.523000Z",
+      "account_status": "PENDING"
+    },
+    {
+      "experiment": "EXP086",
+      "kernel": "anvithpothula/biohub-dual-seed-harmonic-bidirectional-fusion",
+      "version": 1,
+      "script_version_id": 345253418,
+      "description": "EXP-086 source-attributed Anvith bidirectional fusion v1",
+      "source_path": "research/frozen_sources_20260829/exp086_biohub-dual-seed-harmonic-bidirectional-fusion_v1.ipynb",
+      "source_sha256": "12be213783ac66c26c58d4f356ac7483341c9dd954355775cf30e23dfea59ab3",
+      "artifact_path": "outputs/research/frontier_20260829/anvithpothula__biohub-dual-seed-harmonic-bidirectional-fusion__1/output/submission.csv",
+      "artifact_sha256": "6f7fea9a7e0b90269d249de16e86868f6fb479114798a3014e38420fd335071e",
+      "artifact_version_verified": "API latest/source checked; current output downloaded with submission-only filter",
+      "source_review": "PASS_FULL_INFERENCE_NO_METRIC_HACK",
+      "mechanism": "detector mixture 0.60 plus wide safe divisions",
+      "author_lb": 0.928,
+      "account_lb": null,
+      "honest_oof": null,
+      "attribution": "public-source reproduction; not a newly trained model of ours",
+      "notebook_code_cells_compiled": 21,
+      "graph_audit": {
+        "status": "PASS",
+        "path": "C:\\Users\\Dmitry\\Desktop\\Kaggle\\Biohub - Cell Tracking During Development\\outputs\\research\\frontier_20260829\\anvithpothula__biohub-dual-seed-harmonic-bidirectional-fusion__1\\output\\submission.csv",
+        "sha256": "6f7fea9a7e0b90269d249de16e86868f6fb479114798a3014e38420fd335071e",
+        "bytes": 12459668,
+        "rows": 239380,
+        "datasets": [
+          "44b6_0113de3b",
+          "44b6_0b24845f",
+          "6bba_05b6850b",
+          "6bba_05db0fb1"
+        ],
+        "nodes": 121809,
+        "edges": 117571,
+        "divisions": 300,
+        "max_in_degree": 1,
+        "max_out_degree": 2
+      },
+      "submission_ref": 55858614,
+      "submitted_at_utc": "2026-08-29T03:32:35.773000Z",
+      "account_status": "PENDING"
+    },
+    {
+      "experiment": "EXP087",
+      "kernel": "dmitriigluzdov/biohub-exp087-controlled-sdw90",
+      "version": 1,
+      "script_version_id": null,
+      "description": "EXP-087 own controlled SDW90 detector-weight090 v1",
+      "source_path": "kaggle_notebooks/exp087_sdw90/sdw90.ipynb",
+      "source_sha256": "1105cc968c3e410807c6638e198021ca3cd42a09fc22cd6cab900fe797589111",
+      "source_validation_mode": "nonempty_notebook_code_cells_exact",
+      "remote_normalized_source_sha256": "360262fccbf6aab644eee709b751c781c8ea43f32447a4fb115e364bca1dd2ed",
+      "remote_executable_code_sha256": "15b2194423769c8b06697fabef1a36498c08362d166b32d09ef736164ff7bcfc",
+      "artifact_path": "outputs/exp087_kaggle_v1/submission.csv",
+      "artifact_sha256": "e2bdb2c45b31362799c3212075e6e20629a43c5d4cbdaff77b941b738d956ab5",
+      "artifact_version_verified": "Kaggle v1 COMPLETE; remote executable cells exact; output downloaded with submission-only filter",
+      "source_review": "PASS_FULL_INFERENCE_NO_METRIC_HACK",
+      "mechanism": "our controlled continuation of SDW85: only secondary detection weight 0.85 -> 0.90",
+      "author_lb": null,
+      "account_lb": null,
+      "honest_oof": null,
+      "attribution": "our controlled parameter fork; public architecture and weights remain attributed",
+      "notebook_code_cells_compiled": 21,
+      "graph_audit": {
+        "status": "PASS",
+        "path": "C:\\Users\\Dmitry\\Desktop\\Kaggle\\Biohub - Cell Tracking During Development\\outputs\\exp087_kaggle_v1\\submission.csv",
+        "sha256": "e2bdb2c45b31362799c3212075e6e20629a43c5d4cbdaff77b941b738d956ab5",
+        "bytes": 12238600,
+        "rows": 235159,
+        "datasets": [
+          "44b6_0113de3b",
+          "44b6_0b24845f",
+          "6bba_05b6850b",
+          "6bba_05db0fb1"
+        ],
+        "nodes": 119722,
+        "edges": 115437,
+        "divisions": 251,
+        "max_in_degree": 1,
+        "max_out_degree": 2
+      },
+      "leaky_train_proxy": {
+        "honest_oof": false,
+        "n_movies": 4,
+        "adjusted_edge_jaccard": 0.9183,
+        "division_jaccard": 0.1111,
+        "proxy_score": 0.9294,
+        "warning": "Public checkpoints were trained on competition train data; do not use this as OOF or a private-score estimate."
+      },
+      "submission_ref": 55859147,
+      "submitted_at_utc": "2026-08-29T04:08:06.843000Z",
+      "account_status": "PENDING"
+    }
+  ],
+  "correlation_interpretation": {
+    "sdw70_vs_sdw75_physical_node_edge_jaccard": [
+      0.970384,
+      0.963701
+    ],
+    "sdw70_vs_flex22_physical_node_edge_jaccard": [
+      0.861317,
+      0.829558
+    ],
+    "stephen0931_vs_flex22_physical_node_edge_jaccard": [
+      0.925603,
+      0.910946
+    ],
+    "sdw85_vs_sdw75_physical_node_edge_jaccard": [
+      0.951036,
+      0.940384
+    ],
+    "sdw90_vs_sdw85_physical_node_edge_jaccard": [
+      0.973106,
+      0.967084
+    ],
+    "conclusion": "All clean 0.928-0.931 models share the same public dual-seed/harmonic family; equal scores are correlated evidence, not independent private-stability confirmation."
+  },
+  "excluded": [
+    {
+      "kernel": "anhadmahajan06/biohub-track-your-cells-development",
+      "version": 24,
+      "reason": "Current score 0.924; best v21 0.927 was already submitted."
+    },
+    {
+      "kernel": "jaslee2/divcv-best",
+      "version": 1,
+      "reason": "Clean but displayed score 0.917."
+    },
+    {
+      "kernel": "saitejabandaruin/biohub-masterpiece-tracker-version-21",
+      "version": 1,
+      "reason": "Current kernel status ERROR."
+    }
+  ]
+}

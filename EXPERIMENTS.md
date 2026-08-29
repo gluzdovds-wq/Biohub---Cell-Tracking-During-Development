@@ -2,6 +2,22 @@
 
 This file is the competition source of truth. Update it before launching an experiment and after every CV/LB result.
 
+## 2026-08-29 clean frontier, correlation audit and five authorized submissions
+
+Yesterday's account results are complete: EXP078 SDW70 **0.928**, EXP079 Flex v22 **0.928**, EXP080 SDW75 **0.928**, EXP081 VEL10 **0.926**, EXP082 MTL8 **0.923**. The three equal `0.928` scores do not constitute three independent private-stability checks, and the leaderboard's three-decimal display can hide small raw-score differences. On the four public test movies SDW70 versus SDW75 has physical-node/edge Jaccard `0.970384/0.963701`; SDW70 versus Flex v22 is `0.861317/0.829558`. All use the same public dual-seed TemporalUNet, DeepCenter and harmonic-association lineage. The evidence is consistent with a broad detector-mixture plateau near `0.70–0.75`, plus a different checkpoint/division-veto route in Flex, rather than three separate breakthroughs.
+
+The current clean public frontier is Stephen v1 at an actual displayed **0.931**. Its title is not used as evidence: the version card and full source were inspected. The notebook performs full inference, does not branch on hidden test identity, and contains no public-CSV wrapper or metric-hack nodes. It changes division geometry, reverse weight and detector mixture but remains correlated with Flex v22: physical-node/edge Jaccard `0.925603/0.910946`. SDW85's title says `0.938`, but its actual version score is **0.929**.
+
+Five new experiments were frozen before submission in `reports/submission_batch_20260829.json`:
+
+- EXP083: Stephen clean frontier v1, author `0.931`, submission `55858606`, PENDING.
+- EXP084: SDW85 v1, actual author `0.929`, submission `55858609`, PENDING.
+- EXP085: Evgen v15, author `0.928`, submission `55858612`, PENDING.
+- EXP086: Anvith v1, author `0.928`, submission `55858614`, PENDING.
+- EXP087: our controlled SDW90 continuation, submission `55859147`, PENDING. The reviewed SDW85 architecture, weights and postprocessing are unchanged; exactly one environment value moves secondary detection-logit weight `0.85→0.90`. Kaggle v1 completed, and its output passed audit at 119,722 nodes / 115,437 edges / 251 divisions, SHA `e2bdb2c4…6ab5`. Physical node/edge Jaccard versus SDW85 is `0.973106/0.967084`, confirming this is a boundary probe rather than a diverse model.
+
+EXP083–086 are explicitly source-attributed public reproductions, not neural models trained by us. EXP087 is our controlled parameter fork of the attributed public pipeline, not a newly trained architecture. Exact honest OOF remains null for all five because the public checkpoints were trained using all labelled competition movies. EXP087's built-in four-train-movie proxy is `0.9294` (`0.9183` adjusted edge Jaccard, `0.1111` division Jaccard), but is explicitly leaky and not OOF. The graph-overlap audit measures prediction correlation, not error correlation and not private score. Twenty-one local tests pass. Kaggle rewrote notebook metadata and appended empty cells for EXP087, but a fail-closed audit proves all ten nonempty executable cells remain exact and ordered, with one unique `0.90` anchor. A nonfatal nbconvert schema warning after v1 output was fixed in the local builder. Every submitted artifact passed four-dataset schema, endpoint-closure and degree `1/2` checks. Daily quota: five used / zero available; total account submissions 38.
+
 ## 2026-08-28 results and five authorized submissions
 
 Confirmed account scores: EXP073 SDW60 / `55808574` **0.927**, EXP074 Anhad v21 / `55808576` **0.927**, EXP075 Evgen v11 / `55808638` **0.927**, EXP076 SEC25 / `55808636` **0.923**. Best is now **0.927**. These remain public-source reproductions; exact submitted-model OOF is unavailable.

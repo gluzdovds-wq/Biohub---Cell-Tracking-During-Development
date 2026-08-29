@@ -1,10 +1,12 @@
 # Leaderboard test queue
 
-## Current update: 2026-08-28
+## Current update: 2026-08-29
 
-August 27 results are complete: EXP073 SDW60, EXP074 Anhad v21 and EXP075 Evgen v11 all scored **0.927**; EXP076 SEC25 scored **0.923**. Confirmed best is **0.927**. August 26 results: EXP068R `0.884`, EXP069R `0.926`, EXP070 `0.926`, EXP071 `0.923`, EXP072 `0.918`.
+August 28 results are complete: EXP078 SDW70, EXP079 Flex v22 and EXP080 SDW75 each scored **0.928**; EXP081 VEL10 scored `0.926`; EXP082 MTL8 scored `0.923`. Confirmed account best is **0.928**. The tie is correlated: SDW70/SDW75 physical node/edge overlap is `0.970384/0.963701`, while SDW70/Flex is `0.861317/0.829558`.
 
-Five new full-code submissions are registered and PENDING: EXP078 SDW70 v1 (`55836059`), EXP079 Flex v22 (`55836064`), EXP080 SDW75 v1 (`55836067`), EXP081 VEL10 v1 (`55836071`), EXP082 MTL8 v1 (`55836074`). First two have verified author-version score `0.928`; SDW75/VEL10 have no displayed author score. MTL8 is a lower-priority `0.923` sensitivity control. These are public reproductions, not our new neural models. Frozen source and artifact receipts: `submission_batch_20260828.json`. Daily quota is five used / zero available.
+Five new full-code submissions are registered and PENDING: EXP083 Stephen v1 (`55858606`, verified clean author score `0.931`), EXP084 SDW85 v1 (`55858609`, actual `0.929` rather than the title's `0.938`), EXP085 Evgen v15 (`55858612`, `0.928`), EXP086 Anvith v1 (`55858614`, `0.928`) and EXP087 controlled SDW90 (`55859147`). The first four are attributed public reproductions. EXP087 is our controlled detector-mixture `0.85→0.90` fork; its Kaggle output passed full audit. Daily quota: five used / zero available. Frozen receipts: `submission_batch_20260829.json`.
+
+The current `0.928–0.931` frontier is still a single broad dual-seed/harmonic family. Stephen/Flex physical node/edge overlap is `0.925603/0.910946`, SDW85/SDW75 is `0.951036/0.940384`, and SDW90/SDW85 is `0.973106/0.967084`. A higher public score within this cluster is worth testing but does not prove better private robustness. Exact submitted-model OOF remains unavailable; EXP087's built-in proxy `0.9294` is leaky and is not recorded as OOF.
 
 Version correction: Evgen v11, not v12, is the 0.927 version. The installed output CLI ignores `/version`; previous claims of exact historical output downloads are invalid unless independently verified. In particular, the latest Flex v17/Ahmet v1 duplicate does not itself prove submitted Flex v11 identity. The old dated sections below are historical records, not the current queue.
 

@@ -1,6 +1,6 @@
 # Submission ↔ CV/OOF matrix
 
-Updated 2026-08-28: EXP073–076 scored, EXP077 CPU pilot complete, EXP078–082 registered. Historical artifact-version exceptions remain explicit.
+Updated 2026-08-29: EXP078–082 scored; EXP083–087 registered. Historical artifact-version exceptions remain explicit.
 
 ## Bottom line
 
@@ -58,13 +58,23 @@ All four account scores now independently match the corresponding source-version
 
 ## August 28 additions
 
-- EXP078 / `55836059`: PENDING; SDW70 v1, author `0.928`; exact OOF **unavailable**. Detection weight 0.70, same source family as EXP073.
-- EXP079 / `55836064`: PENDING; Flex v22, author `0.928`; exact OOF **unavailable**. Epoch-2 DeepCenter and safe-division veto; not a new independent architecture.
-- EXP080 / `55836067`: PENDING; SDW75 v1, no displayed author score; exact OOF **unavailable**. Detection weight 0.75, exploratory.
-- EXP081 / `55836071`: PENDING; VEL10 v1, no displayed author score; exact OOF **unavailable**. Full velocity extrapolation on detection blend 0.475; exploratory.
-- EXP082 / `55836074`: PENDING; MTL8 v1, author `0.923`; exact OOF **unavailable**. Stricter short-track filtering; sensitivity control, not evidence of superior private robustness.
+- EXP078 / `55836059`: COMPLETE `0.928`; SDW70 v1; exact OOF **unavailable**. Detection weight 0.70, same source family as EXP073.
+- EXP079 / `55836064`: COMPLETE `0.928`; Flex v22; exact OOF **unavailable**. Epoch-2 DeepCenter and safe-division veto; not a new independent architecture.
+- EXP080 / `55836067`: COMPLETE `0.928`; SDW75 v1; exact OOF **unavailable**. Detection weight 0.75; its graph is nearly identical to SDW70.
+- EXP081 / `55836071`: COMPLETE `0.926`; VEL10 v1; exact OOF **unavailable**. Full velocity extrapolation on detection blend 0.475.
+- EXP082 / `55836074`: COMPLETE `0.923`; MTL8 v1; exact OOF **unavailable**. Stricter short-track filtering; sensitivity control.
 
-All five are source-attributed full-code public reproductions, with frozen notebooks and unique audited output hashes. Author scores above are not account results. Daily quota: five used, zero available. Canonical manifest: `submission_batch_20260828.json`.
+All five are source-attributed full-code public reproductions, with frozen notebooks and unique audited output hashes. Equal LB scores are strongly correlated evidence: SDW70/SDW75 physical node/edge Jaccard is `0.970384/0.963701`, and SDW70/Flex v22 is `0.861317/0.829558`. Canonical manifest: `submission_batch_20260828.json`.
+
+## August 29 additions
+
+- EXP083 / `55858606`: PENDING; clean Stephen v1, verified author score `0.931`; exact OOF **unavailable**.
+- EXP084 / `55858609`: PENDING; SDW85 v1, actual author score `0.929` despite the `0.938` title; exact OOF **unavailable**.
+- EXP085 / `55858612`: PENDING; Evgen v15, verified author score `0.928`; exact OOF **unavailable**.
+- EXP086 / `55858614`: PENDING; Anvith v1, verified author score `0.928`; exact OOF **unavailable**.
+- EXP087 / `55859147`: PENDING; our controlled SDW90 fork changes only secondary detector weight `0.85→0.90`. Output audit PASS at 119,722 nodes / 115,437 edges / 251 divisions. Exact OOF **unavailable**. Its built-in four-train-movie proxy `0.9294` is leaky because the public weights saw competition train data.
+
+EXP083–087 remain in the same public dual-seed/harmonic family. Stephen/Flex physical-node/edge Jaccard is `0.925603/0.910946`; SDW85/SDW75 is `0.951036/0.940384`; SDW90/SDW85 is `0.973106/0.967084`. These overlaps imply a narrow family search, not five independent estimates of private robustness. Daily quota: five used / zero available. Canonical manifest: `submission_batch_20260829.json`.
 
 ## What must happen next
 

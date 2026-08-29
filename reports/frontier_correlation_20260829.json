@@ -1,0 +1,106 @@
+{
+  "date": "2026-08-29",
+  "scope": "Public-test prediction graphs only",
+  "method": "Jaccard overlap after matching physical nodes within 2 micrometres; edges and divisions compared through the physical-node mapping",
+  "warning": "Prediction overlap is a correlation proxy, not measured error correlation and not an estimate of private score. Three-decimal leaderboard display can also hide small raw-score differences between apparent ties.",
+  "detector_weight_ladder": [
+    {
+      "experiment": "EXP073 SDW60",
+      "secondary_detection_weight": 0.60,
+      "account_lb": 0.927
+    },
+    {
+      "experiment": "EXP078 SDW70",
+      "secondary_detection_weight": 0.70,
+      "account_lb": 0.928
+    },
+    {
+      "experiment": "EXP080 SDW75",
+      "secondary_detection_weight": 0.75,
+      "account_lb": 0.928
+    },
+    {
+      "experiment": "EXP084 SDW85",
+      "secondary_detection_weight": 0.85,
+      "author_lb": 0.929,
+      "account_state": "PENDING"
+    },
+    {
+      "experiment": "EXP087 SDW90",
+      "secondary_detection_weight": 0.90,
+      "account_state": "PENDING",
+      "submission_ref": 55859147
+    }
+  ],
+  "pairs": [
+    {
+      "left": "EXP078 SDW70 account 0.928",
+      "right": "EXP080 SDW75 account 0.928",
+      "physical_node_jaccard": 0.970384,
+      "physical_edge_jaccard": 0.963701,
+      "division_jaccard": 0.790000
+    },
+    {
+      "left": "EXP078 SDW70 account 0.928",
+      "right": "EXP079 Flex22 account 0.928",
+      "physical_node_jaccard": 0.861317,
+      "physical_edge_jaccard": 0.829558,
+      "division_jaccard": 0.287671
+    },
+    {
+      "left": "EXP078 SDW70 account 0.928",
+      "right": "EXP081 VEL10 account 0.926",
+      "physical_node_jaccard": 0.905846,
+      "physical_edge_jaccard": 0.883223
+    },
+    {
+      "left": "EXP078 SDW70 account 0.928",
+      "right": "EXP082 MTL8 account 0.923",
+      "physical_node_jaccard": 0.893898,
+      "physical_edge_jaccard": 0.877415
+    },
+    {
+      "left": "EXP083 Stephen author 0.931",
+      "right": "EXP078 SDW70 account 0.928",
+      "physical_node_jaccard": 0.863723,
+      "physical_edge_jaccard": 0.832288,
+      "division_jaccard": 0.217659
+    },
+    {
+      "left": "EXP083 Stephen author 0.931",
+      "right": "EXP079 Flex22 account 0.928",
+      "physical_node_jaccard": 0.925603,
+      "physical_edge_jaccard": 0.910946,
+      "division_jaccard": 0.371365
+    },
+    {
+      "left": "EXP084 SDW85 author 0.929",
+      "right": "EXP080 SDW75 account 0.928",
+      "physical_node_jaccard": 0.951036,
+      "physical_edge_jaccard": 0.940384,
+      "division_jaccard": 0.639498
+    },
+    {
+      "left": "EXP087 SDW90 account pending",
+      "right": "EXP084 SDW85 author 0.929",
+      "physical_node_jaccard": 0.973106,
+      "physical_edge_jaccard": 0.967084,
+      "division_jaccard": 0.789474
+    },
+    {
+      "left": "EXP085 Evgen15 author 0.928",
+      "right": "EXP078 SDW70 account 0.928",
+      "physical_node_jaccard": 0.948912,
+      "physical_edge_jaccard": 0.929924,
+      "division_jaccard": 0.498695
+    },
+    {
+      "left": "EXP086 Anvith author 0.928",
+      "right": "EXP073 SDW60 account 0.927",
+      "physical_node_jaccard": 0.950865,
+      "physical_edge_jaccard": 0.932194,
+      "division_jaccard": 0.532432
+    }
+  ],
+  "conclusion": "All current clean 0.928-0.931 candidates belong to the same broad public dual-seed TemporalUNet plus DeepCenter plus harmonic-association family. SDW parameter sweeps are especially redundant. Flex and Stephen add some graph diversity but are not independent private-stability confirmations."
+}

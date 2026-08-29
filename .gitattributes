@@ -1,2 +1,3 @@
 # Preserve reviewed public notebooks byte-for-byte for the recorded SHA-256.
 research/frozen_sources_20260828/*.ipynb -text
+research/frozen_sources_20260829/*.ipynb -text

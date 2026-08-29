@@ -47,8 +47,8 @@
       },
       "submission_ref": 55836059,
       "submitted_at_utc": "2026-08-28T06:22:04.213000Z",
-      "account_status": "PENDING",
-      "account_lb": null
+      "account_status": "COMPLETE",
+      "account_lb": 0.928
     },
     {
       "experiment": "EXP079",
@@ -88,8 +88,8 @@
       },
       "submission_ref": 55836064,
       "submitted_at_utc": "2026-08-28T06:22:10.263000Z",
-      "account_status": "PENDING",
-      "account_lb": null
+      "account_status": "COMPLETE",
+      "account_lb": 0.928
     },
     {
       "experiment": "EXP080",
@@ -129,8 +129,8 @@
       },
       "submission_ref": 55836067,
       "submitted_at_utc": "2026-08-28T06:22:16.313000Z",
-      "account_status": "PENDING",
-      "account_lb": null
+      "account_status": "COMPLETE",
+      "account_lb": 0.928
     },
     {
       "experiment": "EXP081",
@@ -170,8 +170,8 @@
       },
       "submission_ref": 55836071,
       "submitted_at_utc": "2026-08-28T06:22:21.970000Z",
-      "account_status": "PENDING",
-      "account_lb": null
+      "account_status": "COMPLETE",
+      "account_lb": 0.926
     },
     {
       "experiment": "EXP082",
@@ -211,8 +211,8 @@
       },
       "submission_ref": 55836074,
       "submitted_at_utc": "2026-08-28T06:22:27.860000Z",
-      "account_status": "PENDING",
-      "account_lb": null
+      "account_status": "COMPLETE",
+      "account_lb": 0.923
     }
   ],
   "excluded": [
