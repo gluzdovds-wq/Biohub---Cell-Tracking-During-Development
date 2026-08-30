@@ -1,6 +1,6 @@
 # Submission ↔ CV/OOF matrix
 
-Updated 2026-08-30: EXP083–087 scored; EXP088–092 launched. Historical artifact-version exceptions remain explicit.
+Updated 2026-08-30: EXP083–087 scored; EXP088–092 submitted and pending. Historical artifact-version exceptions remain explicit.
 
 ## Bottom line
 
@@ -17,6 +17,83 @@ Our movie-held-out evidence belongs to separately retrained reciprocal checkpoin
 Thus LB is useful for hidden-runtime validation and rejecting large regressions, but differences of `0.001–0.003` are not evidence of private ordering.
 
 EXP077 CPU pilot is **not an LB submission**. COMPLETE on four full audit movies in 20.30 minutes, with no failures. It compares our local-deformation linker with registered/weak and public-style ILP controls using no-TTA reciprocal weights. Local-flow minus weak control is `0.0` on each embryo and pooled; pooled scores are `0.624991 / 0.624970 / 0.624970 / 0.613500`. No GT divisions occur. These are not exact public-model OOF scores. Saved results contain each movie/embryo, sufficient statistics and paired deltas. Existing audit scores have already been inspected, so neither this pilot nor a later reuse is an untouched final holdout. Bootstrap intervals above are conditional resampling diagnostics, not intervals for the actual hidden leaderboard.
+
+## Honest CV evidence table
+
+The large reciprocal audit was **not CPU inference**: EXP050/051 used the two
+embryo-separated checkpoints on T4 x2, after which aggregation and bootstrap
+analysis are cheap on CPU. The separate EXP077 run below is the Kaggle CPU
+pilot the project log refers to.
+
+### Reciprocal embryo-held-out audit: 183 complete movies
+
+| Frozen policy | Held-out `44b6` (63) | Held-out `6bba` (120) | Pooled (183) | Paired interpretation |
+|---|---:|---:|---:|---|
+| greedy learned edges | `0.579940` | `0.466180` | `0.481198` | weak reference |
+| registered Hungarian | `0.744130` | `0.595767` | `0.615980` | beats greedy by `+0.164190/+0.129587`, pooled `+0.134782` |
+| registered + 10% learned tie-break | `0.744864` | `0.596538` | `0.616747` | beats registered by `+0.000734/+0.000771`, pooled `+0.000767` |
+
+The paired bootstrap interval for weak tie-break minus registered is
+`0.000186–0.001357` with `P(delta>0)=0.9948`. Registered minus greedy is much
+larger and unambiguous: `0.114758–0.155750`. These are mechanism comparisons on
+separately retrained single-seed checkpoints, not exact OOF scores for the
+public dual-seed/EMA/D4 submissions.
+
+### EXP077 Kaggle CPU pilot: four full movies, no TTA
+
+| Frozen policy | `44b6` (2) | `6bba` (2) | Pooled (4) | Result |
+|---|---:|---:|---:|---|
+| registered Hungarian | `0.734515` | `0.590408` | `0.624991` | strongest pooled arm in this tiny pilot |
+| registered + weak tie-break | `0.730861` | `0.591441` | `0.624970` | effectively tied; insufficient for a tiny-gain decision |
+| local-flow + weak tie-break | `0.730861` | `0.591441` | `0.624970` | exact paired delta `0.0` versus weak on both embryos |
+| public-style ILP | `0.725789` | `0.573284` | `0.613500` | lower pooled score in this configuration |
+
+Runtime was `1218.073 s` (20.30 minutes) with zero failed movies. All annotated
+and predicted division counts were zero, so the pilot says nothing about
+division recall. It proves CPU feasibility and rejects a claimed local-flow
+gain; it is not complete OOF and must not be assigned to an LB submission.
+
+### Stability diagnostics
+
+- Registered fold gap: `0.148363`, versus random movie five-fold score standard
+  deviation `0.027072`. Random movie folds mix embryo identity and materially
+  understate deployment shift.
+- Registered pooled movie bootstrap: `0.591559–0.640048`, conditional on the
+  two observed embryo domains.
+- Four-movie public-like resampling: `0.451683–0.786690`; 130-movie
+  private-like resampling: `0.585632–0.645486`. These intervals describe
+  finite-movie noise for this retrained model, not the private score scale of
+  EXP083–092.
+
+### What can be transferred to final selection
+
+- Trust registered physical motion over greedy linking; the sign is large and
+  agrees on both embryos.
+- The 10% learned ambiguity tie-break is a small but repeatable improvement in
+  the full audit. Preserve it as a mechanism, not as a promised `+0.0008` LB
+  gain.
+- Do not promote local-flow from current evidence: its paired CPU delta is zero.
+- Division ranking remains unresolved because the CPU pilot contains no GT
+  divisions.
+- EXP083–092 still have exact honest OOF = **unavailable**. Their public
+  checkpoints saw labelled competition movies; ranking Stephen, EMA,
+  threshold-0.40, division-heavy and fine-tuned-D4 requires fold-specific
+  retraining or a genuinely independent labelled embryo.
+
+## Current frontier submission mapping
+
+| Experiment / receipt | Public LB | Exact submitted-model OOF | Closest local evidence | Current role |
+|---|---:|---|---|---|
+| EXP083 / `55858606` | `0.931` | no | registered/weak mechanism evidence only; not its dual-seed graph | provisional final A |
+| EXP084 / `55858609` | `0.929` | no | same broad family; no exact fold retraining | correlated reserve |
+| EXP085 / `55858612` | `0.928` | no | same broad family; no exact fold retraining | correlated reserve |
+| EXP086 / `55858614` | `0.928` | no | same broad family; no exact fold retraining | correlated reserve |
+| EXP087 / `55859147` | `0.926` | no | built-in `0.9294` is leaky and not CV | reject SDW90 direction |
+| EXP088 / `55882197` | pending | no | no exact EMA fold retraining | within-family challenger |
+| EXP089 / `55882683` | pending | no | controlled public-LB interpolation only; `0.981219` edge overlap to EMA-1.0 | parameter diagnostic |
+| EXP090 / `55882198` | pending | no | no exact threshold-0.40 fold run; `0.939815` edge overlap to EXP083 | correlated sensitivity probe |
+| EXP091 / `55882203` | pending | no | CPU pilot has zero GT divisions, so it cannot validate this arm | division-heavy probe |
+| EXP092 / `55882642` | pending | no | no fold-specific fine-tuned-linker/D4 retraining; `0.744633` edge overlap to EXP083 | provisional diverse hedge |
 
 ## Every account submission
 
