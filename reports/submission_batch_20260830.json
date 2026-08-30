@@ -1,0 +1,85 @@
+{
+  "competition": "biohub-cell-tracking-during-development",
+  "date": "2026-08-30",
+  "selection_policy": "one public-LB exploit plus controlled EMA interpolation, association-threshold probe, division-heavy probe, and fine-tuned-linker D4 hedge",
+  "quota_after_submission": {
+    "submitted_today": 5,
+    "remaining_today": 0,
+    "lifetime_submissions": 43
+  },
+  "submission_receipts": {
+    "EXP088": 55882197,
+    "EXP089": 55882683,
+    "EXP090": 55882198,
+    "EXP091": 55882203,
+    "EXP092": 55882642
+  },
+  "account_status_at_freeze": "All five registered once and PENDING",
+  "candidates": [
+    {
+      "experiment": "EXP088",
+      "kernel": "grafael/biohub-ct-0940-ema",
+      "version": 1,
+      "source_path": "research/frozen_sources_20260830/exp088_biohub-ct-0940-ema_v1.ipynb",
+      "source_sha256": "4f0fb3aff772f4aaa0b687477e255c05211412a458d9db085935a7f37f073f33",
+      "source_review": "PASS_FULL_INFERENCE_NO_METRIC_HACK",
+      "source_validation_mode": "exact_notebook_bytes_after_newline_normalization",
+      "artifact_path": "outputs/research/frontier_20260830/grafael__biohub-ct-0940-ema__1/output/submission.csv",
+      "artifact_sha256": "61b57dddab663c68ad19ca8105165b852313ee4ee8487bb4bbc424d2ac634331",
+      "artifact_version_verified": true,
+      "description": "EXP088 full four-frame EMA motion challenger"
+    },
+    {
+      "experiment": "EXP089",
+      "kernel": "dmitriigluzdov/biohub-exp089-controlled-ema05",
+      "version": 1,
+      "source_path": "kaggle_notebooks/exp089_ema05/ema05.ipynb",
+      "source_sha256": "6b1b1aa4612d76d2d70c880c82fe4e1da27837623f655284a91f3c52c3df5cf0",
+      "source_review": "PASS_FULL_INFERENCE_NO_METRIC_HACK",
+      "source_validation_mode": "nonempty_notebook_code_cells_exact",
+      "artifact_path": "outputs/exp089_kaggle_v1/submission.csv",
+      "artifact_sha256": "563861dce3c6933d6bc16c336f98cf6fc13b73193cf5dd5a6d374d9d0f0609be",
+      "artifact_version_verified": true,
+      "description": "EXP089 controlled half-weight EMA interpolation"
+    },
+    {
+      "experiment": "EXP090",
+      "kernel": "notoverkil/biohub-base0931-edgebar040",
+      "version": 1,
+      "source_path": "research/frozen_sources_20260830/exp090_biohub-base0931-edgebar040_v1.ipynb",
+      "source_sha256": "9b98f72c6763a49d260247ce5abd2de8f455cbc291896a62e8e89edb735e4fbc",
+      "source_review": "PASS_FULL_INFERENCE_NO_METRIC_HACK",
+      "source_validation_mode": "exact_notebook_bytes_after_newline_normalization",
+      "artifact_path": "outputs/research/frontier_20260830/notoverkil__biohub-base0931-edgebar040__1/output/submission.csv",
+      "artifact_sha256": "9250749052813fb01cb019004c1e0dd4f64a2a9240c92e83421d3f2f03e5d927",
+      "artifact_version_verified": true,
+      "description": "EXP090 edge threshold 040 association probe"
+    },
+    {
+      "experiment": "EXP091",
+      "kernel": "salemali7/biohub-cell-tracking-92-6",
+      "version": 7,
+      "source_path": "research/frozen_sources_20260830/exp091_biohub-cell-tracking-92-6_v7.ipynb",
+      "source_sha256": "eb45f2bd542a063683a79f5f7c6b102a78033111962e6fb09ebc1f750c8dbb53",
+      "source_review": "PASS_FULL_INFERENCE_NO_METRIC_HACK",
+      "source_validation_mode": "exact_notebook_bytes_after_newline_normalization",
+      "artifact_path": "outputs/research/frontier_20260830/salemali7__biohub-cell-tracking-92-6__7/output/submission.csv",
+      "artifact_sha256": "5f4ec83d56b9fd0620473eed1e92a5a59932bf1c64e231111073ec008de2f7bc",
+      "artifact_version_verified": true,
+      "description": "EXP091 division-heavy full inference hedge"
+    },
+    {
+      "experiment": "EXP092",
+      "kernel": "dmitriigluzdov/biohub-exp092-finetuned-d4-offline",
+      "version": 1,
+      "source_path": "kaggle_notebooks/exp092_finetuned_d4_offline/finetuned_d4.ipynb",
+      "source_sha256": "d746494acc5bc98eb1d7eefc777675d8b9e02954ff26273a0cf4e891c2518dcc",
+      "source_review": "PASS_FULL_INFERENCE_NO_METRIC_HACK",
+      "source_validation_mode": "nonempty_notebook_code_cells_exact",
+      "artifact_path": "outputs/exp092_kaggle_v1/submission.csv",
+      "artifact_sha256": "740f7c83c7fb39ed6ea2f19f2d6cdace0401a3f09fde625099bf4d2effba3ca6",
+      "artifact_version_verified": true,
+      "description": "EXP092 offline finetuned linker D4 hedge"
+    }
+  ]
+}

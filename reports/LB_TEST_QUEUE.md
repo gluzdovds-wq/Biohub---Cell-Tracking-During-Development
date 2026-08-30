@@ -1,6 +1,23 @@
 # Leaderboard test queue
 
-## Current update: 2026-08-29
+## Current update: 2026-08-30
+
+August 29 results are complete: EXP083 Stephen `0.931`, EXP084 SDW85 `0.929`,
+EXP085 Evgen v15 `0.928`, EXP086 Anvith `0.928`, and controlled EXP087 SDW90
+`0.926`. The SDW90 leaky train-movie proxy did not provide a reliable promotion
+signal; exact OOF remains unavailable.
+
+Today's five full-code submissions are registered and PENDING: EXP088 full EMA
+`55882197`, EXP089 controlled EMA-0.5 `55882683`, EXP090 edge-threshold-0.40
+`55882198`, EXP091 division-heavy `55882203`, and EXP092 offline fine-tuned
+linker + D4 `55882642`. All outputs pass four-movie schema/topology audits.
+EXP092 exactly reproduces its reviewed public-parent SHA with Internet disabled
+and has physical edge overlap `0.744633` to EXP083; it is the serious hedge.
+EXP089 has `0.981219` edge overlap to EMA-1.0 and is only a paired sensitivity
+test. Daily quota is five used / zero remaining. Frozen receipts:
+`submission_batch_20260830.json`; final policy: `FINAL_SELECTION_20260830.md`.
+
+The paragraphs below retain the previous-day record for context.
 
 August 28 results are complete: EXP078 SDW70, EXP079 Flex v22 and EXP080 SDW75 each scored **0.928**; EXP081 VEL10 scored `0.926`; EXP082 MTL8 scored `0.923`. Confirmed account best is **0.928**. The tie is correlated: SDW70/SDW75 physical node/edge overlap is `0.970384/0.963701`, while SDW70/Flex is `0.861317/0.829558`.
 

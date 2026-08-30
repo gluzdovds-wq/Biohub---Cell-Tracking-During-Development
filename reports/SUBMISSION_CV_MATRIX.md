@@ -1,6 +1,6 @@
 # Submission ↔ CV/OOF matrix
 
-Updated 2026-08-29: EXP078–082 scored; EXP083–087 registered. Historical artifact-version exceptions remain explicit.
+Updated 2026-08-30: EXP083–087 scored; EXP088–092 launched. Historical artifact-version exceptions remain explicit.
 
 ## Bottom line
 
@@ -68,13 +68,23 @@ All five are source-attributed full-code public reproductions, with frozen noteb
 
 ## August 29 additions
 
-- EXP083 / `55858606`: PENDING; clean Stephen v1, verified author score `0.931`; exact OOF **unavailable**.
-- EXP084 / `55858609`: PENDING; SDW85 v1, actual author score `0.929` despite the `0.938` title; exact OOF **unavailable**.
-- EXP085 / `55858612`: PENDING; Evgen v15, verified author score `0.928`; exact OOF **unavailable**.
-- EXP086 / `55858614`: PENDING; Anvith v1, verified author score `0.928`; exact OOF **unavailable**.
-- EXP087 / `55859147`: PENDING; our controlled SDW90 fork changes only secondary detector weight `0.85→0.90`. Output audit PASS at 119,722 nodes / 115,437 edges / 251 divisions. Exact OOF **unavailable**. Its built-in four-train-movie proxy `0.9294` is leaky because the public weights saw competition train data.
+- EXP083 / `55858606`: COMPLETE `0.931`; clean Stephen v1; exact OOF **unavailable**.
+- EXP084 / `55858609`: COMPLETE `0.929`; SDW85 v1; exact OOF **unavailable**.
+- EXP085 / `55858612`: COMPLETE `0.928`; Evgen v15; exact OOF **unavailable**.
+- EXP086 / `55858614`: COMPLETE `0.928`; Anvith v1; exact OOF **unavailable**.
+- EXP087 / `55859147`: COMPLETE `0.926`; our controlled SDW90 fork changes only secondary detector weight `0.85→0.90`. Output audit PASS at 119,722 nodes / 115,437 edges / 251 divisions. Exact OOF **unavailable**. Its built-in four-train-movie proxy `0.9294` is leaky because the public weights saw competition train data and did not provide a reliable promotion signal.
 
 EXP083–087 remain in the same public dual-seed/harmonic family. Stephen/Flex physical-node/edge Jaccard is `0.925603/0.910946`; SDW85/SDW75 is `0.951036/0.940384`; SDW90/SDW85 is `0.973106/0.967084`. These overlaps imply a narrow family search, not five independent estimates of private robustness. Daily quota: five used / zero available. Canonical manifest: `submission_batch_20260829.json`.
+
+## August 30 additions
+
+- EXP088 / `55882197`: PENDING; full four-frame averaged-motion EMA. Exact OOF **unavailable**.
+- EXP089 / `55882683`: PENDING; our controlled half-weight EMA interpolation. Exact OOF **unavailable**; physical edge overlap `0.981219` to EMA-1.0.
+- EXP090 / `55882198`: PENDING; edge-candidate threshold 0.40. Exact OOF **unavailable**; physical edge overlap `0.939815` to EXP083 marks it as correlated sensitivity evidence.
+- EXP091 / `55882203`: PENDING; division-heavy graph with 384 predicted divisions. Exact OOF **unavailable**; physical division overlap `0.490486` to EXP083.
+- EXP092 / `55882642`: PENDING; exact offline fine-tuned-linker + D4 reproduction. Exact OOF **unavailable**; physical edge overlap `0.744633` to EXP083 and the artifact SHA exactly matches its reviewed public parent.
+
+All five daily slots are registered and PENDING after complete four-movie artifact audits. The final-choice gate was frozen in `FINAL_SELECTION_20260830.md` before their scores were known.
 
 ## What must happen next
 

@@ -2,6 +2,42 @@
 
 This file is the competition source of truth. Update it before launching an experiment and after every CV/LB result.
 
+## 2026-08-30 final-selection diagnostic batch
+
+August 29 results are complete: EXP083 Stephen **0.931**, EXP084 SDW85
+`0.929`, EXP085 Evgen v15 `0.928`, EXP086 Anvith `0.928`, and our EXP087
+SDW90 `0.926`. The controlled `0.85 -> 0.90` detector-weight step therefore
+worsened the displayed LB by `0.003`; the useful detector-mixture region ended
+before `0.90`. EXP087's leaky train-movie proxy predicted the wrong direction
+and is not OOF.
+
+The next five slots are allocated by mechanism rather than notebook title:
+
+- EXP088 / `55882197`: full four-frame averaged-motion EMA, PENDING.
+- EXP089 / `55882683`: our controlled EMA interpolation `1.0 -> 0.5`, PENDING.
+  No other executable setting changes. Artifact audit: 122,219 nodes / 117,945
+  edges / 269 divisions, SHA `563861dc...609be`; physical edge overlap to
+  EMA-1.0 is `0.981219`.
+- EXP090 / `55882198`: edge-candidate threshold `0.48 -> 0.40`, PENDING.
+  Physical edge overlap to EXP083 is `0.939815`, so this is a sensitivity test.
+- EXP091 / `55882203`: division-heavy full-inference graph, PENDING; 384
+  predicted divisions and physical division overlap `0.490486` to EXP083.
+- EXP092 / `55882642`: offline reproduction of public fine-tuned linker weights
+  plus D4 TTA, PENDING. Its 4-movie artifact is byte-identical to the reviewed
+  public output (SHA `740f7c83...3ca6`), and has physical edge overlap `0.744633`
+  to EXP083. It is the batch's only serious structural hedge. The original
+  source version had Internet enabled and was not submitted; our exact
+  executable reproduction ran with Internet disabled.
+
+Rejected before LB: Aagneye Detector3D completed with only 44 nodes from one of
+four movies; Grafael harmonic and Notoverkil base are exact duplicates of
+EXP084 and EXP083; Akihiro is a near-duplicate of EXP088 (`0.972646` physical
+edge Jaccard). All three registered artifacts pass four-movie schema, endpoint
+closure and maximum-degree checks. Exact honest OOF remains unavailable.
+Final-selection policy is frozen in `reports/FINAL_SELECTION_20260830.md`.
+All five submissions are registered exactly once and PENDING. Daily quota:
+five used / zero available; lifetime account submissions: 43.
+
 ## 2026-08-29 clean frontier, correlation audit and five authorized submissions
 
 Yesterday's account results are complete: EXP078 SDW70 **0.928**, EXP079 Flex v22 **0.928**, EXP080 SDW75 **0.928**, EXP081 VEL10 **0.926**, EXP082 MTL8 **0.923**. The three equal `0.928` scores do not constitute three independent private-stability checks, and the leaderboard's three-decimal display can hide small raw-score differences. On the four public test movies SDW70 versus SDW75 has physical-node/edge Jaccard `0.970384/0.963701`; SDW70 versus Flex v22 is `0.861317/0.829558`. All use the same public dual-seed TemporalUNet, DeepCenter and harmonic-association lineage. The evidence is consistent with a broad detector-mixture plateau near `0.70–0.75`, plus a different checkpoint/division-veto route in Flex, rather than three separate breakthroughs.
