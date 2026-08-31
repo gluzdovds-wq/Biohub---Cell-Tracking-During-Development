@@ -1,5 +1,42 @@
 # Leaderboard test queue
 
+## Current update: 2026-08-31
+
+The August 30 batch is fully scored: EXP088 EMA `0.926`, EXP089 EMA-0.5
+`0.924`, EXP090 edge-threshold-0.40 `0.928`, EXP091 division-heavy `0.926`,
+and EXP092 fine-tuned linker + D4 `0.900`. The only materially graph-diverse
+arm, EXP092, lost `0.031` to the current account leader and is rejected as a
+final hedge. EXP090's small threshold change tied the previous frontier but did
+not beat EXP083 (`0.931`).
+
+Today's quota is five used / zero remaining. EXP093 is the exact audited C33 v1
+public `0.933` anchor (`55907915`). EXP094–097 are our paired coordinate-only
+experiments on the exact same 115,046-edge / 291-division graph:
+
+- EXP094: C29 mutual-nearest localization donor, `alpha=0.25` (`55908273`).
+- EXP095: C29 donor, `alpha=0.50` (`55908462`).
+- EXP096: C30 donor, `alpha=0.25` (`55908629`).
+- EXP097: lower-overlap Comb2 donor, `alpha=0.25` (`55908683`).
+
+All five hidden-compatible code submissions completed local output/receipt/hash
+audits. Their account scores were not yet populated when this record was
+frozen. The four coordinate arms are controlled localization tests, not
+independent graph hedges; a tie must not be interpreted as evidence of private
+robustness. A proposed C33/C29/C30 edge-consensus arm was rejected before LB:
+three of its four replacements worsened both link length and constant-velocity
+residual.
+
+Next priority is no longer another correlated public sweep. First record these
+five scores, then run whole-movie official-metric OOF for a small set of
+mechanism-distinct candidates. Final slot A is provisionally EXP093 (or the
+smallest coordinate dose that clearly improves it); slot B requires either
+physical edge overlap below `0.85` within `0.005` of the leader or same-sign
+paired OOF on both embryos. Frozen receipts and hashes:
+`submission_batch_20260831.json`; selection policy:
+`FINAL_SELECTION_20260830.md`.
+
+The sections below are retained as historical records.
+
 ## Current update: 2026-08-30
 
 August 29 results are complete: EXP083 Stephen `0.931`, EXP084 SDW85 `0.929`,

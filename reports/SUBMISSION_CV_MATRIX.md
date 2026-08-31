@@ -1,6 +1,6 @@
 # Submission ↔ CV/OOF matrix
 
-Updated 2026-08-30: EXP083–087 scored; EXP088–092 submitted and pending. Historical artifact-version exceptions remain explicit.
+Updated 2026-08-31: EXP088–092 scored; EXP093–097 submitted. Historical artifact-version exceptions remain explicit.
 
 ## Bottom line
 
@@ -63,7 +63,7 @@ gain; it is not complete OOF and must not be assigned to an LB submission.
 - Four-movie public-like resampling: `0.451683–0.786690`; 130-movie
   private-like resampling: `0.585632–0.645486`. These intervals describe
   finite-movie noise for this retrained model, not the private score scale of
-  EXP083–092.
+  EXP083–097.
 
 ### What can be transferred to final selection
 
@@ -75,7 +75,7 @@ gain; it is not complete OOF and must not be assigned to an LB submission.
 - Do not promote local-flow from current evidence: its paired CPU delta is zero.
 - Division ranking remains unresolved because the CPU pilot contains no GT
   divisions.
-- EXP083–092 still have exact honest OOF = **unavailable**. Their public
+- EXP083–097 still have exact honest OOF = **unavailable**. Their public
   checkpoints saw labelled competition movies; ranking Stephen, EMA,
   threshold-0.40, division-heavy and fine-tuned-D4 requires fold-specific
   retraining or a genuinely independent labelled embryo.
@@ -84,16 +84,21 @@ gain; it is not complete OOF and must not be assigned to an LB submission.
 
 | Experiment / receipt | Public LB | Exact submitted-model OOF | Closest local evidence | Current role |
 |---|---:|---|---|---|
-| EXP083 / `55858606` | `0.931` | no | registered/weak mechanism evidence only; not its dual-seed graph | provisional final A |
+| EXP093 / `55907915` | pending; verified source `0.933` | no | same broad public-weight family; no exact fold retraining | provisional final A if account score reproduces |
+| EXP094 / `55908273` | score pending | no | coordinate-only C33/C29 `alpha=0.25`; topology exact C33 | conservative localization probe |
+| EXP095 / `55908462` | score pending | no | same matches as EXP094, `alpha=0.50` | paired localization-dose probe |
+| EXP096 / `55908629` | COMPLETE; score not populated | no | coordinate-only C33/C30 `alpha=0.25`; 96.90% nodes matched | very conservative localization probe |
+| EXP097 / `55908683` | COMPLETE; score not populated | no | coordinate-only C33/Comb2 `alpha=0.25`; 95.37% nodes matched | most diverse localization donor; topology still C33 |
+| EXP083 / `55858606` | `0.931` | no | registered/weak mechanism evidence only; not its dual-seed graph | prior final-A control |
 | EXP084 / `55858609` | `0.929` | no | same broad family; no exact fold retraining | correlated reserve |
 | EXP085 / `55858612` | `0.928` | no | same broad family; no exact fold retraining | correlated reserve |
 | EXP086 / `55858614` | `0.928` | no | same broad family; no exact fold retraining | correlated reserve |
 | EXP087 / `55859147` | `0.926` | no | built-in `0.9294` is leaky and not CV | reject SDW90 direction |
-| EXP088 / `55882197` | pending | no | no exact EMA fold retraining | within-family challenger |
-| EXP089 / `55882683` | pending | no | controlled public-LB interpolation only; `0.981219` edge overlap to EMA-1.0 | parameter diagnostic |
-| EXP090 / `55882198` | pending | no | no exact threshold-0.40 fold run; `0.939815` edge overlap to EXP083 | correlated sensitivity probe |
-| EXP091 / `55882203` | pending | no | CPU pilot has zero GT divisions, so it cannot validate this arm | division-heavy probe |
-| EXP092 / `55882642` | pending | no | no fold-specific fine-tuned-linker/D4 retraining; `0.744633` edge overlap to EXP083 | provisional diverse hedge |
+| EXP088 / `55882197` | `0.926` | no | no exact EMA fold retraining | reject versus EXP083 |
+| EXP089 / `55882683` | `0.924` | no | controlled public-LB interpolation only; `0.981219` edge overlap to EMA-1.0 | reject EMA interpolation |
+| EXP090 / `55882198` | `0.928` | no | no exact threshold-0.40 fold run; `0.939815` edge overlap to EXP083 | best Aug30 diagnostic, still below frontier |
+| EXP091 / `55882203` | `0.926` | no | CPU pilot has zero GT divisions, so it cannot validate this arm | reject division-heavy direction |
+| EXP092 / `55882642` | `0.900` | no | no fold-specific fine-tuned-linker/D4 retraining; `0.744633` edge overlap to EXP083 | reject: diversity did not preserve quality |
 
 ## Every account submission
 
@@ -155,16 +160,32 @@ EXP083–087 remain in the same public dual-seed/harmonic family. Stephen/Flex p
 
 ## August 30 additions
 
-- EXP088 / `55882197`: PENDING; full four-frame averaged-motion EMA. Exact OOF **unavailable**.
-- EXP089 / `55882683`: PENDING; our controlled half-weight EMA interpolation. Exact OOF **unavailable**; physical edge overlap `0.981219` to EMA-1.0.
-- EXP090 / `55882198`: PENDING; edge-candidate threshold 0.40. Exact OOF **unavailable**; physical edge overlap `0.939815` to EXP083 marks it as correlated sensitivity evidence.
-- EXP091 / `55882203`: PENDING; division-heavy graph with 384 predicted divisions. Exact OOF **unavailable**; physical division overlap `0.490486` to EXP083.
-- EXP092 / `55882642`: PENDING; exact offline fine-tuned-linker + D4 reproduction. Exact OOF **unavailable**; physical edge overlap `0.744633` to EXP083 and the artifact SHA exactly matches its reviewed public parent.
+- EXP088 / `55882197`: COMPLETE `0.926`; full four-frame averaged-motion EMA. Exact OOF **unavailable**.
+- EXP089 / `55882683`: COMPLETE `0.924`; our controlled half-weight EMA interpolation. Exact OOF **unavailable**; physical edge overlap `0.981219` to EMA-1.0.
+- EXP090 / `55882198`: COMPLETE `0.928`; edge-candidate threshold 0.40. Exact OOF **unavailable**; physical edge overlap `0.939815` to EXP083 marks it as correlated sensitivity evidence.
+- EXP091 / `55882203`: COMPLETE `0.926`; division-heavy graph with 384 predicted divisions. Exact OOF **unavailable**; physical division overlap `0.490486` to EXP083.
+- EXP092 / `55882642`: COMPLETE `0.900`; exact offline fine-tuned-linker + D4 reproduction. Exact OOF **unavailable**; physical edge overlap `0.744633` to EXP083 and the artifact SHA exactly matches its reviewed public parent.
 
-All five daily slots are registered and PENDING after complete four-movie artifact audits. The final-choice gate was frozen in `FINAL_SELECTION_20260830.md` before their scores were known.
+The diverse EXP092 hedge lost `0.031` to EXP083, while the best Aug30 arm remained `0.003` below. This falsifies the idea that graph diversity alone protects the private final.
+
+## August 31 additions
+
+- EXP093 / `55907915`: exact C33 v1 source-attributed anchor, verified source score `0.933`; account score pending.
+- EXP094 / `55908273`: our C33/C29 coordinate blend `alpha=0.25`; status COMPLETE but score field not populated at freeze.
+- EXP095 / `55908462`: our paired `alpha=0.50` dose; status COMPLETE but score field not populated at freeze.
+- EXP096 / `55908629`: our C33/C30 coordinate blend `alpha=0.25`; status COMPLETE but score field not populated at freeze.
+- EXP097 / `55908683`: our C33/Comb2 coordinate blend `alpha=0.25`; status COMPLETE but score field not populated at freeze.
+
+All own arms keep the exact C33 graph and change coordinates only after mutual-nearest matching within `2 µm`. Thus they can estimate a localization delta on LB, but they are not independent graph hedges and have no exact OOF. Kaggle versions 3–6 reproduce their pinned output SHA and full graph audit. Canonical receipt: `submission_batch_20260831.json`.
 
 ## What must happen next
 
-EXP063/064 are the prepared shared-detection linker comparison: registered, weak/heavy learned, two ILP policies, greedy/physical arms, and cached candidates for min-cost-flow, Kalman and particle-filter follow-ups. Their GPU configuration must wait for quota refresh at `2026-08-29 00:00 UTC`. EXP077 now demonstrates a cheaper CPU/no-TTA route; bounded CPU shards need not wait, but change the inference configuration and are not exact submitted-model OOF. No extended run was launched on August 28.
+EXP063/064 remain the prepared shared-detection linker comparison: registered,
+weak/heavy learned, two ILP policies, greedy/physical arms, and cached candidates
+for min-cost-flow, Kalman and particle-filter follow-ups. EXP077 demonstrates a
+cheaper CPU/no-TTA route, but those runs change the inference configuration and
+are not exact OOF for the submitted GPU/TTA artifacts. After EXP093–097 score,
+the next compute should be whole-movie paired validation for a small set of
+mechanism-distinct candidates rather than another same-family LB sweep.
 
 For final selection, trust mechanisms with the same-sign paired embryo OOF first. Among models without exact OOF, retain several structurally different candidates rather than interpreting a `0.001` public lead as private certainty.

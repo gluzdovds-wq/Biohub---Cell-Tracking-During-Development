@@ -1,0 +1,21 @@
+{
+  "id": "dmitriigluzdov/biohub-exp094-097-coordinate-batch",
+  "title": "Biohub EXP094-097 Coordinate Batch",
+  "code_file": "coordinate_batch.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "keywords": ["postprocessing", "coordinate-ensemble", "cell-tracking"],
+  "dataset_sources": [],
+  "kernel_sources": [
+    "tangai1/biohub-c33-public0933-v19-fallback",
+    "tangai1/biohub-c29-public-0-931-v17-exact",
+    "tangai1/biohub-c30-public-0-930-v18-exact",
+    "arnav170/biohub-comb2"
+  ],
+  "competition_sources": ["biohub-cell-tracking-during-development"],
+  "model_sources": []
+}

@@ -1,0 +1,107 @@
+{
+  "competition": "biohub-cell-tracking-during-development",
+  "date": "2026-08-31",
+  "selection_policy": "verified 0.933 topology anchor plus four coordinate-only mutual-nearest ensembles; rejected unanimous edge replacements after physical audit",
+  "quota_before_submission": {
+    "submitted_today": 0,
+    "remaining_today": 5,
+    "lifetime_submissions": 43
+  },
+  "quota_after_submission": {
+    "submitted_today": 5,
+    "remaining_today": 0,
+    "lifetime_submissions": 48
+  },
+  "submission_receipts": {
+    "EXP093": 55907915,
+    "EXP094": 55908273,
+    "EXP095": 55908462,
+    "EXP096": 55908629,
+    "EXP097": 55908683
+  },
+  "account_status_at_freeze": "EXP093 PENDING; EXP094/095/096/097 COMPLETE with score column not yet populated",
+  "packaging_notes": "A direct file POST was rejected with HTTP 400 and consumed no quota. Multi-output code V2 reproduced all four hashes, but CreateCodeSubmission accepts only submission.csv. V3-V6 therefore emitted one pre-registered arm each. V1 failed closed on CRLF/LF hash normalization and consumed no submission quota.",
+  "source_anchor": {
+    "kernel": "tangai1/biohub-c33-public0933-v19-fallback",
+    "version": 1,
+    "public_score_verified_in_kaggle_ui": 0.933,
+    "source_path": "outputs/research/frontier_20260831/tangai1__biohub-c33-public0933-v19-fallback__1/biohub-c33-public0933-v19-fallback.ipynb",
+    "source_sha256": "e331890e925437ca33e41b3fdce62ae4b56518052f1ee65edb2b7f31af49d4c9",
+    "source_review": "PASS_FULL_INFERENCE_NO_METRIC_HACK"
+  },
+  "candidates": [
+    {
+      "experiment": "EXP093",
+      "method": "exact verified public 0.933 anchor",
+      "kernel": "tangai1/biohub-c33-public0933-v19-fallback",
+      "version": 1,
+      "source_path": "outputs/research/frontier_20260831/tangai1__biohub-c33-public0933-v19-fallback__1/biohub-c33-public0933-v19-fallback.ipynb",
+      "source_sha256": "e331890e925437ca33e41b3fdce62ae4b56518052f1ee65edb2b7f31af49d4c9",
+      "source_review": "PASS_FULL_INFERENCE_NO_METRIC_HACK",
+      "source_validation_mode": "exact_notebook_bytes_after_newline_normalization",
+      "artifact_version_verified": true,
+      "artifact_path": "outputs/research/frontier_20260831/artifacts/tangai1__biohub-c33-public0933-v19-fallback/submission.csv",
+      "artifact_sha256": "bd53a723431b0c9b136d6a217ecb470bdb8cf0c44193e5e467542c5e23d30d0f",
+      "description": "EXP093 verified C33 public0933 topology anchor"
+    },
+    {
+      "experiment": "EXP094",
+      "method": "C33 topology; mutual-nearest C29 coordinate blend alpha=0.25 gate=2um",
+      "kernel": "dmitriigluzdov/biohub-exp094-097-coordinate-batch",
+      "version": 3,
+      "source_path": null,
+      "source_sha256": null,
+      "historical_source_note": "Our V3 source is preserved by Kaggle version 3; historical pull returned 403 after V6 became current. Exact output SHA and runtime receipt are local.",
+      "source_review": "PASS_FULL_INFERENCE_NO_METRIC_HACK",
+      "source_validation_mode": "exact_notebook_bytes_after_newline_normalization",
+      "artifact_version_verified": true,
+      "artifact_path": "outputs/exp094_kaggle_v3/submission.csv",
+      "artifact_sha256": "5544a65ae725d033ef2ec397b7a9d0f6be0752b60baabae2606b9e950ec1d07b",
+      "description": "EXP094 own C33 C29 coordinate blend a025"
+    },
+    {
+      "experiment": "EXP095",
+      "method": "C33 topology; mutual-nearest C29 coordinate blend alpha=0.50 gate=2um",
+      "kernel": "dmitriigluzdov/biohub-exp094-097-coordinate-batch",
+      "version": 4,
+      "source_path": null,
+      "source_sha256": "0b8c9caf2ae1176ee3278bb0226ec80e2522ccd9c0df1e5c6ec747e7b0142c80",
+      "historical_source_note": "V4 differs from tracked V6 only by SELECTED_EXPERIMENT=EXP095; hash reconstructed byte-exactly from that one-line delta.",
+      "source_review": "PASS_FULL_INFERENCE_NO_METRIC_HACK",
+      "source_validation_mode": "exact_notebook_bytes_after_newline_normalization",
+      "artifact_version_verified": true,
+      "artifact_path": "outputs/exp095_kaggle_v4/submission.csv",
+      "artifact_sha256": "07a7c80599e66d93af09dedbb0affdc26b3fa3bb37d2ac91dcb8f70b1d915182",
+      "description": "EXP095 own C33 C29 coordinate blend a050"
+    },
+    {
+      "experiment": "EXP096",
+      "method": "C33 topology; mutual-nearest C30 coordinate blend alpha=0.25 gate=2um",
+      "kernel": "dmitriigluzdov/biohub-exp094-097-coordinate-batch",
+      "version": 5,
+      "source_path": null,
+      "source_sha256": "7523edcff087550d6755f93da3955919e6423cf27d4c6dbb622e434c03a834e7",
+      "historical_source_note": "V5 differs from tracked V6 only by SELECTED_EXPERIMENT=EXP096; hash reconstructed byte-exactly from that one-line delta.",
+      "source_review": "PASS_FULL_INFERENCE_NO_METRIC_HACK",
+      "source_validation_mode": "exact_notebook_bytes_after_newline_normalization",
+      "artifact_version_verified": true,
+      "artifact_path": "outputs/exp096_kaggle_v5/submission.csv",
+      "artifact_sha256": "b09330498efd4454ec665cd5c9bcd70a868553c6170a1410c8c5883fe1cb9f5e",
+      "description": "EXP096 own C33 C30 coordinate blend a025"
+    },
+    {
+      "experiment": "EXP097",
+      "method": "C33 topology; mutual-nearest structurally diverse Comb2 coordinate blend alpha=0.25 gate=2um",
+      "kernel": "dmitriigluzdov/biohub-exp094-097-coordinate-batch",
+      "version": 6,
+      "source_path": "kaggle_notebooks/exp094_097_coordinate_batch/coordinate_batch.py",
+      "source_sha256": "40acc41ce44f82ec3e081214fb9171a6c04b7ba68e3d8997e5fca214e0c61b9d",
+      "source_review": "PASS_FULL_INFERENCE_NO_METRIC_HACK",
+      "source_validation_mode": "exact_notebook_bytes_after_newline_normalization",
+      "artifact_version_verified": true,
+      "artifact_path": "outputs/exp097_kaggle_v6/submission.csv",
+      "artifact_sha256": "3a12d83c2dda4390a17a5b1e15203a3980c9caacfe407a3e05d76574f1f5769f",
+      "description": "EXP097 own C33 Comb2 coordinate blend a025"
+    }
+  ]
+}

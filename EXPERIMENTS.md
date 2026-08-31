@@ -2,6 +2,51 @@
 
 This file is the competition source of truth. Update it before launching an experiment and after every CV/LB result.
 
+## 2026-08-31 verified 0.933 anchor and own coordinate ensemble batch
+
+August 30 results are complete: EXP088 EMA `0.926`, EXP089 controlled EMA-0.5
+`0.924`, EXP090 edge-threshold-0.40 `0.928`, EXP091 division-heavy `0.926`,
+and EXP092 fine-tuned-linker/D4 `0.900`. The only architecture-diverse arm was
+also the weakest; diversity without quality is not a final-submission hedge.
+
+Current-version cards and exact outputs were checked rather than trusting
+titles. Tangai C33 v1 is a genuine **`0.933`** full-inference result. Evgen's
+current v22 is `0.930`; its page's best `0.933` belongs to historical v20.
+Flex agreement-gated v1 is `0.929`. C33 has physical edge overlap `0.857571`
+to EXP083 and `0.961146` to Evgen v22. Anhad's new output is effectively a C33
+duplicate (`0.999392` physical edge overlap), and Reyhan is also near-duplicate
+(`0.976986`), so neither received a slot.
+
+Five code submissions are registered:
+
+- EXP093 / `55907915`: exact audited Tangai C33 v1 anchor; source score `0.933`.
+- EXP094 / `55908273`: **our** coordinate-only C33/C29 ensemble, mutual-nearest
+  gate `2 µm`, `alpha=0.25`; 112,531/119,132 nodes matched, mean applied shift
+  `0.0534 µm`.
+- EXP095 / `55908462`: same frozen matches with `alpha=0.50`; mean applied shift
+  `0.1067 µm`.
+- EXP096 / `55908629`: **our** C33/C30 `alpha=0.25` coordinate ensemble;
+  115,436 matches, mean applied shift `0.0212 µm`.
+- EXP097 / `55908683`: **our** C33/Comb2 `alpha=0.25` coordinate ensemble;
+  113,618 matches, mean applied shift `0.1427 µm`. Comb2 supplies the most
+  structurally different localization donor in this batch.
+
+All four own arms preserve the exact C33 node IDs, timepoints, 115,046 edges
+and 291 divisions. Kaggle CPU versions 3–6 each emitted one root
+`submission.csv`; downloaded outputs reproduce the pre-registered Linux SHA
+and pass four-movie schema, endpoint and degree `1/2` audits. A multi-output
+V2 also reproduced all four artifacts, but Kaggle code submission accepts only
+the root filename. A direct file POST and the multi-output POST were rejected
+with HTTP 400 and consumed no quota. Final quota: five used, zero remaining,
+48 lifetime submissions. Scores were not yet populated at freeze time.
+
+Rejected before LB: unanimous C33 edge replacements proposed four changes.
+Three made both edge length and constant-velocity residual substantially worse;
+the fourth shortened neither criterion jointly. The edge arm was not submitted.
+Exact honest OOF remains unavailable for EXP093–097; coordinate-only LB deltas
+measure localization changes on the four public movies, not private stability.
+Canonical receipt: `reports/submission_batch_20260831.json`.
+
 ## 2026-08-30 final-selection diagnostic batch
 
 August 29 results are complete: EXP083 Stephen **0.931**, EXP084 SDW85
