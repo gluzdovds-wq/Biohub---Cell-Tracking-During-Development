@@ -2,6 +2,29 @@
 
 This file is the competition source of truth. Update it before launching an experiment and after every CV/LB result.
 
+## 2026-08-31 incident correction and fail-closed recovery
+
+The earlier section below incorrectly treated EXP094–097 as completed outputs
+whose scores had not populated. Live full Kaggle API objects prove all four
+failed: refs `55908273`, `55908462`, `55908629`, and `55908683` have
+`status=COMPLETE`, `public_score=null`, `total_bytes=0`, and the error
+`submission file with incorrect format`.
+
+Root cause is hidden incompatibility, not CSV syntax on the public run. The
+EXP094–097 wrapper reads frozen public parent `submission.csv` artifacts by SHA
+and never reads the runtime competition test set. Its local/public four-dataset
+schema, topology, and hash checks were real but insufficient: hidden rerun
+still produced public dataset IDs. After the first failure, the agent did not
+inspect `error_description` and sent three more variants; it also failed to
+wait for the still-PENDING EXP093 anchor. EXP094–097 are invalid, have no LB
+evidence, and must not be resubmitted in this form.
+
+The current recovery state and mandatory submission protocol are frozen in
+`reports/RECOVERY_20260831.md` and `AGENTS.md`. Submission is now serial and
+fail-closed: dynamic hidden-test inference, exact source SHA, scored-parent gate,
+and full post-submit API inspection are required before another slot can be
+spent.
+
 ## 2026-08-31 verified 0.933 anchor and own coordinate ensemble batch
 
 August 30 results are complete: EXP088 EMA `0.926`, EXP089 controlled EMA-0.5

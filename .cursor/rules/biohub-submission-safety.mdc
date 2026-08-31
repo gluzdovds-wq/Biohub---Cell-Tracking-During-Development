@@ -1,0 +1,15 @@
+---
+description: Fail-closed Biohub Kaggle submission and context-recovery rules
+alwaysApply: true
+---
+
+# Biohub submission safety
+
+- Read `AGENTS.md` and `reports/RECOVERY_20260831.md` before acting.
+- Never submit through raw Kaggle CLI/API calls. Use the guarded helper only.
+- This is a code competition: submitted code must read the runtime competition
+  test set. Frozen public `submission.csv` inputs are not hidden-compatible.
+- Submit one candidate, then inspect `error_description`, status, score, bytes,
+  receipt, and quota. Stop on pending, empty score, or any error.
+- Never submit a child before its scored parent passes the recorded gate.
+- Update experiment receipts before and after every external mutation.

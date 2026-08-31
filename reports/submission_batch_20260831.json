@@ -19,7 +19,15 @@
     "EXP096": 55908629,
     "EXP097": 55908683
   },
-  "account_status_at_freeze": "EXP093 PENDING; EXP094/095/096/097 COMPLETE with score column not yet populated",
+  "account_status_at_freeze": "SUPERSEDED BY INCIDENT AUDIT: EXP093 PENDING; EXP094/095/096/097 FAILED invalid format with public_score null and total_bytes 0",
+  "incident": {
+    "status": "FAILED_BATCH",
+    "failed_experiments": ["EXP094", "EXP095", "EXP096", "EXP097"],
+    "kaggle_error": "Your notebook generated a submission file with incorrect format. Some examples causing this are: wrong number of rows or columns, empty values, an incorrect data type for a value, or invalid submission values from what is expected.",
+    "root_cause": "The wrapper read frozen public parent submission.csv artifacts and never read the runtime competition test set, so hidden rerun output retained public dataset IDs.",
+    "cascade_cause": "Post-submit checks ignored error_description and interpreted COMPLETE plus empty score as delayed scoring; children were submitted before pending EXP093 resolved.",
+    "canonical_recovery": "reports/RECOVERY_20260831.md"
+  },
   "packaging_notes": "A direct file POST was rejected with HTTP 400 and consumed no quota. Multi-output code V2 reproduced all four hashes, but CreateCodeSubmission accepts only submission.csv. V3-V6 therefore emitted one pre-registered arm each. V1 failed closed on CRLF/LF hash normalization and consumed no submission quota.",
   "source_anchor": {
     "kernel": "tangai1/biohub-c33-public0933-v19-fallback",

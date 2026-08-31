@@ -1,5 +1,15 @@
 # Leaderboard test queue
 
+## Incident correction: 2026-08-31
+
+EXP094–097 are failed invalid-format submissions, not pending score results.
+Their code replayed frozen public parent submissions and did not infer on the
+hidden runtime test set. They provide no LB evidence and are removed from the
+active queue. EXP093 remains PENDING until the full Kaggle API object shows a
+terminal state. No further candidate may be sent until the daily quota resets,
+EXP093 is resolved, and the guarded hidden-compatibility protocol in
+`AGENTS.md` passes. See `RECOVERY_20260831.md` for the canonical incident state.
+
 ## Current update: 2026-08-31
 
 The August 30 batch is fully scored: EXP088 EMA `0.926`, EXP089 EMA-0.5

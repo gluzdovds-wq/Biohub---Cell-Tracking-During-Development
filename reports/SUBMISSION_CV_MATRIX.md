@@ -1,6 +1,8 @@
 # Submission ↔ CV/OOF matrix
 
-Updated 2026-08-31: EXP088–092 scored; EXP093–097 submitted. Historical artifact-version exceptions remain explicit.
+Updated 2026-08-31 after incident audit: EXP088–092 scored; EXP093 pending;
+EXP094–097 failed invalid-format hidden reruns and have no LB evidence.
+Historical artifact-version exceptions remain explicit.
 
 ## Bottom line
 
@@ -85,10 +87,10 @@ gain; it is not complete OOF and must not be assigned to an LB submission.
 | Experiment / receipt | Public LB | Exact submitted-model OOF | Closest local evidence | Current role |
 |---|---:|---|---|---|
 | EXP093 / `55907915` | pending; verified source `0.933` | no | same broad public-weight family; no exact fold retraining | provisional final A if account score reproduces |
-| EXP094 / `55908273` | score pending | no | coordinate-only C33/C29 `alpha=0.25`; topology exact C33 | conservative localization probe |
-| EXP095 / `55908462` | score pending | no | same matches as EXP094, `alpha=0.50` | paired localization-dose probe |
-| EXP096 / `55908629` | COMPLETE; score not populated | no | coordinate-only C33/C30 `alpha=0.25`; 96.90% nodes matched | very conservative localization probe |
-| EXP097 / `55908683` | COMPLETE; score not populated | no | coordinate-only C33/Comb2 `alpha=0.25`; 95.37% nodes matched | most diverse localization donor; topology still C33 |
+| EXP094 / `55908273` | failed: invalid format | no | public-only artifact replay; no hidden inference | invalid; no evidence |
+| EXP095 / `55908462` | failed: invalid format | no | public-only artifact replay; no hidden inference | invalid; no evidence |
+| EXP096 / `55908629` | failed: invalid format | no | public-only artifact replay; no hidden inference | invalid; no evidence |
+| EXP097 / `55908683` | failed: invalid format | no | public-only artifact replay; no hidden inference | invalid; no evidence |
 | EXP083 / `55858606` | `0.931` | no | registered/weak mechanism evidence only; not its dual-seed graph | prior final-A control |
 | EXP084 / `55858609` | `0.929` | no | same broad family; no exact fold retraining | correlated reserve |
 | EXP085 / `55858612` | `0.928` | no | same broad family; no exact fold retraining | correlated reserve |
@@ -171,12 +173,15 @@ The diverse EXP092 hedge lost `0.031` to EXP083, while the best Aug30 arm remain
 ## August 31 additions
 
 - EXP093 / `55907915`: exact C33 v1 source-attributed anchor, verified source score `0.933`; account score pending.
-- EXP094 / `55908273`: our C33/C29 coordinate blend `alpha=0.25`; status COMPLETE but score field not populated at freeze.
-- EXP095 / `55908462`: our paired `alpha=0.50` dose; status COMPLETE but score field not populated at freeze.
-- EXP096 / `55908629`: our C33/C30 coordinate blend `alpha=0.25`; status COMPLETE but score field not populated at freeze.
-- EXP097 / `55908683`: our C33/Comb2 coordinate blend `alpha=0.25`; status COMPLETE but score field not populated at freeze.
+- EXP094 / `55908273`: failed invalid format; public-only artifact replay.
+- EXP095 / `55908462`: failed invalid format; public-only artifact replay.
+- EXP096 / `55908629`: failed invalid format; public-only artifact replay.
+- EXP097 / `55908683`: failed invalid format; public-only artifact replay.
 
-All own arms keep the exact C33 graph and change coordinates only after mutual-nearest matching within `2 µm`. Thus they can estimate a localization delta on LB, but they are not independent graph hedges and have no exact OOF. Kaggle versions 3–6 reproduce their pinned output SHA and full graph audit. Canonical receipt: `submission_batch_20260831.json`.
+Their downloaded public outputs keep the exact C33 graph and passed local
+audits, but this establishes no LB evidence: the submitted code never consumed
+the hidden runtime test set. Full API errors and recovery controls are recorded
+in `RECOVERY_20260831.md`.
 
 ## What must happen next
 

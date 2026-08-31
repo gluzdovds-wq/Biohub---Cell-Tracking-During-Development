@@ -52,6 +52,12 @@ EXP083, respectively.
 
 ## August 31 localization batch
 
+Incident correction: EXP094–097 all failed the hidden rerun with invalid-format
+errors because their wrapper replayed frozen public submissions. They are not
+selection candidates and provide no localization delta. EXP093 remains only a
+pending anchor; retain EXP083 as provisional slot A until EXP093 receives a
+valid account score.
+
 EXP093 is the exact audited C33 v1 graph whose current Kaggle version card is
 `0.933`. EXP094–097 are our coordinate-only variants of that same graph: C29
 donor at `alpha=0.25/0.50`, C30 donor at `alpha=0.25`, and the more independent
