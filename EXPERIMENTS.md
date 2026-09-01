@@ -56,6 +56,11 @@ is `PENDING`, with no error, no score, `total_bytes=0`, URL script version
 `346355373`, and quota `3/5` used / two available. No anomaly is recorded, so
 the PENDING-compatible batch policy permits EXP101.
 
+EXP101 post-submit receipt: submitted once as ref `55941357`; full API object
+is `PENDING`, with no error, no score, `total_bytes=0`, URL script version
+`346435959`, and quota `4/5` used / one available. No anomaly is recorded, so
+the PENDING-compatible batch policy permits EXP102.
+
 ## 2026-09-01 submission batching policy correction
 
 User authorization removes the serial wait-for-score rule. A PENDING earlier

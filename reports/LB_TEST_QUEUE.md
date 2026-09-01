@@ -13,6 +13,9 @@ audits. Stop on the first API error or terminal empty score. Receipt:
 EXP100 C37 was submitted as ref `55941347` and is PENDING without an error;
 quota is `3/5` used. Batch may continue to independently audited EXP101.
 
+EXP101 C39 was submitted as ref `55941357` and is PENDING without an error;
+quota is `4/5` used. Batch may continue to independently audited EXP102.
+
 EXP098 / `55931493` completed successfully at `0.934`, no error, with
 `204,778,810` scored bytes. Its gate passes. EXP099 is now the sole authorized
 submission: C36 adaptive secondary detection, exact source SHA
