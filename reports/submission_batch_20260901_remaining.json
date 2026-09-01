@@ -84,8 +84,20 @@
       "output_file": "submission.csv",
       "output_sha256": "f9d42e27f6b2cbeba1ea8f433087fba45be7742b41b38d271c4109339e9279c4",
       "audit": {"status": "PASS", "rows": 234871, "datasets": 4, "nodes": 119517, "edges": 115354, "divisions": 219, "max_in_degree": 1, "max_out_degree": 2},
-      "submission_ref": null,
-      "post_submit_state": null
+      "submission_ref": 55941369,
+      "post_submit_state": {
+        "submitted_at_utc": "2026-09-01T13:45:18.527000Z",
+        "status": "SubmissionStatus.PENDING",
+        "error_description": null,
+        "public_score": null,
+        "private_score": null,
+        "total_bytes": 0,
+        "url": "/code/leolin05/biohub-0-935-reproduction-audit-and-validation?scriptVersionId=346407867",
+        "quota_used_today": 5,
+        "quota_available": 0,
+        "anomaly": "submitted ordinal version 1 resolved to scriptVersionId 346407867, while pre-registered pulled current source was scriptVersionId 346424066; exact submitted historical source SHA is unverified because historical pull returned HTTP 403",
+        "gate": "STOP"
+      }
     }
   ],
   "guard_tests": "7 passed"

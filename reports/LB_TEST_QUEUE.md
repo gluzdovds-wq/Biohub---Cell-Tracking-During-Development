@@ -16,6 +16,11 @@ quota is `3/5` used. Batch may continue to independently audited EXP101.
 EXP101 C39 was submitted as ref `55941357` and is PENDING without an error;
 quota is `4/5` used. Batch may continue to independently audited EXP102.
 
+EXP102 was submitted as ref `55941369` and is PENDING, but its URL exposes a
+version mismatch: actual script ID `346407867` versus pre-registered current
+page ID `346424066`. Exact historical source identity is unverified because a
+historical pull returns HTTP 403. Batch state is `STOP`; quota is `5/5` used.
+
 EXP098 / `55931493` completed successfully at `0.934`, no error, with
 `204,778,810` scored bytes. Its gate passes. EXP099 is now the sole authorized
 submission: C36 adaptive secondary detection, exact source SHA

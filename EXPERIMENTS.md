@@ -61,6 +61,17 @@ is `PENDING`, with no error, no score, `total_bytes=0`, URL script version
 `346435959`, and quota `4/5` used / one available. No anomaly is recorded, so
 the PENDING-compatible batch policy permits EXP102.
 
+EXP102 post-submit receipt and immediate correction: submitted once as ref
+`55941369`; full API object is `PENDING`, with no error, no score,
+`total_bytes=0`, and quota `5/5` used. The submission URL resolves ordinal
+version `1` to script version ID `346407867`, not the pre-registered current
+page ID `346424066`. Therefore the pre-registered local source SHA and output
+audit do **not** establish exact identity of the historical source actually
+submitted. Historical pull returned HTTP 403, so this cannot presently be
+reconciled. This is a source-version anomaly: preserve the receipt, make no
+claim of exact-source verification for EXP102, and stop the batch. EXP099-101
+remain PENDING without recorded errors at this snapshot.
+
 ## 2026-09-01 submission batching policy correction
 
 User authorization removes the serial wait-for-score rule. A PENDING earlier
