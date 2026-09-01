@@ -2,6 +2,39 @@
 
 This file is the competition source of truth. Update it before launching an experiment and after every CV/LB result.
 
+## 2026-09-01 EXP098 clean C35 fallback-detection probe
+
+Live account state before mutation: EXP093 / `55907915` is COMPLETE `0.933`,
+with no error and `204,403,440` scored bytes. EXP094–097 remain invalid and
+provide no evidence. The new UTC day has `0/5` used and five available slots.
+
+EXP098 is pre-registered as the first and only immediately authorized probe:
+
+- hypothesis: Tangai C35's corrected full-inference fallback/provenance path and
+  `0.15` bidirectional weight improve the scored C33 `0.933` anchor without a
+  hidden-test wrapper or metric hack;
+- parent: EXP093 exact C33 anchor, account score `0.933`;
+- kernel: `tangai1/biohub-c35-fallback-detection-cleanroom-20260831`, version
+  `1`, COMPLETE, Internet off, T4 GPU, runtime competition source mounted;
+- source: `outputs/research/frontier_20260901/c35/biohub-c35-fallback-detection-cleanroom-20260831.ipynb`,
+  exact SHA-256 `678cfbae3c03cddb53621326f09f8b65d1fb5d4149ce2dd08a2e92487b229878`;
+- hidden dataflow: dynamically enumerate competition `test/*.zarr`, perform
+  detector/association inference for every runtime movie, and assert exact
+  equality between runtime and output dataset IDs; no parent `submission.csv`
+  artifact is read;
+- expected output: one root `submission.csv`; downloaded public artifact SHA
+  `5c2b16467f9aac1519df392364abcf755ac6be5e3426a3bc089487cb1c77af6c`;
+- audit: 234,507 rows / 119,309 nodes / 115,198 edges / 294 divisions / four
+  datasets / max degrees `1/2`, schema, finite values, endpoints and time-step
+  checks PASS; full repository suite `28 passed`;
+- diversity versus EXP093: physical node/edge/division Jaccard
+  `0.973898 / 0.968318 / 0.794479` at `2 µm`;
+- promotion gate: submit once, then stop until the full account object is
+  terminal, error-free, non-empty and scored. Promote the C36/C37 descendants
+  only after EXP098's score is observed; do not fill quota if it loses.
+
+Canonical pre-submit receipt: `reports/submission_batch_20260901.json`.
+
 ## 2026-08-31 incident correction and fail-closed recovery
 
 The earlier section below incorrectly treated EXP094–097 as completed outputs

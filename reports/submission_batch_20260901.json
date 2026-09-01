@@ -1,0 +1,55 @@
+{
+  "competition": "biohub-cell-tracking-during-development",
+  "date": "2026-09-01",
+  "protocol": "serial fail-closed; one scored candidate before choosing the next",
+  "live_state_before_submission": {
+    "quota_used_today": 0,
+    "quota_available": 5,
+    "lifetime_submissions": 48,
+    "parent_ref": 55907915,
+    "parent_description": "EXP093 verified C33 public0933 topology anchor",
+    "parent_status": "SubmissionStatus.COMPLETE",
+    "parent_public_score": "0.933",
+    "parent_total_bytes": 204403440,
+    "parent_error_description": null
+  },
+  "candidate": {
+    "experiment": "EXP098",
+    "description": "EXP098 verified C35 clean fallback detection frontier",
+    "hypothesis": "Corrected fallback/provenance plus bidirectional weight 0.15 improves the scored C33 anchor",
+    "kernel": "tangai1/biohub-c35-fallback-detection-cleanroom-20260831",
+    "version": 1,
+    "kernel_status": "KernelWorkerStatus.COMPLETE",
+    "internet_enabled": false,
+    "source_path": "outputs/research/frontier_20260901/c35/biohub-c35-fallback-detection-cleanroom-20260831.ipynb",
+    "source_sha256": "678cfbae3c03cddb53621326f09f8b65d1fb5d4149ce2dd08a2e92487b229878",
+    "hidden_test_dataflow": "dynamic competition test/*.zarr inference with runtime/output dataset ID equality assertion; no static parent submission input",
+    "output_file": "submission.csv",
+    "public_artifact_path": "outputs/research/frontier_20260901/c35_output/submission.csv",
+    "public_artifact_sha256": "5c2b16467f9aac1519df392364abcf755ac6be5e3426a3bc089487cb1c77af6c",
+    "audit": {
+      "status": "PASS",
+      "rows": 234507,
+      "datasets": 4,
+      "nodes": 119309,
+      "edges": 115198,
+      "divisions": 294,
+      "max_in_degree": 1,
+      "max_out_degree": 2,
+      "tests": "28 passed"
+    },
+    "physical_jaccard_vs_exp093_at_2um": {
+      "nodes": 0.973898,
+      "edges": 0.968318,
+      "divisions": 0.794479
+    },
+    "submission_ref": null,
+    "post_submit_state": null
+  },
+  "conditional_backlog": [
+    "C36 adaptive detection only after EXP098 scores",
+    "C37 temporal dim rescue only after EXP098 scores",
+    "C38 joint child only after its parent mechanisms score",
+    "No fifth slot is pre-authorized merely to fill quota"
+  ]
+}

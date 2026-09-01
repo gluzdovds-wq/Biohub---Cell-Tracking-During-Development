@@ -1,5 +1,17 @@
 # Leaderboard test queue
 
+## Current update: 2026-09-01
+
+EXP093 is COMPLETE `0.933` and is the scored anchor. EXP098 is the sole
+immediately authorized submission: clean full-inference C35 with corrected
+fallback/provenance and bidirectional weight `0.15`. It passed exact source,
+runtime-dataset, output SHA, schema and graph audits. C36, C37 and C38 are held
+behind EXP098's account score; old EXP060/061 are not promoted automatically
+because their `0.920` parent is now well behind the frontier.
+
+After EXP098 is registered, no further slot may be used while it is pending,
+scoreless or erroneous. Canonical receipt: `submission_batch_20260901.json`.
+
 ## Incident correction: 2026-08-31
 
 EXP094–097 are failed invalid-format submissions, not pending score results.
