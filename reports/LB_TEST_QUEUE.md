@@ -22,6 +22,14 @@ output SHA
 `88fef9c151ae9f5f95f51851d63a68e209d8caa5120133984f9761d97298f909`.
 C37 waits for EXP099's score; C38 waits for scored parent mechanisms.
 
+Additional fourth-slot research: C39 passes audit (119,239 nodes / 115,125
+edges / 295 divisions); C40 also passes but is rejected as a separate probe
+because physical edge Jaccard to C39 is `0.998585`. Leolin's attributed `0.935`
+reproduction passes audit (119,517 nodes / 115,354 edges / 219 divisions) and
+has division Jaccard `0.644231` to C35, making it the stronger mechanism-level
+alternative if later serial gates justify a fourth POST. Neither is currently
+authorized while EXP099 is pending.
+
 EXP093 is COMPLETE `0.933` and is the scored anchor. EXP098 is the sole
 immediately authorized submission: clean full-inference C35 with corrected
 fallback/provenance and bidirectional weight `0.15`. It passed exact source,

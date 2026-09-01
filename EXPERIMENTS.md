@@ -57,6 +57,33 @@ Read-only descendant preparation while EXP099 runs:
 These receipts are preparation only. C37 requires EXP099's terminal scored
 promotion result; C38 requires scored evidence from its parent mechanisms.
 
+Fresh read-only frontier audit found two later Tangai candidates and one
+independently attributed reproduction:
+
+- C39 learned marginal verifier: COMPLETE, script version ID `346435959`,
+  source SHA `7710e80e0bd7be4005466c5a169f3cb352dd105ece443e949d6c0c530b169ac0`,
+  output SHA `84c554cf7479b3e7d98cf2172bef0340516cc6f88645e6eab8c297e0e29a3842`,
+  audit PASS at 234,364 rows / 119,239 nodes / 115,125 edges / 295 divisions /
+  degrees `1/2`;
+- C40 temporal student: COMPLETE, script version ID `346446706`, source SHA
+  `64c16e244d17e09e3b09e508d899fc846778f500407e6a462992d962627d5b13`,
+  output SHA `81d4371ab84d58836192c526a5ac5052fccc98a14aafe25a2d2366c3ae917eec`,
+  audit PASS at 234,443 rows / 119,279 nodes / 115,164 edges / 294 divisions.
+  Reject C40 as a separate LB probe because its physical edge Jaccard to C39
+  is `0.998585`;
+- Leolin attributed `0.935` reproduction: COMPLETE, script version ID
+  `346424066`, source SHA
+  `d514fce0896dd766f4258039ed07be68666fddf368db1adeacd2d8e67b7c0a9c`,
+  output SHA `f9d42e27f6b2cbeba1ea8f433087fba45be7742b41b38d271c4109339e9279c4`,
+  audit PASS at 234,871 rows / 119,517 nodes / 115,354 edges / 219 divisions /
+  degrees `1/2`. Versus C35 its physical node/edge/division Jaccard is
+  `0.994272 / 0.992275 / 0.644231`, so its division policy is materially
+  different despite near-identical edges.
+
+C39 and the attributed reproduction are possible later choices, not
+pre-authorized submissions. Their source dataflow and exact versions must be
+rechecked after all earlier serial gates resolve.
+
 ## 2026-09-01 EXP098 clean C35 fallback-detection probe
 
 Live account state before mutation: EXP093 / `55907915` is COMPLETE `0.933`,
