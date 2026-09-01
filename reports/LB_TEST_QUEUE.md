@@ -2,6 +2,14 @@
 
 ## Current update: 2026-09-01
 
+EXP098 / `55931493` completed successfully at `0.934`, no error, with
+`204,778,810` scored bytes. Its gate passes. EXP099 is now the sole authorized
+submission: C36 adaptive secondary detection, exact source SHA
+`4f1c02ad5a034c93542ce47b7dd5194b640a88a14c566ea68b1e5ba68afd73b7`,
+script version ID `346353192`, audited output SHA
+`00d75136ebd551885279267863935eb668fd0fffae274bfab2f8c0e1cdaebcb4`.
+After its POST, stop until EXP099 itself is terminal and scored.
+
 EXP093 is COMPLETE `0.933` and is the scored anchor. EXP098 is the sole
 immediately authorized submission: clean full-inference C35 with corrected
 fallback/provenance and bidirectional weight `0.15`. It passed exact source,

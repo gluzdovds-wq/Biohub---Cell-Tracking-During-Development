@@ -2,6 +2,37 @@
 
 This file is the competition source of truth. Update it before launching an experiment and after every CV/LB result.
 
+## 2026-09-01 EXP098 result and EXP099 adaptive-detection probe
+
+EXP098 / ref `55931493` is COMPLETE with public score `0.934`, no error, and
+`204,778,810` scored bytes. This beats its scored EXP093 parent (`0.933`) and
+passes the pre-registered promotion gate. Live quota before the next mutation
+is `1/5` used, four available.
+
+EXP099 is the sole newly authorized candidate:
+
+- hypothesis: C36's pre-registered adaptive secondary detection fusion improves
+  the scored C35/EXP098 `0.934` parent while association and division settings
+  remain frozen;
+- parent: EXP098 / `55931493`, COMPLETE `0.934`, no error;
+- kernel: `tangai1/biohub-c36-adaptive-detection-20260831`, version `1`, live
+  script version ID `346353192`, COMPLETE, Internet off, T4 GPU, competition
+  source attached;
+- source: `outputs/research/frontier_20260901/c36/biohub-c36-adaptive-detection-20260831.ipynb`,
+  exact SHA-256 `4f1c02ad5a034c93542ce47b7dd5194b640a88a14c566ea68b1e5ba68afd73b7`;
+- hidden dataflow: hard-bound runtime competition `test/*.zarr` discovery,
+  detector/association inference, and strict equality between runtime and
+  output dataset IDs; no frozen public submission input;
+- expected output: one root `submission.csv`; downloaded artifact SHA-256
+  `00d75136ebd551885279267863935eb668fd0fffae274bfab2f8c0e1cdaebcb4`;
+- audit: 233,759 rows / 118,927 nodes / 114,832 edges / 287 divisions / four
+  datasets / max degrees `1/2`, status PASS; guard suite `7 passed`;
+- diversity versus EXP098: physical node/edge/division Jaccard at `2 µm`
+  `0.972789 / 0.966522 / 0.832808`;
+- promotion gate: submit EXP099 once, query its full API object, and stop until
+  it is COMPLETE, error-free, non-empty, and scored. Do not submit C37 or C38
+  merely because three daily slots remain.
+
 ## 2026-09-01 EXP098 clean C35 fallback-detection probe
 
 Live account state before mutation: EXP093 / `55907915` is COMPLETE `0.933`,

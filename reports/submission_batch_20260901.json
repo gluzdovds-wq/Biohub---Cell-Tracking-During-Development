@@ -46,19 +46,56 @@
     "submission_ref": 55931493,
     "post_submit_state": {
       "submitted_at_utc": "2026-09-01T04:10:37.740000Z",
-      "status": "SubmissionStatus.PENDING",
+      "status": "SubmissionStatus.COMPLETE",
       "error_description": null,
-      "public_score": null,
+      "public_score": "0.934",
       "private_score": null,
-      "total_bytes": 0,
+      "total_bytes": 204778810,
       "url": "/code/tangai1/biohub-c35-fallback-detection-cleanroom-20260831?scriptVersionId=346223185",
       "quota_used_today": 1,
       "quota_available": 4,
-      "gate": "WAIT: do not submit another candidate until EXP098 is COMPLETE, error-free, and has a non-empty account score"
+      "gate": "PASS: EXP098 is COMPLETE, error-free, non-empty, scored 0.934, and beat parent EXP093 0.933"
     }
   },
+  "next_candidate": {
+    "experiment": "EXP099",
+    "description": "EXP099 verified C36 adaptive detection child",
+    "hypothesis": "Adaptive secondary detection fusion improves scored C35/EXP098 while association and division settings remain frozen",
+    "parent_ref": 55931493,
+    "parent_public_score": "0.934",
+    "kernel": "tangai1/biohub-c36-adaptive-detection-20260831",
+    "version": 1,
+    "script_version_id": 346353192,
+    "kernel_status": "KernelWorkerStatus.COMPLETE",
+    "internet_enabled": false,
+    "source_path": "outputs/research/frontier_20260901/c36/biohub-c36-adaptive-detection-20260831.ipynb",
+    "source_sha256": "4f1c02ad5a034c93542ce47b7dd5194b640a88a14c566ea68b1e5ba68afd73b7",
+    "hidden_test_dataflow": "dynamic competition test/*.zarr inference with runtime/output dataset ID equality assertion; no frozen public submission input",
+    "output_file": "submission.csv",
+    "public_artifact_path": "outputs/research/frontier_20260901/c36_output/submission.csv",
+    "public_artifact_sha256": "00d75136ebd551885279267863935eb668fd0fffae274bfab2f8c0e1cdaebcb4",
+    "audit": {
+      "status": "PASS",
+      "rows": 233759,
+      "datasets": 4,
+      "nodes": 118927,
+      "edges": 114832,
+      "divisions": 287,
+      "max_in_degree": 1,
+      "max_out_degree": 2,
+      "guard_tests": "7 passed"
+    },
+    "physical_jaccard_vs_exp098_at_2um": {
+      "nodes": 0.972789,
+      "edges": 0.966522,
+      "divisions": 0.832808
+    },
+    "submission_ref": null,
+    "post_submit_state": null,
+    "promotion_gate": "submit once, then wait for COMPLETE, no error, non-empty score before any descendant"
+  },
   "conditional_backlog": [
-    "C36 adaptive detection only after EXP098 scores",
+    "C36 adaptive detection authorized as EXP099 after EXP098 scored 0.934",
     "C37 temporal dim rescue only after EXP098 scores",
     "C38 joint child only after its parent mechanisms score",
     "No fifth slot is pre-authorized merely to fill quota"
