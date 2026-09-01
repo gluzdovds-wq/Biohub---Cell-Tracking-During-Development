@@ -19,12 +19,10 @@ Kaggle API fields as source of truth; chat memory and notebook titles are not.
 - Run the exact source in a clean Kaggle version with Internet off. Verify
   successful execution, one root `submission.csv`, exact columns/types,
   finite values, dynamic runtime dataset IDs, graph invariants, and output SHA.
-- Submit one candidate only. Then query full API objects, including
-  `error_description`, `status`, `public_score`, `total_bytes`, ref, URL, and
-  quota. Do not submit another candidate while any earlier daily submission is
-  pending, scoreless, or erroneous.
-- A derived child may be submitted only after its parent is COMPLETE, has no
-  error, and has a non-empty account score satisfying the pre-registered gate.
+- Submit each candidate through the guarded helper, then query its full API
+  object, including `error_description`, `status`, `public_score`,
+  `total_bytes`, ref, URL, and quota. A pending earlier submission does not
+  block the next independently pre-registered and audited candidate.
 - `COMPLETE` with an empty score is a failure until proven otherwise. Stop on
   the first anomaly, preserve the receipt, diagnose it, and do not spend more
   quota that day.

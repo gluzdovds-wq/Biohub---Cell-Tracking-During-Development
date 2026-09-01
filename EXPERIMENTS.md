@@ -2,6 +2,18 @@
 
 This file is the competition source of truth. Update it before launching an experiment and after every CV/LB result.
 
+## 2026-09-01 submission batching policy correction
+
+User authorization removes the serial wait-for-score rule. A PENDING earlier
+submission no longer blocks another independently pre-registered,
+hidden-compatible and fully audited candidate, and a child is not required to
+wait for a scored parent. The guarded helper still rejects
+frozen-public-output wrappers, duplicate descriptions, exhausted quota and any
+earlier same-day submission with a recorded API error. Full API fields must
+still be inspected and recorded after every POST. This is a protocol change;
+it does not retroactively validate failed EXP094–097 or authorize correlated
+sweeps without hypotheses.
+
 ## 2026-09-01 EXP098 result and EXP099 adaptive-detection probe
 
 EXP098 / ref `55931493` is COMPLETE with public score `0.934`, no error, and

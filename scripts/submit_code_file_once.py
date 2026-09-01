@@ -72,7 +72,7 @@ def _error(item):
 
 
 def validate_submission_history(submissions, now: datetime | None = None) -> None:
-    """Allow at most one unresolved daily experiment and stop after any error."""
+    """Allow pending experiments, but stop after a recorded scoring anomaly."""
     now = now or datetime.now(timezone.utc)
     today = now.date()
     todays = [item for item in submissions if getattr(item, "date", None).date() == today]
@@ -86,33 +86,19 @@ def validate_submission_history(submissions, now: datetime | None = None) -> Non
             "Daily fail-closed gate: an earlier submission failed. Diagnose and "
             f"record it before any further submission. {details}"
         )
-    unresolved = [
+    completed_without_score = [
         item
         for item in todays
-        if _status_text(item) != "SubmissionStatus.COMPLETE" or not _score(item)
+        if _status_text(item) == "SubmissionStatus.COMPLETE" and not _score(item)
     ]
-    if unresolved:
+    if completed_without_score:
         details = "; ".join(
-            f"ref={item.ref} status={_status_text(item)} score={_score(item)!r}"
-            for item in unresolved
+            f"ref={item.ref} description={item.description!r}"
+            for item in completed_without_score
         )
         raise RuntimeError(
-            "Serial evidence gate: wait for every earlier daily submission to "
-            f"finish with a non-empty score. {details}"
-        )
-
-
-def validate_parent(submissions, parent_description: str) -> None:
-    matches = [item for item in submissions if item.description == parent_description]
-    if not matches:
-        raise RuntimeError(f"Required parent submission is absent: {parent_description}")
-    parent = max(matches, key=lambda item: item.date)
-    if _error(parent):
-        raise RuntimeError(f"Required parent failed: {_error(parent)}")
-    if _status_text(parent) != "SubmissionStatus.COMPLETE" or not _score(parent):
-        raise RuntimeError(
-            "Required parent has not completed with a score: "
-            f"ref={parent.ref} status={_status_text(parent)} score={_score(parent)!r}"
+            "Daily fail-closed gate: an earlier submission completed without a "
+            f"score. Diagnose and record it before continuing. {details}"
         )
 
 
@@ -139,7 +125,6 @@ def main() -> None:
     parser.add_argument("--description", required=True)
     parser.add_argument("--source-file", required=True, type=Path)
     parser.add_argument("--source-sha256", required=True)
-    parser.add_argument("--parent-description")
     args = parser.parse_args()
 
     audit_hidden_compatibility_source(
@@ -159,8 +144,6 @@ def main() -> None:
         print(f"SKIP already registered ref={existing[0].ref}")
         return
     validate_submission_history(prior)
-    if args.parent_description:
-        validate_parent(prior, args.parent_description)
     status = read_with_retry("kernels_status", lambda: api.kernels_status(args.kernel))
     if str(status.status) != "KernelWorkerStatus.COMPLETE":
         raise RuntimeError(f"Kernel is not complete: {status.status}")

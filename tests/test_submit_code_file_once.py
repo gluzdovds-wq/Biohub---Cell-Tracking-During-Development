@@ -7,7 +7,6 @@ import pytest
 from scripts.submit_code_file_once import (
     audit_hidden_compatibility_source,
     file_sha256,
-    validate_parent,
     validate_submission_history,
 )
 
@@ -34,20 +33,19 @@ def test_history_blocks_any_prior_error():
         validate_submission_history(rows, NOW)
 
 
-def test_history_blocks_pending_or_scoreless_submission():
-    rows = [submission(status="SubmissionStatus.PENDING", public_score=None)]
-    with pytest.raises(RuntimeError, match="Serial evidence gate"):
-        validate_submission_history(rows, NOW)
+def test_history_accepts_pending_submission():
+    validate_submission_history(
+        [submission(status="SubmissionStatus.PENDING", public_score=None)], NOW
+    )
+
+
+def test_history_blocks_completed_scoreless_submission_without_error():
+    with pytest.raises(RuntimeError, match="completed without a score"):
+        validate_submission_history([submission(public_score=None)], NOW)
 
 
 def test_history_accepts_scored_completed_submission():
     validate_submission_history([submission()], NOW)
-
-
-def test_parent_must_be_scored():
-    rows = [submission(description="anchor", status="SubmissionStatus.PENDING", public_score=None)]
-    with pytest.raises(RuntimeError, match="has not completed with a score"):
-        validate_parent(rows, "anchor")
 
 
 def test_source_gate_rejects_frozen_public_submission_wrapper(tmp_path: Path):
