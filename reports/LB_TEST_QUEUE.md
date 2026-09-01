@@ -2,6 +2,14 @@
 
 ## Current update: 2026-09-01
 
+Remaining batch is pre-registered under the user-authorized PENDING-compatible
+policy: EXP100 C37 temporal rescue, EXP101 C39 learned marginal verifier, and
+EXP102 attributed `0.935` reproduction with a distinct low-division policy.
+All sources are live-hash verified, COMPLETE with Internet off, dynamically
+infer from runtime test zarrs, and their downloaded outputs pass full graph
+audits. Stop on the first API error or terminal empty score. Receipt:
+`submission_batch_20260901_remaining.json`.
+
 EXP098 / `55931493` completed successfully at `0.934`, no error, with
 `204,778,810` scored bytes. Its gate passes. EXP099 is now the sole authorized
 submission: C36 adaptive secondary detection, exact source SHA

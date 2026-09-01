@@ -2,6 +2,55 @@
 
 This file is the competition source of truth. Update it before launching an experiment and after every CV/LB result.
 
+## 2026-09-01 EXP100-102 independently audited remaining batch
+
+Live state before mutation: EXP098 is COMPLETE `0.934`; EXP099 / `55940151`
+is PENDING with no recorded error; quota is `2/5` used and three slots remain.
+Under the user-authorized batching policy, a PENDING candidate does not block
+another independently pre-registered and audited candidate. The batch must
+still stop immediately on any recorded error or terminal empty score.
+
+Three candidates are pre-registered, in this order:
+
+1. EXP100 C37 temporal-dim rescue. Hypothesis: temporally conditioned rescue
+   improves difficult dim-cell recall without changing the frozen association
+   family. Parent/comparator: EXP098 C35 `0.934` and pending EXP099 C36.
+   Kernel `tangai1/biohub-c37-temporal-dim-rescue-20260831`, version `1`, live
+   script version ID `346355373`, COMPLETE, Internet off. Source SHA
+   `7648f4a30b5c9740ac58f38538d471a7973b2bd6bd649f34d771ec2a9719d7ab`;
+   output SHA `d4ae966f734c8b2135b6f121f97e406c6bbaa092ba96d3833b4e08879848d544`.
+   Audit PASS: 235,642 rows / 119,882 nodes / 115,760 edges / 295 divisions /
+   four runtime datasets / degrees `1/2`.
+2. EXP101 C39 learned marginal verifier. Hypothesis: the frozen learned
+   structural verifier improves marginal detections through a mechanism
+   distinct from temporal-dim rescue. Parent/comparator: EXP098 C35 `0.934`.
+   Kernel `tangai1/biohub-c39-marginal-verifier-20260901`, version `1`, live
+   script version ID `346435959`, COMPLETE, Internet off. Source SHA
+   `7710e80e0bd7be4005466c5a169f3cb352dd105ece443e949d6c0c530b169ac0`;
+   output SHA `84c554cf7479b3e7d98cf2172bef0340516cc6f88645e6eab8c297e0e29a3842`.
+   Audit PASS: 234,364 rows / 119,239 nodes / 115,125 edges / 295 divisions /
+   four runtime datasets / degrees `1/2`.
+3. EXP102 attributed `0.935` reproduction. Hypothesis: its materially lower
+   division count improves precision relative to EXP098 while retaining nearly
+   the same edge set; source title/rank is attribution, not account evidence.
+   Parent/comparator: EXP098 C35 `0.934`. Kernel
+   `leolin05/biohub-0-935-reproduction-audit-and-validation`, version `1`, live
+   script version ID `346424066`, COMPLETE, Internet off. Source SHA
+   `d514fce0896dd766f4258039ed07be68666fddf368db1adeacd2d8e67b7c0a9c`;
+   output SHA `f9d42e27f6b2cbeba1ea8f433087fba45be7742b41b38d271c4109339e9279c4`.
+   Audit PASS: 234,871 rows / 119,517 nodes / 115,354 edges / 219 divisions /
+   four runtime datasets / degrees `1/2`; division Jaccard to C35 `0.644231`.
+
+All three sources dynamically read competition `test/*.zarr`, perform runtime
+inference, and include a runtime/output dataset-ID equality audit; none reads a
+frozen public submission. Guard suite: `7 passed`. Expected output for each is
+one root `submission.csv`. Per-POST gate: inspect ref, status, score, error,
+bytes, URL and quota; continue on PENDING or a valid scored completion, but stop
+the batch on the first error or terminal empty score. C38 is omitted as a more
+correlated joint child; C40 is rejected as a near-duplicate of C39.
+
+Canonical receipt: `reports/submission_batch_20260901_remaining.json`.
+
 ## 2026-09-01 submission batching policy correction
 
 User authorization removes the serial wait-for-score rule. A PENDING earlier

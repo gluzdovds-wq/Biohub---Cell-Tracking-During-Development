@@ -1,0 +1,72 @@
+{
+  "competition": "biohub-cell-tracking-during-development",
+  "date": "2026-09-01",
+  "policy": "independently pre-registered audited batching; PENDING allowed; stop on first error or terminal empty score",
+  "live_state_before_batch": {
+    "quota_used_today": 2,
+    "quota_available": 3,
+    "active_ref": 55940151,
+    "active_status": "SubmissionStatus.PENDING",
+    "active_error_description": null
+  },
+  "candidates": [
+    {
+      "experiment": "EXP100",
+      "description": "EXP100 verified C37 temporal dim rescue",
+      "hypothesis": "Temporal conditioning improves difficult dim-cell recall without changing the frozen association family",
+      "parent": "EXP098 C35 scored 0.934; independent comparison to pending EXP099 C36",
+      "kernel": "tangai1/biohub-c37-temporal-dim-rescue-20260831",
+      "version": 1,
+      "script_version_id": 346355373,
+      "kernel_status": "KernelWorkerStatus.COMPLETE",
+      "internet_enabled": false,
+      "source_path": "outputs/research/frontier_20260901/c37/biohub-c37-temporal-dim-rescue-20260831.ipynb",
+      "source_sha256": "7648f4a30b5c9740ac58f38538d471a7973b2bd6bd649f34d771ec2a9719d7ab",
+      "hidden_test_dataflow": "dynamic competition test/*.zarr inference plus runtime/output dataset ID equality audit; no frozen public submission input",
+      "output_file": "submission.csv",
+      "output_sha256": "d4ae966f734c8b2135b6f121f97e406c6bbaa092ba96d3833b4e08879848d544",
+      "audit": {"status": "PASS", "rows": 235642, "datasets": 4, "nodes": 119882, "edges": 115760, "divisions": 295, "max_in_degree": 1, "max_out_degree": 2},
+      "submission_ref": null,
+      "post_submit_state": null
+    },
+    {
+      "experiment": "EXP101",
+      "description": "EXP101 verified C39 learned marginal verifier",
+      "hypothesis": "A frozen learned structural verifier improves marginal detections through a mechanism distinct from temporal rescue",
+      "parent": "EXP098 C35 scored 0.934",
+      "kernel": "tangai1/biohub-c39-marginal-verifier-20260901",
+      "version": 1,
+      "script_version_id": 346435959,
+      "kernel_status": "KernelWorkerStatus.COMPLETE",
+      "internet_enabled": false,
+      "source_path": "outputs/research/frontier_20260901/c39/biohub-c39-marginal-verifier-20260901.ipynb",
+      "source_sha256": "7710e80e0bd7be4005466c5a169f3cb352dd105ece443e949d6c0c530b169ac0",
+      "hidden_test_dataflow": "dynamic competition test/*.zarr inference plus runtime/output dataset ID equality audit; no frozen public submission input",
+      "output_file": "submission.csv",
+      "output_sha256": "84c554cf7479b3e7d98cf2172bef0340516cc6f88645e6eab8c297e0e29a3842",
+      "audit": {"status": "PASS", "rows": 234364, "datasets": 4, "nodes": 119239, "edges": 115125, "divisions": 295, "max_in_degree": 1, "max_out_degree": 2},
+      "submission_ref": null,
+      "post_submit_state": null
+    },
+    {
+      "experiment": "EXP102",
+      "description": "EXP102 verified attributed 0935 division policy",
+      "hypothesis": "A materially lower division count improves precision relative to EXP098 while retaining nearly the same edge set",
+      "parent": "EXP098 C35 scored 0.934",
+      "kernel": "leolin05/biohub-0-935-reproduction-audit-and-validation",
+      "version": 1,
+      "script_version_id": 346424066,
+      "kernel_status": "KernelWorkerStatus.COMPLETE",
+      "internet_enabled": false,
+      "source_path": "outputs/research/frontier_20260901/leolin0935/biohub-0-935-reproduction-audit-and-validation.ipynb",
+      "source_sha256": "d514fce0896dd766f4258039ed07be68666fddf368db1adeacd2d8e67b7c0a9c",
+      "hidden_test_dataflow": "dynamic competition test/*.zarr inference plus runtime/output dataset ID equality audit; no frozen public submission input",
+      "output_file": "submission.csv",
+      "output_sha256": "f9d42e27f6b2cbeba1ea8f433087fba45be7742b41b38d271c4109339e9279c4",
+      "audit": {"status": "PASS", "rows": 234871, "datasets": 4, "nodes": 119517, "edges": 115354, "divisions": 219, "max_in_degree": 1, "max_out_degree": 2},
+      "submission_ref": null,
+      "post_submit_state": null
+    }
+  ],
+  "guard_tests": "7 passed"
+}
