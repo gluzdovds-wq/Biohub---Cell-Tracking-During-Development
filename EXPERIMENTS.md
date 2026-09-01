@@ -51,6 +51,11 @@ correlated joint child; C40 is rejected as a near-duplicate of C39.
 
 Canonical receipt: `reports/submission_batch_20260901_remaining.json`.
 
+EXP100 post-submit receipt: submitted once as ref `55941347`; full API object
+is `PENDING`, with no error, no score, `total_bytes=0`, URL script version
+`346355373`, and quota `3/5` used / two available. No anomaly is recorded, so
+the PENDING-compatible batch policy permits EXP101.
+
 ## 2026-09-01 submission batching policy correction
 
 User authorization removes the serial wait-for-score rule. A PENDING earlier
