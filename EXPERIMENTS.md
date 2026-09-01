@@ -35,6 +35,13 @@ EXP098 is pre-registered as the first and only immediately authorized probe:
 
 Canonical pre-submit receipt: `reports/submission_batch_20260901.json`.
 
+Post-submit receipt: EXP098 was sent once through the guarded path as ref
+`55931493`. The full account object remains `PENDING`, with no error, no score,
+`total_bytes=0`, and URL script version `346223185`; daily quota is `1/5` used
+and four slots remain. Promotion gate is `WAIT`: no EXP099 or descendant may be
+submitted until EXP098 is terminal, error-free, and has a non-empty account
+score. A reboot or lost chat context does not waive this gate.
+
 ## 2026-08-31 incident correction and fail-closed recovery
 
 The earlier section below incorrectly treated EXP094–097 as completed outputs

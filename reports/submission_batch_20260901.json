@@ -43,8 +43,19 @@
       "edges": 0.968318,
       "divisions": 0.794479
     },
-    "submission_ref": null,
-    "post_submit_state": null
+    "submission_ref": 55931493,
+    "post_submit_state": {
+      "submitted_at_utc": "2026-09-01T04:10:37.740000Z",
+      "status": "SubmissionStatus.PENDING",
+      "error_description": null,
+      "public_score": null,
+      "private_score": null,
+      "total_bytes": 0,
+      "url": "/code/tangai1/biohub-c35-fallback-detection-cleanroom-20260831?scriptVersionId=346223185",
+      "quota_used_today": 1,
+      "quota_available": 4,
+      "gate": "WAIT: do not submit another candidate until EXP098 is COMPLETE, error-free, and has a non-empty account score"
+    }
   },
   "conditional_backlog": [
     "C36 adaptive detection only after EXP098 scores",

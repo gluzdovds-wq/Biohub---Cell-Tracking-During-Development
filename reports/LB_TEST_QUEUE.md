@@ -12,6 +12,11 @@ because their `0.920` parent is now well behind the frontier.
 After EXP098 is registered, no further slot may be used while it is pending,
 scoreless or erroneous. Canonical receipt: `submission_batch_20260901.json`.
 
+EXP098 was registered as ref `55931493` and is currently `PENDING`, without an
+error or account score (`total_bytes=0`). Quota is `1/5` used. Queue state is
+therefore `WAIT`; the four remaining slots are preserved, not authorization to
+submit C36/C37/C38 or an unregistered fifth candidate.
+
 ## Incident correction: 2026-08-31
 
 EXP094–097 are failed invalid-format submissions, not pending score results.
