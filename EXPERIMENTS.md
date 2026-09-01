@@ -42,6 +42,18 @@ and four slots remain. Promotion gate is `WAIT`: no EXP099 or descendant may be
 submitted until EXP098 is terminal, error-free, and has a non-empty account
 score. A reboot or lost chat context does not waive this gate.
 
+C36 was prepared read-only while waiting, but is not authorized for POST. The
+current Kaggle kernel is COMPLETE with Internet off and the competition source
+attached. Pulled source SHA-256 is
+`4f1c02ad5a034c93542ce47b7dd5194b640a88a14c566ea68b1e5ba68afd73b7`;
+downloaded `submission.csv` SHA-256 is
+`00d75136ebd551885279267863935eb668fd0fffae274bfab2f8c0e1cdaebcb4`.
+The artifact audit passes with 233,759 rows, four datasets, 118,927 nodes,
+114,832 edges, 287 divisions, and max degrees `1/2`; guard tests are `7 passed`.
+Versus C35, physical node/edge/division Jaccard at `2 µm` is
+`0.972789 / 0.966522 / 0.832808`. Its exact Kaggle script version and parent
+promotion gate must still be revalidated after EXP098 scores and before POST.
+
 ## 2026-08-31 incident correction and fail-closed recovery
 
 The earlier section below incorrectly treated EXP094–097 as completed outputs

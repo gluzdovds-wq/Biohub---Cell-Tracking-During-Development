@@ -17,6 +17,13 @@ error or account score (`total_bytes=0`). Quota is `1/5` used. Queue state is
 therefore `WAIT`; the four remaining slots are preserved, not authorization to
 submit C36/C37/C38 or an unregistered fifth candidate.
 
+C36 preparation is complete but remains conditional: its downloaded output
+passes the four-dataset graph audit (233,759 rows, 118,927 nodes, 114,832 edges,
+287 divisions, degrees `1/2`) and guard tests (`7 passed`). Output SHA-256 is
+`00d75136ebd551885279267863935eb668fd0fffae274bfab2f8c0e1cdaebcb4`.
+Reconfirm the exact live script version and EXP098's scored promotion gate
+before recording any C36 submission receipt.
+
 ## Incident correction: 2026-08-31
 
 EXP094–097 are failed invalid-format submissions, not pending score results.
