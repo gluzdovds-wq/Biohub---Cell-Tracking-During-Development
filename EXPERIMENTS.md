@@ -39,6 +39,24 @@ Post-submit receipt: EXP099 was sent once through the guarded path as ref
 with three slots available. Queue gate is `WAIT`: C37, C38, and any fourth
 candidate remain unauthorized until EXP099 is terminal and scored.
 
+Read-only descendant preparation while EXP099 runs:
+
+- C37 temporal-dim rescue: kernel COMPLETE; script version ID `346355373`;
+  source SHA `7648f4a30b5c9740ac58f38538d471a7973b2bd6bd649f34d771ec2a9719d7ab`;
+  output SHA `d4ae966f734c8b2135b6f121f97e406c6bbaa092ba96d3833b4e08879848d544`;
+  audit PASS at 235,642 rows / 119,882 nodes / 115,760 edges / 295 divisions /
+  degrees `1/2`; physical node/edge/division Jaccard versus C36 at `2 µm` is
+  `0.963631 / 0.955844 / 0.796296`;
+- C38 joint child: kernel COMPLETE; script version ID `346348268`; source SHA
+  `3f833f85ecff95275e92980a342c54032d3e9e4c6485df8d7e288cab5e76d8af`;
+  output SHA `88fef9c151ae9f5f95f51851d63a68e209d8caa5120133984f9761d97298f909`;
+  audit PASS at 234,058 rows / 119,078 nodes / 114,980 edges / 293 divisions /
+  degrees `1/2`; physical node/edge/division Jaccard versus C36 at `2 µm` is
+  `0.984897 / 0.981138 / 0.901639`.
+
+These receipts are preparation only. C37 requires EXP099's terminal scored
+promotion result; C38 requires scored evidence from its parent mechanisms.
+
 ## 2026-09-01 EXP098 clean C35 fallback-detection probe
 
 Live account state before mutation: EXP093 / `55907915` is COMPLETE `0.933`,

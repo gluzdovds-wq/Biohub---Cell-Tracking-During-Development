@@ -14,6 +14,14 @@ EXP099 was submitted once as ref `55940151` and is currently `PENDING`, with
 no error, no score, and `total_bytes=0`; quota is `2/5` used. Queue state is
 `WAIT`. The three remaining slots are preserved until EXP099 resolves.
 
+C37 and C38 are preflight-ready but not POST-authorized. C37 audit: 235,642
+rows / 119,882 nodes / 115,760 edges / 295 divisions, output SHA
+`d4ae966f734c8b2135b6f121f97e406c6bbaa092ba96d3833b4e08879848d544`.
+C38 audit: 234,058 rows / 119,078 nodes / 114,980 edges / 293 divisions,
+output SHA
+`88fef9c151ae9f5f95f51851d63a68e209d8caa5120133984f9761d97298f909`.
+C37 waits for EXP099's score; C38 waits for scored parent mechanisms.
+
 EXP093 is COMPLETE `0.933` and is the scored anchor. EXP098 is the sole
 immediately authorized submission: clean full-inference C35 with corrected
 fallback/provenance and bidirectional weight `0.15`. It passed exact source,
