@@ -10,6 +10,10 @@ script version ID `346353192`, audited output SHA
 `00d75136ebd551885279267863935eb668fd0fffae274bfab2f8c0e1cdaebcb4`.
 After its POST, stop until EXP099 itself is terminal and scored.
 
+EXP099 was submitted once as ref `55940151` and is currently `PENDING`, with
+no error, no score, and `total_bytes=0`; quota is `2/5` used. Queue state is
+`WAIT`. The three remaining slots are preserved until EXP099 resolves.
+
 EXP093 is COMPLETE `0.933` and is the scored anchor. EXP098 is the sole
 immediately authorized submission: clean full-inference C35 with corrected
 fallback/provenance and bidirectional weight `0.15`. It passed exact source,

@@ -33,6 +33,12 @@ EXP099 is the sole newly authorized candidate:
   it is COMPLETE, error-free, non-empty, and scored. Do not submit C37 or C38
   merely because three daily slots remain.
 
+Post-submit receipt: EXP099 was sent once through the guarded path as ref
+`55940151`. Its full account object is `PENDING`, with no error, no score,
+`total_bytes=0`, and URL script version `346353192`; quota is now `2/5` used
+with three slots available. Queue gate is `WAIT`: C37, C38, and any fourth
+candidate remain unauthorized until EXP099 is terminal and scored.
+
 ## 2026-09-01 EXP098 clean C35 fallback-detection probe
 
 Live account state before mutation: EXP093 / `55907915` is COMPLETE `0.933`,
