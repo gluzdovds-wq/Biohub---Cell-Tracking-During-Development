@@ -2,6 +2,42 @@
 
 This file is the competition source of truth. Update it before launching an experiment and after every CV/LB result.
 
+## 2026-09-02 five-result close and 2/3 medal portfolio
+
+Live Kaggle API closes the September 1 batch without errors:
+
+- EXP098 / `55931493`: COMPLETE `0.934`, `204,778,810` bytes;
+- EXP099 / `55940151`: COMPLETE `0.933`, `204,498,940` bytes;
+- EXP100 / `55941347`: COMPLETE `0.933`, `205,345,991` bytes;
+- EXP101 / `55941357`: COMPLETE `0.931`, `204,290,758` bytes;
+- EXP102 / `55941369`: COMPLETE `0.934`, `204,778,810` bytes.
+
+EXP102's successful score does not erase its recorded source-version mismatch:
+its submitted URL used script ID `346407867`, while the audited current page
+source was `346424066`. Treat its LB result as valid account evidence but not
+as proof that the audited current source produced it.
+
+The account frontier is a stable `0.934`, which the user identifies as the
+bronze zone. Five new daily slots are available. From now on the quota is a
+non-interchangeable portfolio:
+
+- `GOLD_PUBLIC-1` and `GOLD_PUBLIC-2`: actively search for the current public
+  gold-medal boundary. Allowed work includes improving or repairing open
+  solutions, exact version-audited reproduction of stronger notebooks,
+  controlled retuning, and justified ensembles. Public LB is a direct search
+  signal for this track, but hidden-compatible runtime inference remains
+  mandatory.
+- `PRIVATE_ROBUST-1`, `PRIVATE_ROBUST-2`, and `PRIVATE_ROBUST-3`: search for a
+  strong private-leaderboard portfolio after competition close. Promotion
+  requires honest embryo-level holdout/OOF evidence, stability/sensitivity
+  checks, or a credible mechanism-diversity rationale. Tiny public deltas,
+  titles, and correlated copies are insufficient.
+
+Every pre-submit receipt must name its track and slot. Unused slots may not be
+borrowed between tracks just to exhaust quota. Safety stop conditions override
+the allocation. Historical experiment queues below are evidence, not today's
+instructions.
+
 ## 2026-09-01 EXP100-102 independently audited remaining batch
 
 Live state before mutation: EXP098 is COMPLETE `0.934`; EXP099 / `55940151`

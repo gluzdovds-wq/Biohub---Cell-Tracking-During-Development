@@ -1,0 +1,19 @@
+---
+description: Allocate Biohub daily submissions between public-gold search and private robustness
+alwaysApply: true
+---
+
+# Biohub daily medal portfolio
+
+- Treat the five daily slots as two non-interchangeable tracks.
+- Slots 1-2 are `GOLD_PUBLIC`: seek the current public gold boundary by
+  improving, repairing, adapting, ensembling, or exactly reproducing strong
+  open full-inference notebooks.
+- Slots 3-5 are `PRIVATE_ROBUST`: seek reliable post-close performance using
+  honest embryo-level holdout/OOF evidence, stability tests, and mechanism
+  diversity. Do not select these slots from tiny public-LB deltas alone.
+- Before POST, label the candidate and receipt with its track and slot number.
+- Recheck the live public frontier for `GOLD_PUBLIC`; compare `PRIVATE_ROBUST`
+  against the current mechanism-diverse private portfolio.
+- Never move unused quota between tracks merely to fill all five slots.
+- All `AGENTS.md` submission-safety checks and stop conditions still apply.

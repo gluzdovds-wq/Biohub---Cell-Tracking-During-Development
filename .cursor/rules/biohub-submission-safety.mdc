@@ -9,7 +9,9 @@ alwaysApply: true
 - Never submit through raw Kaggle CLI/API calls. Use the guarded helper only.
 - This is a code competition: submitted code must read the runtime competition
   test set. Frozen public `submission.csv` inputs are not hidden-compatible.
-- Submit one candidate, then inspect `error_description`, status, score, bytes,
-  receipt, and quota. Stop on pending, empty score, or any error.
-- Never submit a child before its scored parent passes the recorded gate.
+- After each submission inspect `error_description`, status, score, bytes,
+  receipt, URL/version, and quota. A PENDING candidate does not block another
+  independently pre-registered and audited candidate.
+- Stop the daily batch on any recorded error, terminal empty score, source or
+  version mismatch, or other anomaly. Preserve the exact receipt and diagnose.
 - Update experiment receipts before and after every external mutation.

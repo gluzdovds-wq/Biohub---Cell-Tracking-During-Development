@@ -1,5 +1,19 @@
 # Leaderboard test queue
 
+## Current update: 2026-09-02
+
+September 1 results are complete and error-free: EXP098 `0.934`, EXP099
+`0.933`, EXP100 `0.933`, EXP101 `0.931`, EXP102 `0.934`. The stable account
+frontier is `0.934`; EXP102 retains its exact-source version anomaly despite a
+valid account score.
+
+Daily quota is now split into non-interchangeable tracks: two `GOLD_PUBLIC`
+slots for reaching the current public gold boundary through audited open-source
+reproduction/improvement, and three `PRIVATE_ROBUST` slots for honest
+embryo-level validation, stability, and mechanism-diverse private performance.
+Every queued candidate must declare its track and slot before POST. Do not move
+unused quota between tracks merely to fill the day.
+
 ## Current update: 2026-09-01
 
 Remaining batch is pre-registered under the user-authorized PENDING-compatible

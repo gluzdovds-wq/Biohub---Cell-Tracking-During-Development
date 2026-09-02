@@ -30,6 +30,25 @@ Kaggle API fields as source of truth; chat memory and notebook titles are not.
   competition test data and performs inference or a hidden-compatible dynamic
   transform. Public artifact replay is not inference.
 
+## Daily medal portfolio (mandatory)
+
+- Split the five daily submission slots into two non-interchangeable tracks:
+  slots 1-2 are `GOLD_PUBLIC`; slots 3-5 are `PRIVATE_ROBUST`.
+- `GOLD_PUBLIC` searches for a path from the stable bronze frontier toward the
+  current public gold-medal boundary. It may reproduce, repair, adapt, ensemble,
+  or retune strong open notebooks, but every candidate must still pass the full
+  hidden-compatible inference and receipt checks above.
+- `PRIVATE_ROBUST` searches for reliable post-close performance. Promote only
+  candidates supported by honest embryo-level holdout/OOF evidence, stability
+  checks, or a credible mechanism-diversity argument. A tiny public-LB gain or
+  an open-notebook title is not sufficient evidence for this track.
+- Label every candidate and receipt with its track and daily slot number before
+  POST. Compare public-track candidates with the current public frontier and
+  private-track candidates with the current private-robust portfolio.
+- Do not borrow unused slots between tracks merely to exhaust quota. Leave a
+  slot unused when no candidate qualifies. Submission-safety stop conditions
+  override the quota allocation.
+
 ## Experiment and context hygiene
 
 - `EXPERIMENTS.md` is append-only evidence: correct false claims explicitly;
