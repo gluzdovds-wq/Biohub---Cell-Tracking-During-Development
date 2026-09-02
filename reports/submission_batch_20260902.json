@@ -42,8 +42,19 @@
       "honest_holdout": {"embryos": 4, "adjusted_edge_jaccard": 0.9213, "division_jaccard": 0.1667, "proxy_score": 0.9379},
       "physical_vs_exp098_at_2um": {"node_jaccard": 0.994272, "edge_jaccard": 0.992275, "division_jaccard": 0.644231},
       "promotion_gate": "public-LB diagnostic; compare its exact account score to 0.934 and the approximate 0.949 public-gold boundary",
-      "submission_ref": null,
-      "post_submit_state": null
+      "submission_ref": 55952817,
+      "post_submit_state": {
+        "submitted_at_utc": "2026-09-02T03:16:32.017000Z",
+        "status": "SubmissionStatus.PENDING",
+        "error_description": "",
+        "public_score": "",
+        "private_score": "",
+        "total_bytes": 0,
+        "url": "/code/cloudssdut/biohub-0-948-reproduction-20260901?scriptVersionId=346554587",
+        "quota_used_today": 1,
+        "quota_available": 4,
+        "exact_script_version_match": true
+      }
     },
     {
       "experiment": "EXP104",
@@ -66,8 +77,19 @@
       "honest_holdout": {"embryos": 4, "adjusted_edge_jaccard": 0.9210, "division_jaccard": 0.1667, "proxy_score": 0.9376},
       "physical_vs_exp098_at_2um": {"node_jaccard": 0.996563, "edge_jaccard": 0.995092, "division_jaccard": 0.652597},
       "promotion_gate": "public-LB diagnostic; compare its exact account score to 0.934 and the approximate 0.949 public-gold boundary",
-      "submission_ref": null,
-      "post_submit_state": null
+      "submission_ref": 55952820,
+      "post_submit_state": {
+        "submitted_at_utc": "2026-09-02T03:17:01.717000Z",
+        "status": "SubmissionStatus.PENDING",
+        "error_description": "",
+        "public_score": "",
+        "private_score": "",
+        "total_bytes": 0,
+        "url": "/code/nusrati/0-936?scriptVersionId=346568302",
+        "quota_used_today": 2,
+        "quota_available": 3,
+        "exact_script_version_match": true
+      }
     },
     {
       "experiment": "EXP105",
@@ -90,8 +112,19 @@
       "honest_holdout": {"embryos": 4, "adjusted_edge_jaccard": 0.9232, "division_jaccard": 0.1667, "proxy_score": 0.9399},
       "physical_vs_exp098_at_2um": {"node_jaccard": 0.977292, "edge_jaccard": 0.971354, "division_jaccard": 0.840125},
       "promotion_gate": "retain as private candidate if hidden rerun is valid; final portfolio selection prioritizes holdout evidence and mechanism diversity over tiny public deltas",
-      "submission_ref": null,
-      "post_submit_state": null
+      "submission_ref": 55952831,
+      "post_submit_state": {
+        "submitted_at_utc": "2026-09-02T03:17:30.067000Z",
+        "status": "SubmissionStatus.PENDING",
+        "error_description": "",
+        "public_score": "",
+        "private_score": "",
+        "total_bytes": 0,
+        "url": "/code/tangai1/biohub-c41-retrained-temporal-detector-20260902?scriptVersionId=346606370",
+        "quota_used_today": 3,
+        "quota_available": 2,
+        "exact_script_version_match": true
+      }
     },
     {
       "experiment": "EXP106",
@@ -114,8 +147,19 @@
       "honest_holdout": {"embryos": 4, "adjusted_edge_jaccard": 0.9206, "division_jaccard": 0.1667, "proxy_score": 0.9373},
       "physical_vs_exp098_at_2um": {"node_jaccard": 0.998359, "edge_jaccard": 0.998066, "division_jaccard": 0.976351},
       "promotion_gate": "retain as a conservative appearance-mechanism hedge only if hidden rerun is valid; do not infer private quality from a tiny public delta",
-      "submission_ref": null,
-      "post_submit_state": null
+      "submission_ref": 55952836,
+      "post_submit_state": {
+        "submitted_at_utc": "2026-09-02T03:17:57.203000Z",
+        "status": "SubmissionStatus.PENDING",
+        "error_description": "",
+        "public_score": "",
+        "private_score": "",
+        "total_bytes": 0,
+        "url": "/code/tangai1/biohub-c42-pu-appearance-detector-20260902?scriptVersionId=346611908",
+        "quota_used_today": 4,
+        "quota_available": 1,
+        "exact_script_version_match": true
+      }
     },
     {
       "experiment": "EXP107",
@@ -138,8 +182,19 @@
       "honest_holdout": {"embryos": 4, "adjusted_edge_jaccard": 0.9246, "division_jaccard": 0.1111, "proxy_score": 0.9358},
       "physical_vs_exp098_at_2um": {"node_jaccard": 0.945116, "edge_jaccard": 0.936197, "division_jaccard": 0.644205},
       "promotion_gate": "retain as the high-diversity private hedge if hidden rerun is valid; final choice weighs its edge evidence against weaker holdout division evidence",
-      "submission_ref": null,
-      "post_submit_state": null
+      "submission_ref": 55952843,
+      "post_submit_state": {
+        "submitted_at_utc": "2026-09-02T03:18:29.813000Z",
+        "status": "SubmissionStatus.PENDING",
+        "error_description": "",
+        "public_score": "",
+        "private_score": "",
+        "total_bytes": 0,
+        "url": "/code/flexonafft/biohub-agreement-gated-dual-seed-fusion?scriptVersionId=346599770",
+        "quota_used_today": 5,
+        "quota_available": 0,
+        "exact_script_version_match": true
+      }
     }
   ],
   "rejected": [

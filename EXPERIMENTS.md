@@ -49,6 +49,21 @@ Per-POST gate: inspect full API fields and URL script ID; continue on PENDING,
 but stop on the first error, terminal empty score, or exact-version mismatch.
 Canonical receipt: `reports/submission_batch_20260902.json`.
 
+Post-submit batch receipt: all five candidates were sent exactly once through
+the guarded helper. Their immediate full API objects are PENDING with empty
+`error_description`, empty scores, `total_bytes=0`, and exact URL script IDs:
+
+- EXP103 ref `55952817`, script ID `346554587`;
+- EXP104 ref `55952820`, script ID `346568302`;
+- EXP105 ref `55952831`, script ID `346606370`;
+- EXP106 ref `55952836`, script ID `346611908`;
+- EXP107 ref `55952843`, script ID `346599770`.
+
+Quota is now `5/5` used, zero available, 58 total. No immediate error,
+terminal empty score, duplicate POST, or source-version mismatch was observed.
+PENDING is permitted by the user-authorized batching policy; do not infer a
+score until later full API objects become terminal.
+
 ## 2026-09-02 five-result close and 2/3 medal portfolio
 
 Live Kaggle API closes the September 1 batch without errors:
