@@ -2,6 +2,53 @@
 
 This file is the competition source of truth. Update it before launching an experiment and after every CV/LB result.
 
+## 2026-09-02 EXP103-107 five-slot pre-registration
+
+Live Kaggle state before mutation is `0/5` used, five available, 53 total;
+the latest submission EXP102 is COMPLETE `0.934` with no error. The exact
+current remote source blob, ordinal version, public page script-version ID and
+downloaded output were checked for every candidate. All five kernels completed
+with Internet off and competition data attached. Each dynamically discovers
+runtime `test/*.zarr`, performs inference, asserts runtime/output dataset-ID
+equality, and emits one root `submission.csv`. The guarded source audit passes
+for all five and its test suite is `7 passed`.
+
+Today's non-interchangeable portfolio is pre-registered as follows:
+
+1. EXP103 / `GOLD_PUBLIC-1`: Cloud current v1 exact reproduction, script ID
+   `346554587`, source SHA `1c169787...bfe177`, output SHA
+   `f9d42e27...279c4`. Audit PASS at 234,871 rows / 119,517 nodes / 115,354
+   edges / 219 divisions. Honest four-embryo proxy is `0.9379`. Its attributed
+   `0.948` title is a hypothesis, not account evidence; compare the exact score
+   against the account's `0.934` and approximate public-gold `0.949` boundary.
+2. EXP104 / `GOLD_PUBLIC-2`: Nusrati current v10 frontier, script ID
+   `346568302`, source SHA `4b86c247...7036883`, output SHA
+   `665e54ac...870812`. Audit PASS at 234,691 rows / 119,426 nodes / 115,265
+   edges / 215 divisions. Honest four-embryo proxy is `0.9376`; test whether its
+   conservative low-division topology improves the scored anchor.
+3. EXP105 / `PRIVATE_ROBUST-1`: C41 retrained temporal detector v1, script ID
+   `346606370`, source SHA `85562b51...171301`, output SHA
+   `9320b28c...dfa64a`. Audit PASS at 234,096 rows / 119,097 nodes / 114,999
+   edges / 293 divisions. Four-embryo proxy `0.9399`; physical edge Jaccard to
+   EXP098 is `0.971354`, confirming a material detector-coordinate mechanism.
+4. EXP106 / `PRIVATE_ROBUST-2`: C42 PU appearance detector v1, script ID
+   `346611908`, source SHA `1b93b6e0...f86cd8`, output SHA
+   `fe09f4d7...62be4e`. Audit PASS at 234,562 rows / 119,337 nodes / 115,225
+   edges / 291 divisions. Four-embryo proxy `0.9373`; this is the conservative
+   independently learned appearance-recovery hedge, not a public-delta claim.
+5. EXP107 / `PRIVATE_ROBUST-3`: Flex agreement-gated dual-seed v7, script ID
+   `346599770`, source SHA `2a5a7ee3...2d2c3d`, output SHA
+   `72317188...a2de27`. Audit PASS at 236,140 rows / 120,127 nodes / 116,013
+   edges / 316 divisions. Four-embryo proxy `0.9358`; physical edge Jaccard to
+   EXP098 is `0.936197`, providing the portfolio's strongest mechanism-diverse
+   seed-ensemble hedge.
+
+C43 is explicitly rejected from today's private allocation: it is nearly
+identical to C41 (physical edge Jaccard `0.999235`, division Jaccard `1.0`).
+Per-POST gate: inspect full API fields and URL script ID; continue on PENDING,
+but stop on the first error, terminal empty score, or exact-version mismatch.
+Canonical receipt: `reports/submission_batch_20260902.json`.
+
 ## 2026-09-02 five-result close and 2/3 medal portfolio
 
 Live Kaggle API closes the September 1 batch without errors:
