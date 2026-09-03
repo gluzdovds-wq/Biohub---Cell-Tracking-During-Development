@@ -52,6 +52,20 @@ script-ID inspection, continuing on PENDING but stopping on the first error,
 terminal empty score, or version mismatch. Canonical receipt:
 `reports/submission_batch_20260903.json`.
 
+Post-submit receipt: all five candidates were sent exactly once through the
+guarded helper. Immediate full API objects are PENDING with empty
+`error_description`, empty scores, `total_bytes=0`, and exact URL script IDs:
+
+- EXP108 ref `55973111`, script ID `346859144`;
+- EXP109 ref `55973125`, script ID `346872771`;
+- EXP110 ref `55973135`, script ID `346873612`;
+- EXP111 ref `55973141`, script ID `346413832`;
+- EXP112 ref `55973147`, script ID `346880985`.
+
+Quota is `5/5` used, zero available, 63 total. No immediate error, terminal
+empty score, duplicate POST, or source-version mismatch was observed. PENDING
+is permitted; later scores must be read from full live API objects.
+
 ## 2026-09-02 EXP103-107 five-slot pre-registration
 
 Live Kaggle state before mutation is `0/5` used, five available, 53 total;

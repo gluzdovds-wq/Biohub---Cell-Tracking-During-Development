@@ -47,8 +47,19 @@
       "exact_notebook_holdout": {"embryos": 4, "adjusted_edge_jaccard": 0.9210, "division_jaccard": 0.0, "proxy_score": 0.9210},
       "physical_vs_exp104_at_2um": {"node_jaccard": 0.997448, "edge_jaccard": 0.995365, "division_jaccard": 0.149123},
       "promotion_gate": "compare exact account score with 0.936 frontier and 0.949 approximate public-gold boundary",
-      "submission_ref": null,
-      "post_submit_state": null
+      "submission_ref": 55973111,
+      "post_submit_state": {
+        "submitted_at_utc": "2026-09-03T02:59:40.880000Z",
+        "status": "SubmissionStatus.PENDING",
+        "public_score": "",
+        "private_score": "",
+        "error_description": "",
+        "total_bytes": 0,
+        "url": "/code/nusrati/0-938?scriptVersionId=346859144",
+        "quota_used_today": 1,
+        "quota_available": 4,
+        "exact_script_version_match": true
+      }
     },
     {
       "experiment": "EXP109",
@@ -71,8 +82,19 @@
       "exact_notebook_holdout": {"embryos": 4, "adjusted_edge_jaccard": 0.9214, "division_jaccard": 0.2, "proxy_score": 0.9414},
       "physical_vs_exp104_at_2um": {"node_jaccard": 0.997917, "edge_jaccard": 0.996560, "division_jaccard": 0.485597},
       "promotion_gate": "test the reported 0.939 arm exactly; compare exact account score with 0.936 frontier and 0.949 approximate public-gold boundary",
-      "submission_ref": null,
-      "post_submit_state": null
+      "submission_ref": 55973125,
+      "post_submit_state": {
+        "submitted_at_utc": "2026-09-03T03:00:10.257000Z",
+        "status": "SubmissionStatus.PENDING",
+        "public_score": "",
+        "private_score": "",
+        "error_description": "",
+        "total_bytes": 0,
+        "url": "/code/alioman/biohub-v19b-public0939-sdm9-only?scriptVersionId=346872771",
+        "quota_used_today": 2,
+        "quota_available": 3,
+        "exact_script_version_match": true
+      }
     },
     {
       "experiment": "EXP110",
@@ -95,8 +117,19 @@
       "exact_notebook_holdout": {"embryos": 4, "adjusted_edge_jaccard": 0.9214, "division_jaccard": 0.2, "proxy_score": 0.9414},
       "physical_vs_private_c41_at_2um": {"node_jaccard": 0.973720, "edge_jaccard": 0.965822, "division_jaccard": 0.339744},
       "promotion_gate": "retain for final private portfolio only after a valid hidden rerun; prioritize exact holdout and division-mechanism complementarity, not public delta",
-      "submission_ref": null,
-      "post_submit_state": null
+      "submission_ref": 55973135,
+      "post_submit_state": {
+        "submitted_at_utc": "2026-09-03T03:00:42.010000Z",
+        "status": "SubmissionStatus.PENDING",
+        "public_score": "",
+        "private_score": "",
+        "error_description": "",
+        "total_bytes": 0,
+        "url": "/code/alioman/biohub-v19c-public0939-sis14-only?scriptVersionId=346873612",
+        "quota_used_today": 3,
+        "quota_available": 2,
+        "exact_script_version_match": true
+      }
     },
     {
       "experiment": "EXP111",
@@ -119,8 +152,19 @@
       "exact_notebook_holdout": {"embryos": 4, "adjusted_edge_jaccard": 0.9198, "division_jaccard": 0.1667, "proxy_score": 0.9365},
       "physical_vs_exp104_at_2um": {"node_jaccard": 0.958293, "edge_jaccard": 0.945672, "division_jaccard": 0.505988},
       "promotion_gate": "retain for final private portfolio only after a valid hidden rerun; use its material motion/linking diversity and exact holdout rather than public score alone",
-      "submission_ref": null,
-      "post_submit_state": null
+      "submission_ref": 55973141,
+      "post_submit_state": {
+        "submitted_at_utc": "2026-09-03T03:01:15.640000Z",
+        "status": "SubmissionStatus.PENDING",
+        "public_score": "",
+        "private_score": "",
+        "error_description": "",
+        "total_bytes": 0,
+        "url": "/code/sushanthtiruvaipati/biohub-ema-velocity-deepcenter-fork-v1?scriptVersionId=346413832",
+        "quota_used_today": 4,
+        "quota_available": 1,
+        "exact_script_version_match": true
+      }
     },
     {
       "experiment": "EXP112",
@@ -143,8 +187,19 @@
       "embedded_holdout_evidence": {"wells": 19, "score": 0.9338, "edge_jaccard": 0.9132, "division_jaccard": 0.2, "node_recall": 0.9746, "qualification": "reported by the exact notebook/log from a no-test-overlap held-out split; not independently rerun in this audit"},
       "physical_vs_exp104_at_2um": {"node_jaccard": 0.628439, "edge_jaccard": 0.502774, "division_jaccard": 0.021739},
       "promotion_gate": "retain only after a valid hidden rerun as a mechanism-diverse learned-division hedge; do not promote solely from the embedded holdout claim",
-      "submission_ref": null,
-      "post_submit_state": null
+      "submission_ref": 55973147,
+      "post_submit_state": {
+        "submitted_at_utc": "2026-09-03T03:01:50.520000Z",
+        "status": "SubmissionStatus.PENDING",
+        "public_score": "",
+        "private_score": "",
+        "error_description": "",
+        "total_bytes": 0,
+        "url": "/code/pawanmali/biohub-cli-learned-div-v1?scriptVersionId=346880985",
+        "quota_used_today": 5,
+        "quota_available": 0,
+        "exact_script_version_match": true
+      }
     }
   ],
   "rejected": [
