@@ -2,6 +2,56 @@
 
 This file is the competition source of truth. Update it before launching an experiment and after every CV/LB result.
 
+## 2026-09-03 EXP108-112 five-slot pre-registration
+
+The September 2 batch closed cleanly: EXP103-107 are COMPLETE without errors
+at `0.935 / 0.936 / 0.933 / 0.933 / 0.931`. EXP104 raises the account frontier
+to `0.936`. Live quota is `0/5` used with five available and 58 total. The
+current public leaderboard's approximate tenth-place gold boundary is `0.949`.
+
+All selected sources are the exact live current Kaggle blobs and ordinal
+versions, COMPLETE with Internet off and competition data attached. Every
+source dynamically reads runtime `test/*.zarr` and performs model inference;
+none consumes a frozen public submission. Downloaded root `submission.csv`
+files pass exact schema/types, finite-value, four-dataset, graph-invariant and
+SHA audits. Guard tests are `7 passed`.
+
+Today's pre-registered portfolio:
+
+1. EXP108 / `GOLD_PUBLIC-1`: Nusrati `0.938` v1, script ID `346859144`,
+   source SHA `ea9de93c...d60e2a`, output SHA `650be35e...534587`. Audit PASS:
+   234,371 rows / 119,339 nodes / 115,032 edges / 47 divisions. This tests the
+   attributed `0.938` low-division profile against account `0.936`.
+2. EXP109 / `GOLD_PUBLIC-2`: Ali V19B safe-div-parent-9um v1, script ID
+   `346872771`, source SHA `376bbffa...4bfa5`, output SHA
+   `0696a283...57baa2`. Audit PASS: 234,515 / 119,365 / 115,150 / 146.
+   Exact four-embryo proxy is `0.9414`; test the reported `0.939` arm.
+3. EXP110 / `PRIVATE_ROBUST-1`: Ali V19C sister-distance-14um v1, script ID
+   `346873612`, source SHA `363139b1...08fd9`, output SHA
+   `b4d8319b...943feb`. Audit PASS: 234,482 / 119,358 / 115,124 / 125.
+   Exact four-embryo proxy is `0.9414`; physical edge/division Jaccard versus
+   private C41 is `0.965822 / 0.339744`, supporting division complementarity.
+4. EXP111 / `PRIVATE_ROBUST-2`: Sushanth EMA-velocity relinker v2, script ID
+   `346413832`, source SHA `4b575f3b...89463e`, output SHA
+   `628199ec...47ba64`. Audit PASS: 234,197 / 119,145 / 115,052 / 288.
+   Exact four-embryo proxy is `0.9365`; physical edge Jaccard to EXP104 is
+   `0.945672`, a material motion/linking change.
+5. EXP112 / `PRIVATE_ROBUST-3`: Pawan learned division head v2, script ID
+   `346880985`, source SHA `00476246...217ef`, output SHA
+   `0aaea0c5...7a52f5`. Audit PASS: 237,254 / 122,560 / 114,694 / 20.
+   The exact log reports a no-test-overlap 19-well score `0.9338` (not
+   independently rerun here); physical edge Jaccard to EXP104 is `0.502774`,
+   providing a genuinely different learned image-crop division mechanism.
+
+Rejected before POST: Tomako is source-identical to EXP103; Ali V19A is
+output-identical to EXP108; V19D union is output-identical to EXP109; V19D-wide
+and V19E have exact holdout proxies `0.9210/0.9201` with zero division Jaccard;
+Flex v11 is too close to EXP104 (`0.999670` physical edge Jaccard); Sushanth
+rescue-localCV is ERROR with no output. Per-POST gate remains full API and URL
+script-ID inspection, continuing on PENDING but stopping on the first error,
+terminal empty score, or version mismatch. Canonical receipt:
+`reports/submission_batch_20260903.json`.
+
 ## 2026-09-02 EXP103-107 five-slot pre-registration
 
 Live Kaggle state before mutation is `0/5` used, five available, 53 total;
