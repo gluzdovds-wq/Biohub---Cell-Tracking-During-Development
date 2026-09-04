@@ -238,7 +238,29 @@
       "output_audit": "PASS: 237611 rows, 4 datasets, 120847 nodes, 116764 edges, max degrees 1/2"
     },
     "promotion_gate": "Retry exactly once through the guarded helper with retry_system_error_ref=56004187; inspect the full API object immediately and stop if the system error repeats or any other anomaly appears.",
-    "pre_submit_state": "REGISTERED"
+    "pre_submit_state": "REGISTERED",
+    "submission_ref": 56008261,
+    "post_submit_state": {
+      "submitted_at_utc": "2026-09-04T08:00:51.060Z",
+      "status": "",
+      "status_interpretation": "PENDING; status field omitted by the immediate API object",
+      "public_score": "",
+      "private_score": "",
+      "error_description": "",
+      "total_bytes": 0,
+      "url": "/code/notoverkil/biohub-base-0937?scriptVersionId=345877408",
+      "quota_used_today": 5,
+      "quota_available": 0,
+      "exact_script_version_match": true,
+      "immediate_anomaly": false
+    }
+  },
+  "live_state_after_retry": {
+    "quota_used_today": 5,
+    "quota_available": 0,
+    "num_total": 68,
+    "limited_by_total": false,
+    "note": "EXP118 is pending with no immediate error fields and the exact pre-registered scriptVersionId. EXP116 remains preserved as failed evidence."
   },
   "rejected": [
     {"kernel": "rishabhr0y/940-biohub-sdec12", "reason": "output SHA is byte-identical to EXP113"},

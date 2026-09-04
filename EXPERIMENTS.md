@@ -125,6 +125,14 @@ empty, bytes are zero, and the error string exactly matches Kaggle's retryable
 system error. Any other current-day failure still blocks. Gate: submit exactly
 once, inspect the full API object immediately, and stop if the error repeats.
 
+EXP118 post-submit receipt: sent exactly once through the ref-scoped guarded
+path as ref `56008261`. The immediate full API object omits status, score and
+error fields, has `total_bytes=0`, and resolves to the exact expected URL
+script ID `345877408`; this is PENDING, not success. Quota is `5/5` used, zero
+available, 68 total. EXP116 remains preserved as failed evidence. Do not issue
+another retry if EXP118 returns the same system error without new user
+direction and a fresh diagnosis.
+
 ## 2026-09-03 EXP108-112 five-slot pre-registration
 
 The September 2 batch closed cleanly: EXP103-107 are COMPLETE without errors
