@@ -45,7 +45,21 @@
       "output_sha256": "4e02ba499d50ed808c5684ab9762a059b008515dfb0362b1c586c51e6f264e93",
       "audit": {"status": "PASS", "rows": 234517, "datasets": 4, "nodes": 119365, "edges": 115152, "divisions": 148, "max_in_degree": 1, "max_out_degree": 2},
       "exact_notebook_holdout": {"embryos": 4, "adjusted_edge_jaccard": 0.9214, "division_jaccard": 0.2, "proxy_score": 0.9414},
-      "promotion_gate": "compare exact account score with the 0.939 frontier; title attribution is not account evidence"
+      "promotion_gate": "compare exact account score with the 0.939 frontier; title attribution is not account evidence",
+      "submission_ref": 56004160,
+      "post_submit_state": {
+        "submitted_at_utc": "2026-09-04T03:51:19.283Z",
+        "status": "",
+        "status_interpretation": "PENDING; status field omitted by the immediate API object",
+        "public_score": "",
+        "private_score": "",
+        "error_description": "",
+        "total_bytes": 0,
+        "url": "/code/nusrati/0-940?scriptVersionId=346951079",
+        "quota_used_today": 1,
+        "quota_available": 4,
+        "exact_script_version_match": true
+      }
     },
     {
       "experiment": "EXP114",
@@ -67,7 +81,21 @@
       "audit": {"status": "PASS", "rows": 234555, "datasets": 4, "nodes": 119387, "edges": 115168, "divisions": 147, "max_in_degree": 1, "max_out_degree": 2},
       "exact_notebook_holdout": {"embryos": 4, "adjusted_edge_jaccard": 0.9211, "division_jaccard": 0.2, "proxy_score": 0.9411},
       "physical_vs_exp113_at_2um": {"node_jaccard": 0.982348, "edge_jaccard": 0.974487, "division_jaccard": 0.855346},
-      "promotion_gate": "require a valid hidden rerun and compare exact score with the 0.939 frontier"
+      "promotion_gate": "require a valid hidden rerun and compare exact score with the 0.939 frontier",
+      "submission_ref": 56004172,
+      "post_submit_state": {
+        "submitted_at_utc": "2026-09-04T03:51:51.090Z",
+        "status": "",
+        "status_interpretation": "PENDING; status field omitted by the immediate API object",
+        "public_score": "",
+        "private_score": "",
+        "error_description": "",
+        "total_bytes": 0,
+        "url": "/code/arnav170/biohub-940e?scriptVersionId=347140166",
+        "quota_used_today": 2,
+        "quota_available": 3,
+        "exact_script_version_match": true
+      }
     },
     {
       "experiment": "EXP115",
@@ -89,7 +117,21 @@
       "audit": {"status": "PASS", "rows": 233611, "datasets": 4, "nodes": 118907, "edges": 114704, "divisions": 227, "max_in_degree": 1, "max_out_degree": 2},
       "exact_notebook_holdout": {"embryos": 4, "adjusted_edge_jaccard": 0.9202, "division_jaccard": 0.1667, "proxy_score": 0.9368},
       "physical_vs_exp110_at_2um": {"node_jaccard": 0.990651, "edge_jaccard": 0.988424, "division_jaccard": 0.504274},
-      "promotion_gate": "private retention depends on exact holdout and topology, not a public delta"
+      "promotion_gate": "private retention depends on exact holdout and topology, not a public delta",
+      "submission_ref": 56004182,
+      "post_submit_state": {
+        "submitted_at_utc": "2026-09-04T03:52:21.417Z",
+        "status": "",
+        "status_interpretation": "PENDING; status field omitted by the immediate API object",
+        "public_score": "",
+        "private_score": "",
+        "error_description": "",
+        "total_bytes": 0,
+        "url": "/code/tomako4390/biohub-final-b-conservative?scriptVersionId=347115869",
+        "quota_used_today": 3,
+        "quota_available": 2,
+        "exact_script_version_match": true
+      }
     },
     {
       "experiment": "EXP116",
@@ -111,7 +153,21 @@
       "audit": {"status": "PASS", "rows": 237611, "datasets": 4, "nodes": 120847, "edges": 116764, "divisions": 320, "max_in_degree": 1, "max_out_degree": 2},
       "exact_notebook_holdout": {"embryos": 4, "adjusted_edge_jaccard": 0.9158, "division_jaccard": 0.1667, "proxy_score": 0.9325},
       "physical_vs_exp110_at_2um": {"node_jaccard": 0.886513, "edge_jaccard": 0.861254, "division_jaccard": 0.211957},
-      "promotion_gate": "retain only for validated mechanism diversity; do not rank it from public score alone"
+      "promotion_gate": "retain only for validated mechanism diversity; do not rank it from public score alone",
+      "submission_ref": 56004187,
+      "post_submit_state": {
+        "submitted_at_utc": "2026-09-04T03:52:49.473Z",
+        "status": "",
+        "status_interpretation": "PENDING; status field omitted by the immediate API object",
+        "public_score": "",
+        "private_score": "",
+        "error_description": "",
+        "total_bytes": 0,
+        "url": "/code/notoverkil/biohub-base-0937?scriptVersionId=345877408",
+        "quota_used_today": 4,
+        "quota_available": 1,
+        "exact_script_version_match": true
+      }
     },
     {
       "experiment": "EXP117",
@@ -133,9 +189,31 @@
       "audit": {"status": "PASS", "rows": 241793, "datasets": 4, "nodes": 123098, "edges": 118695, "divisions": 312, "max_in_degree": 1, "max_out_degree": 2},
       "stability_vs_threshold_090_at_2um": {"node_jaccard": 0.953272, "edge_jaccard": 0.947258, "division_jaccard": 0.781513},
       "physical_vs_exp110_at_2um": {"node_jaccard": 0.850484, "edge_jaccard": 0.822099, "division_jaccard": 0.060680},
-      "promotion_gate": "submit only this representative, not the correlated sweep; retain privately only after a valid hidden run"
+      "promotion_gate": "submit only this representative, not the correlated sweep; retain privately only after a valid hidden run",
+      "submission_ref": 56004193,
+      "post_submit_state": {
+        "submitted_at_utc": "2026-09-04T03:53:18.417Z",
+        "status": "",
+        "status_interpretation": "PENDING; status field omitted by the immediate API object",
+        "public_score": "",
+        "private_score": "",
+        "error_description": "",
+        "total_bytes": 0,
+        "url": "/code/aagneye/biohub-v24-det-09375?scriptVersionId=346917633",
+        "quota_used_today": 5,
+        "quota_available": 0,
+        "exact_script_version_match": true
+      }
     }
   ],
+  "live_state_after_batch": {
+    "quota_used_today": 5,
+    "quota_available": 0,
+    "num_total": 68,
+    "limited_by_total": false,
+    "immediate_anomaly": false,
+    "note": "All immediate full API objects omit status, score and error fields, contain totalBytes=0, and resolve to the exact pre-registered scriptVersionId; this is recorded as pending rather than as a completed result."
+  },
   "rejected": [
     {"kernel": "rishabhr0y/940-biohub-sdec12", "reason": "output SHA is byte-identical to EXP113"},
     {"kernel": "aleaiest/biohub-nusrati-0-940-repro", "reason": "source SHA is byte-identical to EXP113"},

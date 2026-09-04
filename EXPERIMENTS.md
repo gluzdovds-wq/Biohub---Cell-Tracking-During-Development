@@ -82,6 +82,23 @@ PENDING, but stop on the first current-day error, terminal empty score, quota
 anomaly, or version mismatch. Canonical receipt:
 `reports/submission_batch_20260904.json`.
 
+Post-submit receipt: all five candidates were sent exactly once through the
+guarded helper without waiting for earlier PENDING jobs to score. Immediate
+full API objects contain `total_bytes=0` and omit status, score and error fields,
+which is recorded as PENDING rather than as success. Each URL matches the exact
+pre-registered script ID:
+
+- EXP113 ref `56004160`, script ID `346951079`;
+- EXP114 ref `56004172`, script ID `347140166`;
+- EXP115 ref `56004182`, script ID `347115869`;
+- EXP116 ref `56004187`, script ID `345877408`;
+- EXP117 ref `56004193`, script ID `346917633`.
+
+Quota is `5/5` used, zero available, 68 total. No immediate API error,
+duplicate POST, source-version mismatch or quota anomaly was observed. Later
+scores and any terminal failure must be copied from the full live API objects;
+PENDING is not a scored result.
+
 ## 2026-09-03 EXP108-112 five-slot pre-registration
 
 The September 2 batch closed cleanly: EXP103-107 are COMPLETE without errors
