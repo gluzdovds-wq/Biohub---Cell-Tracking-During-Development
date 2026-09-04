@@ -2,6 +2,86 @@
 
 This file is the competition source of truth. Update it before launching an experiment and after every CV/LB result.
 
+## 2026-09-04 EXP112 incident close and EXP113-117 five-slot pre-registration
+
+The September 3 batch is now terminal. EXP108-111 completed without errors at
+`0.938 / 0.939 / 0.939 / 0.934`; the account frontier is `0.939`. EXP112
+completed with an empty score, zero bytes, and the Kaggle hidden-rerun error
+that the notebook hit an unhandled error. Exact source/metadata inspection
+identified the concrete fault: the notebook requires
+`pawanmali/biohub-learned-division-head-v1`, but the current kernel metadata
+contains a blank dataset entry and does not attach that dataset. Its successful
+public artifact was therefore not proof of a hidden-compatible rerun. The
+dataset is also inaccessible to this account (`403`), so EXP112 is failed
+evidence and is not retried.
+
+The sole submission helper now fails closed before POST when the requested
+ordinal is not the live current version, the remote source blob SHA differs
+from the audited local file, the competition source is absent, a dataset
+attachment is blank, or an explicit `/kaggle/input/datasets/owner/slug`
+reference is not attached. The updated suite is `11 passed`; `py_compile` and
+`git diff --check` pass.
+
+Live September 4 quota is `0/5` used, five available, 63 total. Every selected
+kernel is the exact live current blob, COMPLETE, Internet off, with competition
+data and all explicit datasets attached. Each performs inference from the
+runtime competition `test/*.zarr`, produces one root `submission.csv`, and
+passes schema/types, finite-value, four-dataset, contiguous-ID, graph and SHA
+audits. Today's non-interchangeable portfolio is pre-registered as follows:
+
+1. EXP113 / `GOLD_PUBLIC-1`: Nusrati `0.940` v3, script ID `346951079`,
+   source SHA `75a1f4cc...8dd9a`, output SHA `4e02ba49...64e93`. Audit PASS:
+   234,517 rows / 119,365 nodes / 115,152 edges / 148 divisions. Exact
+   four-embryo proxy is `0.9414`. Hypothesis: the attributed `0.940` safe-
+   division configuration improves the `0.939` account frontier. Parent is
+   EXP109/110. Gate: compare the exact account score with `0.939` and the
+   approximate public-gold boundary; title attribution alone is not evidence.
+2. EXP114 / `GOLD_PUBLIC-2`: Arnav `biohub-940e` v1, script ID `347140166`,
+   source SHA `38458024...ce2c9`, output SHA `5b745a79...db5c`. Audit PASS:
+   234,555 / 119,387 / 115,168 / 147. Exact four-embryo proxy is `0.9411`.
+   Physical edge Jaccard versus EXP113 is `0.974487` at 2 um, so this is not a
+   duplicate output. Hypothesis: its detector/association retune improves the
+   public frontier while preserving the strong proxy. Parent is EXP113's
+   family. Gate: require a valid hidden rerun and compare against `0.939`.
+3. EXP115 / `PRIVATE_ROBUST-1`: Tomako conservative v1, script ID `347115869`,
+   source SHA `455c8f0c...294d`, output SHA `a1be07f9...3d94`. Audit PASS:
+   233,611 / 118,907 / 114,704 / 227. Exact four-embryo proxy is `0.9368`;
+   physical edge/division Jaccard versus EXP110 is `0.988424 / 0.504274`.
+   Hypothesis: the conservative harmonic association and intermediate division
+   topology provide a lower-variance hedge against the public-tuned geometry
+   arm. Gate: private retention is based on holdout and topology, not a tiny
+   public delta.
+4. EXP116 / `PRIVATE_ROBUST-2`: Notoverk wide-division/track-rescue v3, script
+   ID `345877408`, source SHA `eb01b88a...f0a30`, output SHA
+   `e7ee404d...e4905`. Audit PASS: 237,611 / 120,847 / 116,764 / 320. Exact
+   four-embryo proxy is `0.9325`; physical edge/division Jaccard versus EXP110
+   is `0.861254 / 0.211957`. Hypothesis: wide division plus gap-2 and guarded
+   short-track rescue is a materially different recall hedge for private
+   embryos. Gate: retain only for mechanism diversity after a valid hidden run;
+   do not rank it above stronger holdout arms from the public score alone.
+5. EXP117 / `PRIVATE_ROBUST-3`: Aagneye detector threshold `0.9375` v1, script
+   ID `346917633`, source SHA `338f68a3...be71`, output SHA
+   `d45640b8...f9cb`. Audit PASS: 241,793 / 123,098 / 118,695 / 312. No honest
+   OOF score is claimed. Its stability evidence is the adjacent `0.90` run:
+   physical edge/division Jaccard `0.947258 / 0.781513`; its diversity versus
+   EXP110 is `0.822099 / 0.060680`. Hypothesis: select one representative from
+   the sensitivity bracket as a high-recall detector hedge. Gate: submit only
+   this representative, not the correlated threshold sweep, and retain for the
+   private portfolio only if the hidden run is valid.
+
+Rejected before POST: Rishabh SDEC12, QRZ dualwide, Ale 0.940 repro and Arnav
+0.940 are exact output/source duplicates of EXP113; Luffy and Rishabh div45
+duplicate prior account outputs; Aagneye v23 has stale receipts and a
+non-contiguous actual CSV; Aagneye v25 is a correlated adjacent threshold;
+Tomako's self-declared `candidate_unverified` promotion receipt is superseded
+only by the independently inspected exact four-embryo validator, not by its
+title; Pawan learned-division/recovery candidates have missing or blank
+attachments; Heon is a training smoke run without a submission candidate.
+Per-POST gate: inspect the full API object and URL script ID; continue on
+PENDING, but stop on the first current-day error, terminal empty score, quota
+anomaly, or version mismatch. Canonical receipt:
+`reports/submission_batch_20260904.json`.
+
 ## 2026-09-03 EXP108-112 five-slot pre-registration
 
 The September 2 batch closed cleanly: EXP103-107 are COMPLETE without errors

@@ -9,11 +9,17 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from kaggle.api.kaggle_api_extended import KaggleApi
+from kagglesdk.kernels.types.kernels_api_service import ApiGetKernelRequest
 
 
 STATIC_PUBLIC_SUBMISSION_PATTERNS = (
     re.compile(r"rglob\(\s*['\"]submission\.csv['\"]\s*\)", re.IGNORECASE),
     re.compile(r"glob\(\s*['\"][^'\"]*submission\.csv['\"]\s*\)", re.IGNORECASE),
+)
+
+DATASET_INPUT_PATTERN = re.compile(
+    r"/kaggle/input/datasets/([a-z0-9][a-z0-9_-]*)/([a-z0-9][a-z0-9_-]*)",
+    re.IGNORECASE,
 )
 
 
@@ -57,6 +63,62 @@ def audit_hidden_compatibility_source(
             "present in the submitted source, so runtime test discovery is not "
             "auditable."
         )
+
+
+def validate_remote_kernel_identity(
+    response,
+    kernel: str,
+    version: int,
+    competition: str,
+    expected_source_sha256: str,
+) -> None:
+    """Fail closed on version drift or unavailable explicit dataset inputs."""
+    metadata = response.metadata
+    current_version = int(metadata.current_version_number)
+    if current_version != version:
+        raise RuntimeError(
+            f"Remote kernel version drift: requested v{version}, current v{current_version}"
+        )
+
+    remote_source = response.blob.source
+    remote_sha256 = hashlib.sha256(remote_source.encode("utf-8")).hexdigest()
+    if remote_sha256 != expected_source_sha256.lower():
+        raise RuntimeError(
+            f"Remote source SHA mismatch for {kernel}: {remote_sha256} vs "
+            f"{expected_source_sha256.lower()}"
+        )
+
+    competitions = set(metadata.competition_data_sources or [])
+    if competition not in competitions:
+        raise RuntimeError(
+            f"Remote kernel does not attach competition source {competition!r}"
+        )
+
+    attached_list = list(metadata.dataset_data_sources or [])
+    if any(not str(item).strip() for item in attached_list):
+        raise RuntimeError("Remote kernel metadata contains a blank dataset attachment")
+    attached = {str(item).lower() for item in attached_list}
+    referenced = {
+        f"{match.group(1)}/{match.group(2)}".lower()
+        for match in DATASET_INPUT_PATTERN.finditer(remote_source)
+    }
+    missing = sorted(referenced - attached)
+    if missing:
+        raise RuntimeError(
+            "Remote kernel source references dataset inputs that are not attached: "
+            + ", ".join(missing)
+        )
+
+
+def get_current_kernel(api: KaggleApi, kernel: str):
+    parts = kernel.split("/")
+    if len(parts) != 2 or not all(parts):
+        raise RuntimeError("Kernel must be owner/slug")
+    request = ApiGetKernelRequest()
+    request.user_name = parts[0]
+    request.kernel_slug = parts[1]
+    with api.build_kaggle_client() as client:
+        return client.kernels.kernels_api_client.get_kernel(request)
 
 
 def _status_text(item) -> str:
@@ -144,6 +206,17 @@ def main() -> None:
         print(f"SKIP already registered ref={existing[0].ref}")
         return
     validate_submission_history(prior)
+    remote = read_with_retry(
+        "get_current_kernel",
+        lambda: get_current_kernel(api, args.kernel),
+    )
+    validate_remote_kernel_identity(
+        remote,
+        args.kernel,
+        args.version,
+        args.competition,
+        args.source_sha256,
+    )
     status = read_with_retry("kernels_status", lambda: api.kernels_status(args.kernel))
     if str(status.status) != "KernelWorkerStatus.COMPLETE":
         raise RuntimeError(f"Kernel is not complete: {status.status}")
