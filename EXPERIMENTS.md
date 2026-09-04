@@ -99,6 +99,32 @@ duplicate POST, source-version mismatch or quota anomaly was observed. Later
 scores and any terminal failure must be copied from the full live API objects;
 PENDING is not a scored result.
 
+### EXP116 system failure and EXP118 exact retry
+
+EXP116 / ref `56004187` became terminal `ERROR` with zero bytes, no score, and
+Kaggle's exact infrastructure message: `A system error. Please try
+resubmitting to resolve the error and contact Kaggle Support if it persists.`
+The failed attempt was refunded: live state returned to `4/5` used, one
+available, 67 total. This is not the notebook-unhandled-error class seen in
+EXP112.
+
+Read-only revalidation found no candidate drift or exposed code fault. Kernel
+`notoverkil/biohub-base-0937` remains COMPLETE at exact v3/script ID
+`345877408`, Internet off; remote source SHA remains
+`eb01b88a...f0a30`; every explicit dataset is attached. The same downloaded
+output SHA `e7ee404d...e4905` again passes the full audit at 237,611 rows / four
+datasets / 120,847 nodes / 116,764 edges / max degrees `1/2`.
+
+The user's explicit instruction to check and resubmit the one failed solution
+authorizes a one-time, ref-scoped exception for this Kaggle infrastructure
+error only. EXP118 reuses PRIVATE_ROBUST slot 2 and the exact EXP116
+kernel/version/source/output hypothesis; it is not a sixth portfolio
+candidate. Description: `EXP118 RETRY EXP116 PRIVATE_ROBUST system error`.
+The helper exception accepts only ref `56004187` when status is ERROR, score is
+empty, bytes are zero, and the error string exactly matches Kaggle's retryable
+system error. Any other current-day failure still blocks. Gate: submit exactly
+once, inspect the full API object immediately, and stop if the error repeats.
+
 ## 2026-09-03 EXP108-112 five-slot pre-registration
 
 The September 2 batch closed cleanly: EXP103-107 are COMPLETE without errors

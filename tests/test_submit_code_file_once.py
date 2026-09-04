@@ -5,6 +5,7 @@ from types import SimpleNamespace
 import pytest
 
 from scripts.submit_code_file_once import (
+    RETRYABLE_KAGGLE_SYSTEM_ERROR,
     audit_hidden_compatibility_source,
     file_sha256,
     validate_remote_kernel_identity,
@@ -23,6 +24,7 @@ def submission(**overrides):
         "status": "SubmissionStatus.COMPLETE",
         "public_score": "0.933",
         "error_description": None,
+        "total_bytes": 2048,
     }
     values.update(overrides)
     return SimpleNamespace(**values)
@@ -32,6 +34,47 @@ def test_history_blocks_any_prior_error():
     rows = [submission(error_description="incorrect format", public_score=None)]
     with pytest.raises(RuntimeError, match="earlier submission failed"):
         validate_submission_history(rows, NOW)
+
+
+def test_history_allows_exact_zero_byte_kaggle_system_error_retry():
+    rows = [
+        submission(
+            ref=42,
+            status="SubmissionStatus.ERROR",
+            public_score=None,
+            error_description=RETRYABLE_KAGGLE_SYSTEM_ERROR,
+            total_bytes=0,
+        )
+    ]
+    validate_submission_history(rows, NOW, retry_system_error_ref=42)
+
+
+def test_history_system_error_retry_is_explicit_and_ref_scoped():
+    rows = [
+        submission(
+            ref=42,
+            status="SubmissionStatus.ERROR",
+            public_score=None,
+            error_description=RETRYABLE_KAGGLE_SYSTEM_ERROR,
+            total_bytes=0,
+        )
+    ]
+    with pytest.raises(RuntimeError, match="System-error retry gate failed"):
+        validate_submission_history(rows, NOW, retry_system_error_ref=43)
+
+
+def test_history_system_error_retry_rejects_notebook_error():
+    rows = [
+        submission(
+            ref=42,
+            status="SubmissionStatus.ERROR",
+            public_score=None,
+            error_description="notebook crashed",
+            total_bytes=0,
+        )
+    ]
+    with pytest.raises(RuntimeError, match="System-error retry gate failed"):
+        validate_submission_history(rows, NOW, retry_system_error_ref=42)
 
 
 def test_history_accepts_pending_submission():

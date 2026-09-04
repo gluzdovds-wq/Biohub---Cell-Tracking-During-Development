@@ -22,6 +22,11 @@ DATASET_INPUT_PATTERN = re.compile(
     re.IGNORECASE,
 )
 
+RETRYABLE_KAGGLE_SYSTEM_ERROR = (
+    "A system error. Please try resubmitting to resolve the error and contact "
+    "Kaggle Support if it persists."
+)
+
 
 def file_sha256(path: Path) -> str:
     digest = hashlib.sha256()
@@ -133,12 +138,36 @@ def _error(item):
     return getattr(item, "error_description", None)
 
 
-def validate_submission_history(submissions, now: datetime | None = None) -> None:
+def validate_submission_history(
+    submissions,
+    now: datetime | None = None,
+    retry_system_error_ref: int | None = None,
+) -> None:
     """Allow pending experiments, but stop after a recorded scoring anomaly."""
     now = now or datetime.now(timezone.utc)
     today = now.date()
     todays = [item for item in submissions if getattr(item, "date", None).date() == today]
     failed = [item for item in todays if _error(item)]
+    if retry_system_error_ref is not None:
+        matches = [
+            item
+            for item in failed
+            if int(getattr(item, "ref", -1)) == retry_system_error_ref
+            and _error(item) == RETRYABLE_KAGGLE_SYSTEM_ERROR
+            and _status_text(item) in {"ERROR", "SubmissionStatus.ERROR"}
+            and not _score(item)
+            and int(getattr(item, "total_bytes", 0) or 0) == 0
+        ]
+        if len(matches) != 1:
+            raise RuntimeError(
+                "System-error retry gate failed: the authorized ref is not an "
+                "exact zero-byte Kaggle infrastructure error"
+            )
+        failed = [item for item in failed if item is not matches[0]]
+        print(
+            f"AUTHORIZED_SYSTEM_ERROR_RETRY ref={retry_system_error_ref}",
+            flush=True,
+        )
     if failed:
         details = "; ".join(
             f"ref={item.ref} description={item.description!r} error={_error(item)}"
@@ -187,6 +216,7 @@ def main() -> None:
     parser.add_argument("--description", required=True)
     parser.add_argument("--source-file", required=True, type=Path)
     parser.add_argument("--source-sha256", required=True)
+    parser.add_argument("--retry-system-error-ref", type=int)
     args = parser.parse_args()
 
     audit_hidden_compatibility_source(
@@ -205,7 +235,10 @@ def main() -> None:
     if existing:
         print(f"SKIP already registered ref={existing[0].ref}")
         return
-    validate_submission_history(prior)
+    validate_submission_history(
+        prior,
+        retry_system_error_ref=args.retry_system_error_ref,
+    )
     remote = read_with_retry(
         "get_current_kernel",
         lambda: get_current_kernel(api, args.kernel),

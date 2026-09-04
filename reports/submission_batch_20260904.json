@@ -157,16 +157,17 @@
       "submission_ref": 56004187,
       "post_submit_state": {
         "submitted_at_utc": "2026-09-04T03:52:49.473Z",
-        "status": "",
-        "status_interpretation": "PENDING; status field omitted by the immediate API object",
+        "status": "ERROR",
+        "status_interpretation": "terminal Kaggle infrastructure error; not a notebook exception",
         "public_score": "",
         "private_score": "",
-        "error_description": "",
+        "error_description": "A system error. Please try resubmitting to resolve the error and contact Kaggle Support if it persists.",
         "total_bytes": 0,
         "url": "/code/notoverkil/biohub-base-0937?scriptVersionId=345877408",
         "quota_used_today": 4,
         "quota_available": 1,
-        "exact_script_version_match": true
+        "exact_script_version_match": true,
+        "failure_diagnosis": "Kaggle returned its retryable system-error class and refunded the slot. The exact live v3 source remains COMPLETE, Internet off, source SHA and attachments match, and the downloaded output independently passes the full CSV/graph audit. No candidate-code fault is exposed by the API."
       }
     },
     {
@@ -207,12 +208,37 @@
     }
   ],
   "live_state_after_batch": {
-    "quota_used_today": 5,
-    "quota_available": 0,
-    "num_total": 68,
+    "quota_used_today": 4,
+    "quota_available": 1,
+    "num_total": 67,
     "limited_by_total": false,
-    "immediate_anomaly": false,
-    "note": "All immediate full API objects omit status, score and error fields, contain totalBytes=0, and resolve to the exact pre-registered scriptVersionId; this is recorded as pending rather than as a completed result."
+    "immediate_anomaly": true,
+    "note": "EXP116 later became a zero-byte Kaggle system ERROR and its slot was refunded. EXP113-115 and EXP117 still omit terminal fields."
+  },
+  "authorized_retry": {
+    "experiment": "EXP118",
+    "track": "PRIVATE_ROBUST",
+    "slot": 2,
+    "description": "EXP118 RETRY EXP116 PRIVATE_ROBUST system error",
+    "authorization": "The user explicitly requested checking and resubmitting the one failed solution; this is a one-time exception for exact ref 56004187 and not a general relaxation of the fail-closed rule.",
+    "retry_of_ref": 56004187,
+    "retry_reason": "Exact Kaggle infrastructure error text requests resubmission; status ERROR, empty score, totalBytes=0, and one quota slot refunded.",
+    "kernel": "notoverkil/biohub-base-0937",
+    "version": 3,
+    "script_version_id": 345877408,
+    "source_path": "outputs/research/frontier_20260904/extra2/notoverkil__biohub-base-0937__3/biohub-base-0937.ipynb",
+    "source_sha256": "eb01b88a7128ff167cf73f3b0d1d8fc77f38618a0c9a94de1e7b0d886acf0a30",
+    "output_file": "submission.csv",
+    "output_sha256": "e7ee404d499a06aaa5bd5a3f62f291687743685ea5154391487e476dff0e4905",
+    "repeat_checks": {
+      "kernel_status": "KernelWorkerStatus.COMPLETE",
+      "remote_identity": "PASS",
+      "internet_enabled": false,
+      "explicit_attachments": "PASS",
+      "output_audit": "PASS: 237611 rows, 4 datasets, 120847 nodes, 116764 edges, max degrees 1/2"
+    },
+    "promotion_gate": "Retry exactly once through the guarded helper with retry_system_error_ref=56004187; inspect the full API object immediately and stop if the system error repeats or any other anomaly appears.",
+    "pre_submit_state": "REGISTERED"
   },
   "rejected": [
     {"kernel": "rishabhr0y/940-biohub-sdec12", "reason": "output SHA is byte-identical to EXP113"},
